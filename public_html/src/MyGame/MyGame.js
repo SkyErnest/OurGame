@@ -16,13 +16,6 @@ function MyGame() {
     this.kFontImage = "assets/Consolas-72.png";
     this.kMinionSprite = "assets/minion_sprite.png";
 
-    // the fonts
-    this.kFontCon16 = "assets/fonts/Consolas-16";  // notice font names do not need extensions!
-    this.kFontCon24 = "assets/fonts/Consolas-24";
-    this.kFontCon32 = "assets/fonts/Consolas-32";  // this is also the default system font
-    this.kFontCon72 = "assets/fonts/Consolas-72";
-    this.kFontSeg96 = "assets/fonts/Segment7-96";
-
     // The camera to view the scene
     this.mCamera = null;
 
@@ -31,14 +24,9 @@ function MyGame() {
     this.mFontImage = null;
     this.mMinion = null;
 
-    this.mTextSysFont = null;
-    this.mTextCon16 = null;
-    this.mTextCon24 = null;
-    this.mTextCon32 = null;
-    this.mTextCon72 = null;
-    this.mTextSeg96 = null;
 
-    this.mTextToWork = null;
+    this.mSnake = null;
+
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
@@ -48,11 +36,7 @@ MyGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kMinionSprite);
 
     // Step B: loads all the fonts
-    gEngine.Fonts.loadFont(this.kFontCon16);
-    gEngine.Fonts.loadFont(this.kFontCon24);
-    gEngine.Fonts.loadFont(this.kFontCon32);
-    gEngine.Fonts.loadFont(this.kFontCon72);
-    gEngine.Fonts.loadFont(this.kFontSeg96);
+
 };
 
 MyGame.prototype.unloadScene = function () {
@@ -60,11 +44,7 @@ MyGame.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kMinionSprite);
 
     // unload the fonts
-    gEngine.Fonts.unloadFont(this.kFontCon16);
-    gEngine.Fonts.unloadFont(this.kFontCon24);
-    gEngine.Fonts.unloadFont(this.kFontCon32);
-    gEngine.Fonts.unloadFont(this.kFontCon72);
-    gEngine.Fonts.unloadFont(this.kFontSeg96);
+
 
     // Step B: starts the next level
     var nextLevel = new GameOver();  // next level to be loaded
@@ -108,30 +88,14 @@ MyGame.prototype.initialize = function () {
     this.mHero.setElementPixelPositions(0, 120, 0, 180);
 
     //<editor-fold desc="Create the fonts!">
-    this.mTextSysFont = new FontRenderable("System Font: in Red");
-    this._initText(this.mTextSysFont, 50, 60, [1, 0, 0, 1], 3);
 
-    this.mTextCon16 = new FontRenderable("Consolas 16: in black");
-    this.mTextCon16.setFont(this.kFontCon16);
-    this._initText(this.mTextCon16, 50, 55, [0, 0, 0, 1], 2);
 
-    this.mTextCon24 = new FontRenderable("Consolas 24: in black");
-    this.mTextCon24.setFont(this.kFontCon24);
-    this._initText(this.mTextCon24, 50, 50, [0, 0, 0, 1], 3);
 
-    this.mTextCon32 = new FontRenderable("Consolas 32: in white");
-    this.mTextCon32.setFont(this.kFontCon32);
-    this._initText(this.mTextCon32, 40, 40, [1, 1, 1, 1], 4);
 
-    this.mTextCon72 = new FontRenderable("Consolas 72: in blue");
-    this.mTextCon72.setFont(this.kFontCon72);
-    this._initText(this.mTextCon72, 30, 30, [0, 0, 1, 1], 6);
-
-    this.mTextSeg96  = new Snake(this.kFontImage,this.kFontImage);
-    this.mTextSeg96.initialize();
+    this.mSnake  = new Snake(this.kFontImage,this.kFontImage);
+    this.mSnake.initialize();
     //</editor-fold>
 
-    this.mTextToWork = this.mTextCon16;
 };
 
 MyGame.prototype._initText = function (font, posX, posY, color, textH) {
@@ -155,12 +119,9 @@ MyGame.prototype.draw = function () {
     this.mMinion.draw(this.mCamera.getVPMatrix());
 
     // drawing the text output
-    this.mTextSysFont.draw(this.mCamera.getVPMatrix());
-    this.mTextCon16.draw(this.mCamera.getVPMatrix());
-    this.mTextCon24.draw(this.mCamera.getVPMatrix());
-    this.mTextCon32.draw(this.mCamera.getVPMatrix());
-    this.mTextCon72.draw(this.mCamera.getVPMatrix());
-    this.mTextSeg96.draw(this.mCamera.getVPMatrix());
+
+
+    this.mSnake.draw(this.mCamera.getVPMatrix());
 };
 
 // The 
@@ -170,7 +131,7 @@ MyGame.prototype.update = function () {
     // let's only allow the movement of hero, 
     // and if hero moves too far off, this level ends, we will
     // load the next level
-    this.mTextSeg96.update(1);
+    this.mSnake.update(1);
     
 
 };
