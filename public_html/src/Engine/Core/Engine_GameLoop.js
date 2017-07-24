@@ -82,7 +82,8 @@ gEngine.GameLoop = (function () {
 
     var mPublic = {
         start: start,
-        stop: stop
+        stop: stop,
+        kFPS: kFPS
     };
     return mPublic;
 }());

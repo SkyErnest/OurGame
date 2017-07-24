@@ -127,9 +127,8 @@ MyGame.prototype.initialize = function () {
     this.mTextCon72.setFont(this.kFontCon72);
     this._initText(this.mTextCon72, 30, 30, [0, 0, 1, 1], 6);
 
-    this.mTextSeg96  = new FontRenderable("Segment7-92");
-    this.mTextSeg96.setFont(this.kFontSeg96);
-    this._initText(this.mTextSeg96, 30, 15, [1, 1, 0, 1], 7);
+    this.mTextSeg96  = new Snake(this.kFontImage,this.kFontImage);
+    this.mTextSeg96.initialize();
     //</editor-fold>
 
     this.mTextToWork = this.mTextCon16;
@@ -171,89 +170,7 @@ MyGame.prototype.update = function () {
     // let's only allow the movement of hero, 
     // and if hero moves too far off, this level ends, we will
     // load the next level
-    var deltaX = 0.5;
-    var xform = this.mHero.getXform();
+    this.mTextSeg96.update(1);
+    
 
-    // Support hero movements
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
-        xform.incXPosBy(deltaX);
-        if (xform.getXPos() > 100) { // this is the right-bound of the window
-            xform.setPosition(0, 50);
-        }
-    }
-
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)) {
-        xform.incXPosBy(-deltaX);
-        if (xform.getXPos() < 0) {  // this is the left-bound of the window
-            gEngine.GameLoop.stop();
-        }
-    }
-
-    // New update code for changing the sub-texture regions being shown"
-    var deltaT = 0.001;
-
-    // <editor-fold desc="The font image:">
-    // zoom into the texture by updating texture coordinate
-    // For font: zoom to the upper left corner by changing bottom right
-    var texCoord = this.mFontImage.getElementUVCoordinateArray();
-            // The 8 elements:
-            //      mTexRight,  mTexTop,          // x,y of top-right
-            //      mTexLeft,   mTexTop,
-            //      mTexRight,  mTexBottom,
-            //      mTexLeft,   mTexBottom
-    var b = texCoord[SpriteRenderable.eTexCoordArray.eBottom] + deltaT;
-    var r = texCoord[SpriteRenderable.eTexCoordArray.eRight] - deltaT;
-    if (b > 1.0) {
-        b = 0;
-    }
-    if (r < 0) {
-        r = 1.0;
-    }
-    this.mFontImage.setElementUVCoordinate(
-        texCoord[SpriteRenderable.eTexCoordArray.eLeft],
-        r,
-        b,
-        texCoord[SpriteRenderable.eTexCoordArray.eTop]
-    );
-    // </editor-fold>
-
-    // remember to update this.mMinion's animation
-    this.mMinion.updateAnimation();
-
-    // interactive control of the display size
-
-    // choose which text to work on
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Zero)) {
-        this.mTextToWork = this.mTextCon16;
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.One)) {
-        this.mTextToWork = this.mTextCon24;
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Three)) {
-        this.mTextToWork = this.mTextCon32;
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Four)) {
-        this.mTextToWork = this.mTextCon72;
-    }
-
-    var deltaF = 0.005;
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up)) {
-        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.X)) {
-            this.mTextToWork.getXform().incWidthBy(deltaF);
-        }
-        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Y)) {
-            this.mTextToWork.getXform().incHeightBy(deltaF);
-        }
-        this.mTextSysFont.setText(this.mTextToWork.getXform().getWidth().toFixed(2) + "x" + this.mTextToWork.getXform().getHeight().toFixed(2));
-    }
-
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
-        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.X)) {
-            this.mTextToWork.getXform().incWidthBy(-deltaF);
-        }
-        if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Y)) {
-            this.mTextToWork.getXform().incHeightBy(-deltaF);
-        }
-        this.mTextSysFont.setText(this.mTextToWork.getXform().getWidth().toFixed(2) + "x" + this.mTextToWork.getXform().getHeight().toFixed(2));
-    }
 };
