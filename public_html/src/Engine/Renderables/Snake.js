@@ -16,26 +16,81 @@ function Snake(kSnakeHead,kSnakeBody) {
     this.kSnakeHead = kSnakeHead;
     this.kSnakeBody=kSnakeBody;
     this.mLength=5;
+    this.mTime=0;
+    this.SNAKE_SIZE=5;
+    this.mDir=null;
+    this.mHeadNext=null;
+
 }
+var DIRECTION={
+    N:4,
+    S:3,
+    E:2,
+    W:1
+};
 
 Snake.prototype.initialize = function () {
     this.mSnake[0]=new TextureRenderable(this.kSnakeHead);
-    this.mSnake[0].getXform().setPosition(0,0);
-    this.mSnake[0].getXform().setSize(10,10);
+    this.mSnake[0].getXform().setPosition(50,33);
+    this.mSnake[0].getXform().setSize(this.SNAKE_SIZE,this.SNAKE_SIZE);
     this.mSnake[0].setColor([1,1,1,0]);
     for(var i=1;i<this.mLength;i++){
         this.mSnake[i]=new TextureRenderable(this.kSnakeBody);
-        this.updatePos();    
-        this.mSnake[i].getXform().setSize(10,10);
+        this.mSnake[i].getXform().setSize(this.SNAKE_SIZE,this.SNAKE_SIZE);
         this.mSnake[i].setColor([1,1,1,0]);
+        this.mSnake[i].getXform().setPosition(this.mSnake[i-1].getXform().getXPos(),this.mSnake[i-1].getXform().getYPos()-this.SNAKE_SIZE);
     }
+    this.mDir=DIRECTION.N;
+    
+    
+        //this.updatePos();    
 
 };
 Snake.prototype.updatePos=function(){
-    for(var i=1;i<length;i++){
+    for(var i=this.mLength-1;i>0;i--){
         this.mSnake[i].getXform().setPosition(this.mSnake[i-1].getXform().getXPos(),this.mSnake[i-1].getXform().getYPos());
     }
 };
-Snake.prototype.draw = function () {
+Snake.prototype.draw = function (vpMatrix) {
+    for(var i=0;i<this.mLength;i++){
+        this.mSnake[i].draw(vpMatrix);
+    }
+};
+Snake.prototype.update=function(time){
+    this.mTime++;
+    var xform=this.mSnake[0].getXform();
     
+    
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
+        if(this.mDir!==DIRECTION.W){
+            this.mDir=DIRECTION.E;
+        }
+    }
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)) {
+        if(this.mDir!==DIRECTION.E){
+            this.mDir=DIRECTION.W;
+        }
+    }
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up)) {
+        if(this.mDir!==DIRECTION.S){
+            this.mDir=DIRECTION.N;
+        }
+    }
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
+        if(this.mDir!==DIRECTION.N){
+            this.mDir=DIRECTION.S;
+        }
+    }
+    
+
+    if(this.mTime/gEngine.GameLoop.kFPS>time){
+        this.mTime+=-gEngine.GameLoop.kFPS*time;
+        this.updatePos();
+        if(this.mDir===DIRECTION.E){xform.setPosition(xform.getXPos()+xform.getWidth(),xform.getYPos());}
+        if(this.mDir===DIRECTION.N){xform.setPosition(xform.getXPos(),xform.getYPos()+xform.getHeight());}
+        if(this.mDir===DIRECTION.S){xform.setPosition(xform.getXPos(),xform.getYPos()-xform.getHeight());}
+        if(this.mDir===DIRECTION.W){xform.setPosition(xform.getXPos()-xform.getWidth(),xform.getYPos());}
+        
+    }
+
 };
