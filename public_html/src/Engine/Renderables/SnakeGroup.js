@@ -44,7 +44,7 @@ SnakeGroup.prototype.update=function(updateTime,energyNum){
        if(this.deadArr[i]){
            this.mSnakeGroup[i].initialize();
        }
-       //this.mSnakeGroup[i].eat(energyNum[i]);
+       this.mSnakeGroup[i].eat(energyNum[i+1]);
    }
 };
 

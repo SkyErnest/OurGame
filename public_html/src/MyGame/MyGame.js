@@ -16,6 +16,11 @@ function MyGame() {
 
     this.kFontImage = "assets/Consolas-72.png";
     this.kBound = "assets/Bound.png";
+    this.kHead1="assets/snake1head.png";    
+    this.kHead2="assets/snake2head.png";
+    this.kBody1="assets/snake1body.png";
+    this.kBody2="assets/snake2body.png";
+
     // The camera to view the scene
     this.leftCamera = new LeftView();
     this.rightCamera=new RightView();
@@ -38,7 +43,11 @@ MyGame.prototype.loadScene = function () {
     this.leftCamera.loadScene();
     this.rightCamera.loadScene();
     this.miniCamera.loadScene();
-    gEngine.Textures.loadTexture(this.kFontImage);
+    gEngine.Textures.loadTexture(this.kHead1);
+    gEngine.Textures.loadTexture(this.kHead2);
+    gEngine.Textures.loadTexture(this.kBody1);
+    gEngine.Textures.loadTexture(this.kBody2);
+    
     gEngine.Textures.loadTexture(this.kBound);
 };
 
@@ -48,7 +57,11 @@ MyGame.prototype.unloadScene = function () {
     this.rightCamera.unloadScene();
     this.miniCamera.unloadScene();
     //gEngine.Fonts.unloadFont(this.fontofplayer);
-    gEngine.Textures.unloadTexture(this.kFontImage);
+    gEngine.Textures.unloadTexture(this.kHead1);
+    gEngine.Textures.unloadTexture(this.kHead2);
+    gEngine.Textures.unloadTexture(this.kBody1);
+    gEngine.Textures.unloadTexture(this.kBody2);
+    
     gEngine.Textures.unloadTexture(this.kBound);
 
     // unload the fonts
@@ -87,9 +100,9 @@ MyGame.prototype.initialize = function () {
 //    this.miniCamera.setBackgroundColor([1,1,1, 0.1]);
     
 
-    this.mSnake1  = new Snake(this.kFontImage,this.kFontImage,this.leftCamera.getCamera().getWCCenter()[0],this.leftCamera.getCamera().getWCCenter()[1]);
+    this.mSnake1  = new Snake(this.kHead1,this.kBody1,this.leftCamera.getCamera().getWCCenter()[0],this.leftCamera.getCamera().getWCCenter()[1]);
     this.mSnake1.initialize();
-    this.mSnake2  = new Snake(this.kFontImage,this.kFontImage,this.rightCamera.getCamera().getWCCenter()[0],this.rightCamera.getCamera().getWCCenter()[1]);
+    this.mSnake2  = new Snake(this.kHead2,this.kBody2,this.rightCamera.getCamera().getWCCenter()[0],this.rightCamera.getCamera().getWCCenter()[1]);
     this.mSnake2.initialize();
     this.mSnakeGroup=new SnakeGroup(2,this.kFontImage,this.kFontImage);
     this.mSnakeGroup.initialize(this.mSnake1,this.mSnake2);
@@ -152,11 +165,11 @@ MyGame.prototype.update = function () {
     this.mEnergy.change(this.mSnake1.getHeadPos()[0],this.mSnake1.getHeadPos()[1],5,1);
     this.mEnergy.change(this.mSnake2.getHeadPos()[0],this.mSnake2.getHeadPos()[1],5,2);
     this.mEnergy.produce();
-    this.mEnergy.getSum();
-    this.mEnergy.setSum();
+    
     this.mSnakeGroup.deadCheck();
-    console.log(this.mEnergy.getSum());
+    //console.log(this.mEnergy.getSum());
     this.mSnakeGroup.update(0.5,this.mEnergy.getSum());
+    this.mEnergy.setSum();
 };
 
 //MyGame.prototype.changeWC=function(){
