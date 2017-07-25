@@ -129,7 +129,7 @@ MyGame.prototype.createViews = function(views) {
         this.mSnake1.draw(this.mCamera.getVPMatrix());
         this.mSnake2.draw(this.mCamera.getVPMatrix());
         this.mEnergy.draw(this.mCamera.getVPMatrix());
-        this.mBound.draw(this.mCamera.getVPMatrix());
+        if(i!==2)this.mBound.draw(this.mCamera.getVPMatrix());
     }
 //    alert(view.getCamera().getWCCenter());
 
@@ -155,7 +155,7 @@ MyGame.prototype.update = function () {
     this.mEnergy.getSum();
     this.mEnergy.setSum();
     this.mSnakeGroup.deadCheck();
-    this.mSnakeGroup.update();
+    this.mSnakeGroup.update(0.5,this.mEnergy.getSum());
 };
 
 //MyGame.prototype.changeWC=function(){
