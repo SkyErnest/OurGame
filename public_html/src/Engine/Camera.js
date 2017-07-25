@@ -71,11 +71,20 @@ Camera.prototype.setupViewProjection = function () {
                 this.mViewport[2],  // width of the area to be drawn
                 this.mViewport[3]); // height of the area to be drawn
     // Step A2: set up the corresponding scissor area to limit the clear area
-    gl.scissor(this.mViewport[0], // x position of bottom-left corner of the area to be drawn
+    gl.scissor(this.mViewport[0]-1, // x position of bottom-left corner of the area to be drawn
+               this.mViewport[1]-1, // y position of bottom-left corner of the area to be drawn
+               this.mViewport[2]+2, // width of the area to be drawn
+               this.mViewport[3]+2);// height of the area to be drawn
+    // Step A3: set the color to be clear
+    gl.clearColor(0,0,0,1);  // set the color to be cleared
+     gl.enable(gl.SCISSOR_TEST);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.disable(gl.SCISSOR_TEST);
+    
+     gl.scissor(this.mViewport[0], // x position of bottom-left corner of the area to be drawn
                this.mViewport[1], // y position of bottom-left corner of the area to be drawn
                this.mViewport[2], // width of the area to be drawn
                this.mViewport[3]);// height of the area to be drawn
-    // Step A3: set the color to be clear
     gl.clearColor(this.mBgColor[0], this.mBgColor[1], this.mBgColor[2], this.mBgColor[3]);  // set the color to be cleared
     // Step A4: enable the scissor area, clear, and then disable the scissor area
     gl.enable(gl.SCISSOR_TEST);
