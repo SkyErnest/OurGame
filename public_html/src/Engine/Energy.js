@@ -146,7 +146,7 @@ Energy.prototype.change = function (x,y,width,id) { //当蛇吃到之后设置�
                 
             }else{
                 this.sum[id]++;
-                console.log(this.sum[2]);
+                //console.log(this.sum[2]);
             }
             
             this.eaten.push(i);
