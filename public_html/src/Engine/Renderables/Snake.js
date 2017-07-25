@@ -122,14 +122,11 @@ Snake.prototype.eat=function(energy){
 };
 
 Snake.prototype.getHeadPos=function(){
-<<<<<<< HEAD
-//    console.log([this.mSnake[0].getXform().getXPos(),this.mSnake[0].getXform().getYPos()]);
-   return [this.mSnake[0].getXform().getXPos(),this.mSnake[0].getXform().getYPos()];
-=======
+
     return [this.mSnake[0].getXform().getXPos(),this.mSnake[0].getXform().getYPos()];
 };
 
->>>>>>> origin/master
+
 
 Snake.prototype.deadCheck=function(){
     if(this.mSnake[0].getXform().getXPos()<=this.mBorder.W){return true;}
