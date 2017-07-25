@@ -26,6 +26,7 @@ function MyGame() {
 
     this.mSnake1 = null;
     this.mSnake2 = null;
+    this.mSnakeGroup=null;
     this.updateTime=0.5;
 
 }
@@ -80,10 +81,12 @@ MyGame.prototype.initialize = function () {
 //    this.miniCamera.setBackgroundColor([1,1,1, 0.1]);
     
 
-    this.mSnake1  = new Snake(this.kFontImage,this.kFontImage);
-    this.mSnake1.initialize(this.leftCamera.getCamera().getWCCenter()[0],this.leftCamera.getCamera().getWCCenter()[1]);
-    this.mSnake2  = new Snake(this.kFontImage,this.kFontImage);
-    this.mSnake2.initialize(this.rightCamera.getCamera().getWCCenter()[0],this.rightCamera.getCamera().getWCCenter()[1]);
+    this.mSnake1  = new Snake(this.kFontImage,this.kFontImage,this.leftCamera.getCamera().getWCCenter()[0],this.leftCamera.getCamera().getWCCenter()[1]);
+    this.mSnake1.initialize();
+    this.mSnake2  = new Snake(this.kFontImage,this.kFontImage,this.rightCamera.getCamera().getWCCenter()[0],this.rightCamera.getCamera().getWCCenter()[1]);
+    this.mSnake2.initialize();
+    this.mSnakeGroup=new SnakeGroup(2,this.kFontImage,this.kFontImage);
+    this.mSnakeGroup.initialize(this.mSnake1,this.mSnake2);
     //</editor-fold>
 
 };
@@ -139,7 +142,8 @@ MyGame.prototype.update = function () {
     this.mSnake2.update(this.updateTime,gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D);
 //    this.mEnergy.change(x,y,width);
     this.mEnergy.produce();
-
+    this.mSnakeGroup.deadCheck();
+    this.mSnakeGroup.update();
 };
 
 //MyGame.prototype.changeWC=function(){

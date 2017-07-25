@@ -11,7 +11,7 @@
 // Constructor and object definition
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function Snake(kSnakeHead,kSnakeBody) {
+function Snake(kSnakeHead,kSnakeBody,xPos,yPos) {
     this.mSnake = [];
     this.kSnakeHead = kSnakeHead;
     this.kSnakeBody=kSnakeBody;
@@ -21,7 +21,7 @@ function Snake(kSnakeHead,kSnakeBody) {
     this.mDir=null;
     this.mHeadNext=null;
     this.camera=null;
-    this.DEFAULT_POS=null;
+    this.DEFAULT_POS=[xPos,yPos];
     this.mBorder={
         S:-60,
         N:60,
@@ -35,11 +35,11 @@ var DIRECTION={
     E:2,
     W:1
 };
-
-Snake.prototype.initialize = function (xPos,yPos) {
-    this.DEFAULT_POS=[xPos,yPos];
+Snake.prototype.getSnake=function(){return this.mSnake;};
+Snake.prototype.initialize = function () {
+    
     this.mSnake[0]=new TextureRenderable(this.kSnakeHead);
-    this.mSnake[0].getXform().setPosition(xPos,yPos);
+    this.mSnake[0].getXform().setPosition(this.DEFAULT_POS[0],this.DEFAULT_POS[1]);
     this.mSnake[0].getXform().setSize(this.SNAKE_SIZE,this.SNAKE_SIZE);
     this.mSnake[0].setColor([1,1,1,0]);
     for(var i=1;i<this.mLength;i++){
@@ -106,7 +106,7 @@ Snake.prototype.update=function(time,up,down,left,right){
         
     }
     if(this.deadCheck()){
-        this.initialize(this.DEFAULT_POS[0],this.DEFAULT_POS[1]);
+        this.initialize();
     }
  };   
 
