@@ -143,11 +143,13 @@ MyGame.prototype.update = function () {
     // let's only allow the movement of hero, 
     // and if hero moves too far off, this level ends, we will
     // load the next level
+
    this.leftCamera.updateWCcenter(this.updateTime,this.mSnake1);
    this.rightCamera.updateWCcenter(this.updateTime,this.mSnake2);
     this.mSnake2.update(this.updateTime,gEngine.Input.keys.Up,gEngine.Input.keys.Down,gEngine.Input.keys.Left,gEngine.Input.keys.Right);
     this.mSnake1.update(this.updateTime,gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D);
 //    this.mEnergy.change(x,y,width);
+
     this.mEnergy.produce();
     this.mSnakeGroup.deadCheck();
     this.mSnakeGroup.update();
