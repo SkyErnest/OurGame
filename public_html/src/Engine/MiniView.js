@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+/* global vec2, gEngine */
+
 function MiniView(){
     
     this.miniCamera=null; ``
