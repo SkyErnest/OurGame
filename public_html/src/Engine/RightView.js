@@ -28,7 +28,7 @@ RightView.prototype.unloadScene = function () {
 
 RightView.prototype.initialize=function(){
   this.rightCamera = new Camera(
-        vec2.fromValues(0, 0),   // position of the camera
+        vec2.fromValues(20, 0),   // position of the camera
         100,                       // width of camera
         [432, 1, 427, 478]           // viewport (orgX, orgY, width, height)
     );

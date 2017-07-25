@@ -23,7 +23,9 @@ function MyGame() {
     //this.mCamera = null;
     this.mCamera =null;
 
-    this.mSnake = null;
+    this.mSnake1 = null;
+    this.mSnake2 = null;
+    this.updateTime=0.5;
 
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
@@ -75,8 +77,10 @@ MyGame.prototype.initialize = function () {
 //    this.miniCamera.setBackgroundColor([1,1,1, 0.1]);
     
 
-    this.mSnake  = new Snake(this.kFontImage,this.kFontImage);
-    this.mSnake.initialize();
+    this.mSnake1  = new Snake(this.kFontImage,this.kFontImage);
+    this.mSnake1.initialize(this.leftCamera.getCamera().getWCCenter()[0],this.leftCamera.getCamera().getWCCenter()[1]);
+    this.mSnake2  = new Snake(this.kFontImage,this.kFontImage);
+    this.mSnake2.initialize(this.rightCamera.getCamera().getWCCenter()[0],this.rightCamera.getCamera().getWCCenter()[1]);
     //</editor-fold>
 
 };
@@ -90,7 +94,7 @@ MyGame.prototype.draw = function () {
     // Step  B: Activate the drawing Camera
     //this.mCamera.setupViewProjection();
     // drawing the text output
-    //this.mSnake.draw(this.mCamera.getVPMatrix());
+    //this.mSnake1.draw(this.mCamera.getVPMatrix());
 //    this.leftCamera.setupViewProjection();
 //    this.player1text.draw(this.leftCamera.getVPMatrix());
     
@@ -111,7 +115,8 @@ MyGame.prototype.createViews = function(views) {
         
         views[i].draw(this.mCamera.getVPMatrix()
                 );
-        this.mSnake.draw(this.mCamera.getVPMatrix());
+        this.mSnake1.draw(this.mCamera.getVPMatrix());
+        this.mSnake2.draw(this.mCamera.getVPMatrix());
     }
 //    alert(view.getCamera().getWCCenter());
 
@@ -126,7 +131,8 @@ MyGame.prototype.update = function () {
     // and if hero moves too far off, this level ends, we will
     // load the next level
 
-    this.mSnake.update(0.5);
+    this.mSnake1.update(this.updateTime,gEngine.Input.keys.Up,gEngine.Input.keys.Down,gEngine.Input.keys.Left,gEngine.Input.keys.Right);
+    this.mSnake2.update(this.updateTime,gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D);
     
 
 };
