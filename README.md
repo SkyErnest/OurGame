@@ -16,3 +16,4 @@ Snake.js:
 Snake(kSnakeHead,kSnakeBody):设置头和身的图片
 initialize(xPos,yPos):蛇初始坐标
 update(updateTime,up,down,left,right):设置更新间隔及控制键位，并刷新
+getHeadPos():返回坐标数组
