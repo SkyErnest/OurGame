@@ -136,7 +136,9 @@ MyGame.prototype.update = function () {
 
     this.mSnake1.update(this.updateTime,gEngine.Input.keys.Up,gEngine.Input.keys.Down,gEngine.Input.keys.Left,gEngine.Input.keys.Right);
     this.mSnake2.update(this.updateTime,gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D);
-//    this.mEnergy.change(x,y,width);
+    this.mEnergy.change(this.mSnake1.getHeadPos()[0],this.mSnake1.getHeadPos()[1],5,1);
+    this.mEnergy.change(this.mSnake2.getHeadPos()[0],this.mSnake2.getHeadPos()[1],5,2);
+//    console.log(this.mSnake1.getHeadPos()[0],this.mSnake1.getHeadPos()[1]);
     this.mEnergy.produce();
 
 };
