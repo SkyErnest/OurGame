@@ -16,6 +16,9 @@ function Energy() {
     
     //设置吃掉的资源总量
     this.sum = new Array();
+    for(var i = 0;i < 10;i++) {
+        this.sum[i] = 0;
+    }
     
     
 }
@@ -126,7 +129,7 @@ Energy.prototype.change = function (x,y,width,id) { //当蛇吃到之后设置�
     var br = x + width/2;
     var t = y + width/2;
     var b = y - width/2;
-    this.sum = [];
+   
 //    console.log(bl,br,t,b);
     
     for(var i = 0;i < 100;i++){
@@ -137,13 +140,12 @@ Energy.prototype.change = function (x,y,width,id) { //当蛇吃到之后设置�
 //            console.log(this.resource[i][0],this.resource[i][1]);
             this.energyMap[i] = null;
             this.resource[i] = [-100,-100];
-            this.sum[id] = 0;
             if(id == 1){
                 this.sum[id]++;
                 
             }else{
                 this.sum[id]++;
-                console.log(this.sum[2]);
+//                console.log(this.sum[2]);
             }
             
             this.eaten.push(i);
@@ -154,11 +156,14 @@ Energy.prototype.change = function (x,y,width,id) { //当蛇吃到之后设置�
 }
 
  Energy.prototype.getSum = function () {
+     console.log(this.sum);
      return this.sum;
  }
  
   Energy.prototype.setSum = function () {
-     this.sum = [];
+     for(var i = 0;i < 10;i++) {
+        this.sum[i] = 0;
+    }
  }
 
 Energy.prototype.produce = function () { //一段时间之后资源再次出现
