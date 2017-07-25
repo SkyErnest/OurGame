@@ -14,22 +14,33 @@
 function MyGame() {
     // textures: 
 
-    
+    this.kFontImage = "assets/Consolas-72.png";
     // The camera to view the scene
     this.leftCamera = new LeftView();
     this.rightCamera=new RightView();
     this.miniCamera=new MiniView();
     this.mCameras = [];
     this.mCamera = null;
-    
+
+
+    // the hero and the support objects
+    this.mHero = null;
+    this.mFontImage = null;
+    this.mMinion = null;
+
+
+    this.mSnake = null;
+
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
 MyGame.prototype.loadScene = function () {
+
     //gEngine.Fonts.loadFont(this.fontofplayer);
     this.leftCamera.loadScene();
     this.rightCamera.loadScene();
     this.miniCamera.loadScene();
+    gEngine.Textures.loadTexture(this.kFontImage);
 };
 
 MyGame.prototype.unloadScene = function () {
@@ -37,6 +48,11 @@ MyGame.prototype.unloadScene = function () {
     this.rightCamera.unloadScene();
     this.miniCamera.unloadScene();
     //gEngine.Fonts.unloadFont(this.fontofplayer);
+    gEngine.Textures.unloadTexture(this.kFontImage);
+
+    // unload the fonts
+
+
     // Step B: starts the next level
 //    var nextLevel = new GameOver();  // next level to be loaded
 //    gEngine.Core.startScene(nextLevel);
@@ -57,6 +73,9 @@ MyGame.prototype.initialize = function () {
 //    );
 //    this.miniCamera.setBackgroundColor([1,1,1, 0.1]);
     
+    this.mSnake  = new Snake(this.kFontImage,this.kFontImage);
+    this.mSnake.initialize();
+    //</editor-fold>
 
 };
 
@@ -75,10 +94,12 @@ MyGame.prototype.draw = function () {
 //    this.rightCamera.draw();
 //    this.leftCamera.draw();
         this.createViews(this.mCameras);
+        this.mSnake.draw(this.mCamera.getVPMatrix());
 //    this.rightCamera.setupViewProjection();
 //    this.player2text.draw(this.leftCamera.getVPMatrix());
 //    this.miniCamera.setupViewProjection();
 };
+
 
 MyGame.prototype.createViews = function(views) {
     for(var i = 0; i < views.length; i++) {
@@ -89,11 +110,16 @@ MyGame.prototype.createViews = function(views) {
                 );
     }
 //    alert(view.getCamera().getWCCenter());
+
 };
 
 // The 
 //  function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 MyGame.prototype.update = function () {
-   
+
+    // let's only allow the movement of hero, 
+    // and if hero moves too far off, this level ends, we will
+    // load the next level
+    this.mSnake.update(1);
 };
