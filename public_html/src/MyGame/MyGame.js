@@ -152,6 +152,8 @@ MyGame.prototype.update = function () {
     this.mEnergy.change(this.mSnake1.getHeadPos()[0],this.mSnake1.getHeadPos()[1],5,1);
     this.mEnergy.change(this.mSnake2.getHeadPos()[0],this.mSnake2.getHeadPos()[1],5,2);
     this.mEnergy.produce();
+    this.mEnergy.getSum();
+    this.mEnergy.setSum();
     this.mSnakeGroup.deadCheck();
     console.log(this.mEnergy.getSum());
     this.mSnakeGroup.update(0.5,this.mEnergy.getSum());
