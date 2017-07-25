@@ -92,7 +92,7 @@ Energy.prototype.initialize = function () {//probability(0,1)越大，出现能�
 //            this.energyMap[k][j] = 0;
 //        }
 //    }
-    for(var i = 0;i < 50;i++){
+    for(var i = 0;i < 100;i++){
             this.energyMap[i] = new TextureRenderable(this.kPortal);  //一维数组中存储的是100个TextureRenderable,可通过getXform()获取
     this.energyMap[i].setColor([0, 0, 0, 0.2]);  // tints red
     this.energyMap[i].getXform().setSize(2, 2);
