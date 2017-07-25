@@ -31,7 +31,7 @@ var DIRECTION={
 
 Snake.prototype.initialize = function () {
     this.mSnake[0]=new TextureRenderable(this.kSnakeHead);
-    this.mSnake[0].getXform().setPosition(50,33);
+    this.mSnake[0].getXform().setPosition(0,0);
     this.mSnake[0].getXform().setSize(this.SNAKE_SIZE,this.SNAKE_SIZE);
     this.mSnake[0].setColor([1,1,1,0]);
     for(var i=1;i<this.mLength;i++){
