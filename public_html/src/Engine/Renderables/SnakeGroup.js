@@ -14,11 +14,9 @@ SnakeGroup.prototype.initialize=function(snake1,snake2){
 
    this.mSnakeGroup[0]=snake1;
    this.mSnakeGroup[1]=snake2;
-   /*
     for(var i=2;i<this.num;i++){
         this.mSnakeGroup[i]=new Snake(this.headImage,this.bodyImage);
     }
-    */
 };
 SnakeGroup.prototype.deadCheck=function(){
     var a=false;
@@ -37,12 +35,16 @@ SnakeGroup.prototype.deadCheck=function(){
     }
     return a;
 };
-SnakeGroup.prototype.update=function(){
+SnakeGroup.prototype.update=function(updateTime,energyNum){
     
+   for(var i=2;i<this.num;i++){
+       this.mSnakeGroup[i].update(updateTime);
+   }
    for(var i=0;i<this.num;i++){
        if(this.deadArr[i]){
            this.mSnakeGroup[i].initialize();
        }
+       //this.mSnakeGroup[i].eat(energyNum[i]);
    }
 };
 

@@ -5,6 +5,8 @@
  */
 
 
+/* global gEngine, TextureRenderable */
+
 function Energy() {
     this.energyMap = new Array();//先声明一维
     this.kPortal = "assets/minion_portal.png";
@@ -108,18 +110,18 @@ Energy.prototype.draw = function (VPMatrix) {
 
     // Step  C: Draw everything
     for(i = 0;i < 100 ;i++) {
-        if(this.eaten.indexOf(i) == -1)
+        if(this.eaten.indexOf(i) === -1)
 //            console.log(this.eaten.indexOf(i));
         this.energyMap[i].draw(VPMatrix);
 //        console.log(this.energyMap[i]);
     }
     
     
-}
+};
 
 
 
-Energy.prototype.getEnergyMap = function () { return this.energyMap; }//一维数组存Texture对象
+Energy.prototype.getEnergyMap = function () { return this.energyMap; };//一维数组存Texture对象
 
 Energy.prototype.change = function (x,y,width,id) { //当蛇吃到之后设置内容为0,当前蛇头坐标和蛇头的宽度
     //设置0，并完成累加
@@ -134,12 +136,12 @@ Energy.prototype.change = function (x,y,width,id) { //当蛇吃到之后设置�
 //        console.log(this.energyMap[i].getXform().getXPos(),this.energyMap[i].getXform().getYPos());
         if(this.resource[i][0]>bl && this.resource[i][0]<br
                 &&this.resource[i][1]>b && this.resource[i][1]<t && this.energyMap[i] !==null 
-                &&this.eaten.indexOf(i) == -1){
+                &&this.eaten.indexOf(i) === -1){
 //            console.log(this.resource[i][0],this.resource[i][1]);
             this.energyMap[i] = null;
             this.resource[i] = [-100,-100];
             
-            if(id == 1){
+            if(id === 1){
                 this.sum1++;
                 console.log ("sum1:" + this.sum1);
             }else{
@@ -151,17 +153,17 @@ Energy.prototype.change = function (x,y,width,id) { //当蛇吃到之后设置�
         } 
     }
    
+
+};
  Energy.prototype.getSum = function () {
      return [this.sum1,this.sum2];
- }   
-}
-
+ };
 Energy.prototype.produce = function () { //一段时间之后资源再次出现
     this.flag++;
-    if(this.flag == 120){
+    if(this.flag === 120){
         randomUpdate.call(this);
         this.flag = 0;
     }
-}
+};
 
 
