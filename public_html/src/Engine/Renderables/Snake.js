@@ -11,7 +11,7 @@
 // Constructor and object definition
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function Snake(kSnakeHead,kSnakeBody) {
+function Snake(kSnakeHead,kSnakeBody,xPos,yPos) {
     this.mSnake = [];
     this.kSnakeHead = kSnakeHead;
     this.kSnakeBody=kSnakeBody;
@@ -21,6 +21,13 @@ function Snake(kSnakeHead,kSnakeBody) {
     this.mDir=null;
     this.mHeadNext=null;
     this.camera=null;
+    this.DEFAULT_POS=[xPos,yPos];
+    this.mBorder={
+        S:-60,
+        N:60,
+        E:100,
+        W:-100
+    };
 }
 var DIRECTION={
     N:4,
@@ -28,10 +35,11 @@ var DIRECTION={
     E:2,
     W:1
 };
-
-Snake.prototype.initialize = function (xPos,yPos) {
+Snake.prototype.getSnake=function(){return this.mSnake;};
+Snake.prototype.initialize = function () {
+    
     this.mSnake[0]=new TextureRenderable(this.kSnakeHead);
-    this.mSnake[0].getXform().setPosition(xPos,yPos);
+    this.mSnake[0].getXform().setPosition(this.DEFAULT_POS[0],this.DEFAULT_POS[1]);
     this.mSnake[0].getXform().setSize(this.SNAKE_SIZE,this.SNAKE_SIZE);
     this.mSnake[0].setColor([1,1,1,0]);
     for(var i=1;i<this.mLength;i++){
@@ -97,6 +105,9 @@ Snake.prototype.update=function(time,up,down,left,right){
         if(this.mDir===DIRECTION.W){xform.setPosition(xform.getXPos()-xform.getWidth(),xform.getYPos());}
         
     }
+    if(this.deadCheck()){
+        this.initialize();
+    }
  };   
 
     
@@ -111,7 +122,19 @@ Snake.prototype.eat=function(energy){
 };
 
 Snake.prototype.getHeadPos=function(){
+<<<<<<< HEAD
 //    console.log([this.mSnake[0].getXform().getXPos(),this.mSnake[0].getXform().getYPos()]);
    return [this.mSnake[0].getXform().getXPos(),this.mSnake[0].getXform().getYPos()];
+=======
+    return [this.mSnake[0].getXform().getXPos(),this.mSnake[0].getXform().getYPos()];
+};
 
+>>>>>>> origin/master
+
+Snake.prototype.deadCheck=function(){
+    if(this.mSnake[0].getXform().getXPos()<=this.mBorder.W){return true;}
+    if(this.mSnake[0].getXform().getXPos()>=this.mBorder.E){return true;}
+    if(this.mSnake[0].getXform().getYPos()<=this.mBorder.S){return true;}
+    if(this.mSnake[0].getXform().getYPos()>=this.mBorder.N){return true;}
+    return false;
 };

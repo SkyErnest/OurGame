@@ -12,7 +12,7 @@ function LeftView(){
     this.leftCamera = null;
     this.player1text=null;
     this.fontofplayer="assets/fonts/Consolas-72";
-    
+    this.mTime=0;
     
 }
 gEngine.Core.inheritPrototype(LeftView, Scene);
@@ -57,6 +57,11 @@ LeftView.prototype.getCamera = function() {
   return this.leftCamera;
 };
 
-//LeftView.prototype.update=function(){
-//    
-//};
+ LeftView.prototype.updateWCcenter=function(time,snakehead){
+     this.mTime++;
+    var pos= snakehead.getHeadPos();
+    if(this.mTime/gEngine.GameLoop.kFPS>time){
+        this.mTime+=-gEngine.GameLoop.kFPS*time;
+        this.leftCamera.setWCCenter(pos[0],pos[1]);
+    }
+ };
