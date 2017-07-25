@@ -111,6 +111,6 @@ Snake.prototype.eat=function(energy){
 };
 
 Snake.prototype.getHeadPos=function(){
-    [this.mSnake[0].getXform().getXPos(),this.mSnake[0].getXform().getYPos()];
+   return [this.mSnake[0].getXform().getXPos(),this.mSnake[0].getXform().getYPos()];
 
 };
