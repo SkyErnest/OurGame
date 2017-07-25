@@ -15,6 +15,7 @@ function MyGame() {
     // textures: 
 
     this.kFontImage = "assets/Consolas-72.png";
+    this.kBound = "assets/Bound.png";
     // The camera to view the scene
     this.leftCamera = new LeftView();
     this.rightCamera=new RightView();
@@ -23,7 +24,7 @@ function MyGame() {
     this.mEnergy = new Energy();
     //this.mCamera = null;
     this.mCamera =null;
-
+    this.mBound=null;
     this.mSnake1 = null;
     this.mSnake2 = null;
     this.mSnakeGroup=null;
@@ -38,6 +39,7 @@ MyGame.prototype.loadScene = function () {
     this.rightCamera.loadScene();
     this.miniCamera.loadScene();
     gEngine.Textures.loadTexture(this.kFontImage);
+    gEngine.Textures.loadTexture(this.kBound);
 };
 
 MyGame.prototype.unloadScene = function () {
@@ -47,6 +49,7 @@ MyGame.prototype.unloadScene = function () {
     this.miniCamera.unloadScene();
     //gEngine.Fonts.unloadFont(this.fontofplayer);
     gEngine.Textures.unloadTexture(this.kFontImage);
+    gEngine.Textures.unloadTexture(this.kBound);
 
     // unload the fonts
     // Step B: starts the next level
@@ -55,7 +58,10 @@ MyGame.prototype.unloadScene = function () {
 };
 
 MyGame.prototype.initialize = function () {
-
+    this.mBound=new SpriteRenderable(this.kBound);
+    this.mBound.getXform().setPosition(0,0);
+    this.mBound.getXform().setSize(200,120);
+    this.mBound.setColor([1,1,1,0]);
     // Step A: set up the cameras
     /*this.mCamera = new Camera(
         vec2.fromValues(0, 0),   // position of the camera
@@ -123,6 +129,7 @@ MyGame.prototype.createViews = function(views) {
         this.mSnake1.draw(this.mCamera.getVPMatrix());
         this.mSnake2.draw(this.mCamera.getVPMatrix());
         this.mEnergy.draw(this.mCamera.getVPMatrix());
+        this.mBound.draw(this.mCamera.getVPMatrix());
     }
 //    alert(view.getCamera().getWCCenter());
 
@@ -138,8 +145,8 @@ MyGame.prototype.update = function () {
     // load the next level
    this.leftCamera.updateWCcenter(this.updateTime,this.mSnake1);
    this.rightCamera.updateWCcenter(this.updateTime,this.mSnake2);
-    this.mSnake1.update(this.updateTime,gEngine.Input.keys.Up,gEngine.Input.keys.Down,gEngine.Input.keys.Left,gEngine.Input.keys.Right);
-    this.mSnake2.update(this.updateTime,gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D);
+    this.mSnake2.update(this.updateTime,gEngine.Input.keys.Up,gEngine.Input.keys.Down,gEngine.Input.keys.Left,gEngine.Input.keys.Right);
+    this.mSnake1.update(this.updateTime,gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D);
 //    this.mEnergy.change(x,y,width);
     this.mEnergy.produce();
     this.mSnakeGroup.deadCheck();
