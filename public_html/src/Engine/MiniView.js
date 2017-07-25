@@ -19,7 +19,7 @@ MiniView.prototype.unloadScene = function () {
 
 MiniView.prototype.initialize=function(){
  this.miniCamera = new Camera(
-        vec2.fromValues(50, 33),   // position of the camera
+        vec2.fromValues(0, 0),   // position of the camera
         100,                       // width of camera
         [330, 359, 200, 120]           // viewport (orgX, orgY, width, height)
     );

@@ -20,8 +20,8 @@ function MyGame() {
     this.rightCamera=new RightView();
     this.miniCamera=new MiniView();
     this.mCameras = [];
-    this.mCamera = null;
-    this.mNCamera =null;
+    //this.mCamera = null;
+    this.mCamera =null;
 
     this.mSnake = null;
 
@@ -52,14 +52,14 @@ MyGame.prototype.unloadScene = function () {
 MyGame.prototype.initialize = function () {
 
     // Step A: set up the cameras
-    this.mCamera = new Camera(
+    /*this.mCamera = new Camera(
         vec2.fromValues(0, 0),   // position of the camera
         100,                       // width of camera
         [0, 0, 860, 480]           // viewport (orgX, orgY, width, height)
     );
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
             // sets the background to gray
-
+*/
     this.leftCamera.initialize();
     this.rightCamera.initialize();
     this.miniCamera.initialize();
@@ -88,16 +88,16 @@ MyGame.prototype.draw = function () {
     gEngine.Core.clearCanvas([0, 0, 0, 1]); // clear to light gray
 
     // Step  B: Activate the drawing Camera
-    this.mCamera.setupViewProjection();
+    //this.mCamera.setupViewProjection();
     // drawing the text output
-    this.mSnake.draw(this.mCamera.getVPMatrix());
+    //this.mSnake.draw(this.mCamera.getVPMatrix());
 //    this.leftCamera.setupViewProjection();
 //    this.player1text.draw(this.leftCamera.getVPMatrix());
     
 //    this.rightCamera.draw();
 //    this.leftCamera.draw();
         this.createViews(this.mCameras);
-        this.mSnake.draw(this.mCamera.getVPMatrix());
+        
 //    this.rightCamera.setupViewProjection();
 //    this.player2text.draw(this.leftCamera.getVPMatrix());
 //    this.miniCamera.setupViewProjection();
@@ -106,11 +106,12 @@ MyGame.prototype.draw = function () {
 
 MyGame.prototype.createViews = function(views) {
     for(var i = 0; i < views.length; i++) {
-        this.mNCamera = views[i].getCamera();
-        this.mNCamera.setupViewProjection();
+        this.mCamera = views[i].getCamera();
+        this.mCamera.setupViewProjection();
         
-        views[i].draw(this.mNCamera.getVPMatrix()
+        views[i].draw(this.mCamera.getVPMatrix()
                 );
+        this.mSnake.draw(this.mCamera.getVPMatrix());
     }
 //    alert(view.getCamera().getWCCenter());
 

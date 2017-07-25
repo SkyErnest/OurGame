@@ -28,7 +28,7 @@ LeftView.prototype.unloadScene = function () {
 
 LeftView.prototype.initialize=function(){
   this.leftCamera = new Camera(
-        vec2.fromValues(50, 33),   // position of the camera
+        vec2.fromValues(0, 0),   // position of the camera
         100,                       // width of camera
         [1, 1, 430, 478]           // viewport (orgX, orgY, width, height)
     );
