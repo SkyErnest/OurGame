@@ -55,7 +55,7 @@ var randomSet = function () {
         
         var randx = 0;
         var randy = 0;
-        for (var i = 0; i < 100; i ++){
+        for (var i = 0; i < this.energyMap.length; i ++){
                 randx = Math.random();
                 randy = Math.random();
 //                console.log(randx,randy);
@@ -92,7 +92,7 @@ Energy.prototype.initialize = function () {//probability(0,1)越大，出现能�
 //            this.energyMap[k][j] = 0;
 //        }
 //    }
-    for(var i = 0;i < 100;i++){
+    for(var i = 0;i < 50;i++){
             this.energyMap[i] = new TextureRenderable(this.kPortal);  //一维数组中存储的是100个TextureRenderable,可通过getXform()获取
     this.energyMap[i].setColor([0, 0, 0, 0.2]);  // tints red
     this.energyMap[i].getXform().setSize(2, 2);
@@ -110,7 +110,7 @@ Energy.prototype.draw = function (VPMatrix) {
     // Step  B: Activate the drawing Camera
 
     // Step  C: Draw everything
-    for(i = 0;i < 100 ;i++) {
+    for(i = 0;i < this.energyMap.length ;i++) {
         if(this.eaten.indexOf(i) === -1)
 //            console.log(this.eaten.indexOf(i));
         this.energyMap[i].draw(VPMatrix);
@@ -134,7 +134,7 @@ Energy.prototype.change = function (x,y,width,id) { //当蛇吃到之后设置�
    
 //    console.log(bl,br,t,b);
     
-    for(var i = 0;i < 100;i++){
+    for(var i = 0;i < this.resource.length;i++){
 //        console.log(this.energyMap[i].getXform().getXPos(),this.energyMap[i].getXform().getYPos());
         if(this.resource[i][0]>bl && this.resource[i][0]<br
                 &&this.resource[i][1]>b && this.resource[i][1]<t && this.energyMap[i] !==null 
