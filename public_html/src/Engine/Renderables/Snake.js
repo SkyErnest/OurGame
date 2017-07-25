@@ -83,6 +83,9 @@ Snake.prototype.update=function(time,up,down,left,right){
             this.mDir=DIRECTION.S;
         }
     }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
+        this.eat();
+    }
     
 
     if(this.mTime/gEngine.GameLoop.kFPS>time){
@@ -94,5 +97,20 @@ Snake.prototype.update=function(time,up,down,left,right){
         if(this.mDir===DIRECTION.W){xform.setPosition(xform.getXPos()-xform.getWidth(),xform.getYPos());}
         
     }
+ };   
+
     
+
+
+Snake.prototype.eat=function(energy){
+    this.mSnake[this.mLength]=new TextureRenderable(this.kSnakeBody);
+    this.mSnake[this.mLength].getXform().setSize(this.SNAKE_SIZE,this.SNAKE_SIZE);
+    this.mSnake[this.mLength].getXform().setPosition(this.mSnake[this.mLength-1].getXform().getXPos(),this.mSnake[this.mLength-1].getXform().getYPos());
+    this.mLength++;
+    
+};
+
+Snake.prototype.getHeadPos=function(){
+    [this.mSnake[0].getXform().getXPos(),this.mSnake[0].getXform().getYPos()];
+
 };
