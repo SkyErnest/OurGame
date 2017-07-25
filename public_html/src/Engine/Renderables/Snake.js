@@ -123,8 +123,8 @@ Snake.prototype.eat=function(energy){
 
 Snake.prototype.getHeadPos=function(){
     return [this.mSnake[0].getXform().getXPos(),this.mSnake[0].getXform().getYPos()];
-
 };
+
 
 Snake.prototype.deadCheck=function(){
     if(this.mSnake[0].getXform().getXPos()<=this.mBorder.W){return true;}
