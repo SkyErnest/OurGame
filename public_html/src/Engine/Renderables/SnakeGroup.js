@@ -41,7 +41,7 @@ SnakeGroup.prototype.update=function(){
     
    for(var i=0;i<this.num;i++){
        if(this.deadArr[i]){
-           this.mSnakeGroup[0].initialize();
+           this.mSnakeGroup[i].initialize();
        }
    }
 };
