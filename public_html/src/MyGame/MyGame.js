@@ -20,6 +20,7 @@ function MyGame() {
     this.rightCamera=new RightView();
     this.miniCamera=new MiniView();
     this.mCameras = [];
+    this.mEnergy = new Energy();
     //this.mCamera = null;
     this.mCamera =null;
 
@@ -31,7 +32,7 @@ function MyGame() {
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
 MyGame.prototype.loadScene = function () {
-
+    this.mEnergy.loadScene();
     this.leftCamera.loadScene();
     this.rightCamera.loadScene();
     this.miniCamera.loadScene();
@@ -39,6 +40,7 @@ MyGame.prototype.loadScene = function () {
 };
 
 MyGame.prototype.unloadScene = function () {
+    this.mEnergy.unloadScene();
     this.leftCamera.unloadScene();
     this.rightCamera.unloadScene();
     this.miniCamera.unloadScene();
@@ -62,6 +64,7 @@ MyGame.prototype.initialize = function () {
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
             // sets the background to gray
 */
+    this.mEnergy.initialize();
     this.leftCamera.initialize();
     this.rightCamera.initialize();
     this.miniCamera.initialize();
@@ -100,8 +103,8 @@ MyGame.prototype.draw = function () {
     
 //    this.rightCamera.draw();
 //    this.leftCamera.draw();
+
         this.createViews(this.mCameras);
-        
 //    this.rightCamera.setupViewProjection();
 //    this.player2text.draw(this.leftCamera.getVPMatrix());
 //    this.miniCamera.setupViewProjection();
@@ -113,10 +116,10 @@ MyGame.prototype.createViews = function(views) {
         this.mCamera = views[i].getCamera();
         this.mCamera.setupViewProjection();
         
-        views[i].draw(this.mCamera.getVPMatrix()
-                );
+        views[i].draw(this.mCamera.getVPMatrix());
         this.mSnake1.draw(this.mCamera.getVPMatrix());
         this.mSnake2.draw(this.mCamera.getVPMatrix());
+        this.mEnergy.draw(this.mCamera.getVPMatrix());
     }
 //    alert(view.getCamera().getWCCenter());
 
@@ -133,6 +136,7 @@ MyGame.prototype.update = function () {
 
     this.mSnake1.update(this.updateTime,gEngine.Input.keys.Up,gEngine.Input.keys.Down,gEngine.Input.keys.Left,gEngine.Input.keys.Right);
     this.mSnake2.update(this.updateTime,gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D);
-    
+//    this.mEnergy.change(x,y,width);
+    this.mEnergy.produce();
 
 };
