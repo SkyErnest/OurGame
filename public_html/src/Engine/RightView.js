@@ -9,6 +9,7 @@
 
 function RightView(){
     
+    this.mTime=0;
     this.rightCamera = null;
     this.player2text=null;
     this.fontofplayer="assets/fonts/Consolas-72";
@@ -54,6 +55,14 @@ RightView.prototype.draw = function (vpMatrix) {
 RightView.prototype.getCamera = function() {
   return this.rightCamera;
 };
+RightView.prototype.updateWCcenter=function(time,snakehead){
+     this.mTime++;
+    var pos= snakehead.getHeadPos();
+    if(this.mTime/gEngine.GameLoop.kFPS>time){
+        this.mTime+=-gEngine.GameLoop.kFPS*time;
+        this.rightCamera.setWCCenter(pos[0],pos[1]);
+    }
+ };
 
 
 
