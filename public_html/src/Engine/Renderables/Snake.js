@@ -20,7 +20,7 @@ function Snake(kSnakeHead,kSnakeBody) {
     this.SNAKE_SIZE=5;
     this.mDir=null;
     this.mHeadNext=null;
-
+    this.camera=null;
 }
 var DIRECTION={
     N:4,
@@ -61,6 +61,8 @@ Snake.prototype.update=function(time,up,down,left,right){
     var xform=this.mSnake[0].getXform();
     
     
+    
+    
     if (gEngine.Input.isKeyPressed(right)) {
         if(this.mDir!==DIRECTION.W){
             this.mDir=DIRECTION.E;
@@ -92,5 +94,5 @@ Snake.prototype.update=function(time,up,down,left,right){
         if(this.mDir===DIRECTION.W){xform.setPosition(xform.getXPos()-xform.getWidth(),xform.getYPos());}
         
     }
-
+    
 };

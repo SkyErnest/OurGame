@@ -12,6 +12,8 @@ function LeftView(){
     this.leftCamera = null;
     this.player1text=null;
     this.fontofplayer="assets/fonts/Consolas-72";
+    
+    
 }
 gEngine.Core.inheritPrototype(LeftView, Scene);
 
@@ -54,3 +56,7 @@ LeftView.prototype.draw = function (vpMatrix) {
 LeftView.prototype.getCamera = function() {
   return this.leftCamera;
 };
+
+//LeftView.prototype.update=function(){
+//    
+//};

@@ -126,7 +126,7 @@ MyGame.prototype.createViews = function(views) {
 //  function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 MyGame.prototype.update = function () {
-
+        
     // let's only allow the movement of hero, 
     // and if hero moves too far off, this level ends, we will
     // load the next level
