@@ -11,7 +11,8 @@ function LeftView(){
     
     this.leftCamera = null;
     this.mTime=0;
-
+   // this.pos=[];
+    
     
 }
 gEngine.Core.inheritPrototype(LeftView, Scene);
@@ -71,7 +72,6 @@ LeftView.prototype.getCamera = function() {
            gEngine.GameLoop.stop();
        }
      
-
-    this.leftCamera.setWCCenter(pos[0],pos[1]);
+//    this.leftCamera.setWCCenter(pos[0],pos[1]);
 
  };
