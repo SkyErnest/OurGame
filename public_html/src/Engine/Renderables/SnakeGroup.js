@@ -36,16 +36,16 @@ SnakeGroup.prototype.deathCheck=function(){
     }
     return a;
 };
-SnakeGroup.prototype.update=function(updateTime,energyNum){
+SnakeGroup.prototype.update=function(energyNum,fruit){
 
    for(var i=2;i<this.num;i++){
-       this.mSnakeGroup[i].update(updateTime);
+       this.mSnakeGroup[i].update();
    }
    for(var i=0;i<this.num;i++){
        if(this.deadArr[i]){
            this.mSnakeGroup[i].initialize();
        }
-       this.mSnakeGroup[i].eat(energyNum[i+1]);
+       this.mSnakeGroup[i].eat(energyNum[i+1],fruit[i]);
    }
 };
 

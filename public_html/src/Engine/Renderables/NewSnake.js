@@ -94,6 +94,50 @@ NewSnake.prototype.move=function(){
 };
 NewSnake.prototype.update=function(up,down,left,right,speed,fruit){
 
+
+    if (gEngine.Input.isKeyPressed(right)) {
+        if(this.mDir!==DIRECTION.W){
+            this.mDir=DIRECTION.E;   
+            //console.log(this.mSpeed);
+        }
+    }
+    if (gEngine.Input.isKeyPressed(left)) {
+        if(this.mDir!==DIRECTION.E){
+            this.mDir=DIRECTION.W;
+        }
+    }
+    if (gEngine.Input.isKeyPressed(up)) {
+        if(this.mDir!==DIRECTION.S){
+            this.mDir=DIRECTION.N;
+        }
+    }
+    if (gEngine.Input.isKeyPressed(down)) {
+        if(this.mDir!==DIRECTION.N){
+            this.mDir=DIRECTION.S;
+        }
+    }
+    if(gEngine.Input.isKeyClicked(speed)&&this.mRushing===false){
+        if(this.mSpeed===2){this.setSpeed(4);}
+        else{this.setSpeed(2);}
+    }
+    this.move();
+    if(this.deathCheck()){
+        this.initialize();
+    }
+};
+
+NewSnake.prototype.eat=function(num,fruit){
+    for(var j=0;j<num;j++){
+        for(var i=this.mLength*gEngine.GameLoop.kFPS/this.mSpeed;i<(this.mLength+1)*gEngine.GameLoop.kFPS/this.mSpeed;i++){
+            this.mTrace[i]=[this.mNewSnake[this.mLength-1].getXform().getXPos(),this.mNewSnake[this.mLength-1].getXform().getYPos()];
+            //console.log(this.mTrace[i][1]);
+        }
+        this.mNewSnake[this.mLength]=new TextureRenderable(this.kSnakeBody);
+        this.mNewSnake[this.mLength].getXform().setSize(this.SNAKE_SIZE,this.SNAKE_SIZE);
+        this.mNewSnake[this.mLength].setColor([1,1,1,0]);
+        this.mNewSnake[this.mLength].getXform().setPosition(this.mNewSnake[this.mLength-1].getXform().getXPos(),this.mNewSnake[this.mLength-1].getXform().getYPos());
+        this.mLength++;
+    }
     switch(fruit){
         case "Peach":
             this.mTime[0]+=300;
@@ -125,49 +169,6 @@ NewSnake.prototype.update=function(up,down,left,right,speed,fruit){
                 }
             }
         }
-    }
-    if (gEngine.Input.isKeyPressed(right)) {
-        if(this.mDir!==DIRECTION.W){
-            this.mDir=DIRECTION.E;   
-            console.log(this.mSpeed);
-        }
-    }
-    if (gEngine.Input.isKeyPressed(left)) {
-        if(this.mDir!==DIRECTION.E){
-            this.mDir=DIRECTION.W;
-        }
-    }
-    if (gEngine.Input.isKeyPressed(up)) {
-        if(this.mDir!==DIRECTION.S){
-            this.mDir=DIRECTION.N;
-        }
-    }
-    if (gEngine.Input.isKeyPressed(down)) {
-        if(this.mDir!==DIRECTION.N){
-            this.mDir=DIRECTION.S;
-        }
-    }
-    if(gEngine.Input.isKeyClicked(speed)&&this.mRushing===false){
-        if(this.mSpeed===2){this.setSpeed(4);}
-        else{this.setSpeed(2);}
-    }
-    this.move();
-    if(this.deathCheck()){
-        this.initialize();
-    }
-};
-
-NewSnake.prototype.eat=function(num){
-    for(var j=0;j<num;j++){
-        for(var i=this.mLength*gEngine.GameLoop.kFPS/this.mSpeed;i<(this.mLength+1)*gEngine.GameLoop.kFPS/this.mSpeed;i++){
-            this.mTrace[i]=[this.mNewSnake[this.mLength-1].getXform().getXPos(),this.mNewSnake[this.mLength-1].getXform().getYPos()];
-            //console.log(this.mTrace[i][1]);
-        }
-        this.mNewSnake[this.mLength]=new TextureRenderable(this.kSnakeBody);
-        this.mNewSnake[this.mLength].getXform().setSize(this.SNAKE_SIZE,this.SNAKE_SIZE);
-        this.mNewSnake[this.mLength].setColor([1,1,1,0]);
-        this.mNewSnake[this.mLength].getXform().setPosition(this.mNewSnake[this.mLength-1].getXform().getXPos(),this.mNewSnake[this.mLength-1].getXform().getYPos());
-        this.mLength++;
     }
     
 };

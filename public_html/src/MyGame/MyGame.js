@@ -35,7 +35,6 @@ function MyGame() {
     this.mSnake1 = null;
     this.mSnake2 = null;
     this.mSnakeGroup = null;
-    this.updateTime = 0.5;
 
     this.score = [0, 0];
 
@@ -191,32 +190,32 @@ MyGame.prototype.update = function () {
       }
    this.leftCamera.update();   
    this.rightCamera.update();   
-    //console.log(this.fruit.getName());
+    
     this.mSnake2.update(gEngine.Input.keys.Up,gEngine.Input.keys.Down,gEngine.Input.keys.Left,gEngine.Input.keys.Right,gEngine.Input.keys.Enter);
-    this.mSnake1.update(gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D,gEngine.Input.keys.Space,this.fruit.getName());
+    this.mSnake1.update(gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D,gEngine.Input.keys.Space,this.fruit.getName()[0]);
 //    this.mEnergy.change(x,y,width);
     this.mEnergy.change(this.mSnake1.getHeadPos()[0], this.mSnake1.getHeadPos()[1], 5, 1);
     this.mEnergy.change(this.mSnake2.getHeadPos()[0], this.mSnake2.getHeadPos()[1], 5, 2);
 
     this.fruit.change(this.mSnake1.getHeadPos()[0], this.mSnake1.getHeadPos()[1], 5, 1);
     this.fruit.change(this.mSnake2.getHeadPos()[0], this.mSnake2.getHeadPos()[1], 5, 2);
-    
-    this.mEnergy.produce();
 
-    this.fruit.produce();
-
-    this.mSnakeGroup.update(this.updateTime,this.mEnergy.getSum());
+    console.log(this.fruit.getName());
+    //console.log(this.fruit.getName()[0]);
+    this.mSnakeGroup.update(this.mEnergy.getSum(),this.fruit.getName());
     this.mSnakeGroup.deathCheck();
 
     //console.log(this.mEnergy.getSum());
 
-    //console.log(this.fruit.getName());
+    
     
     getScore.call(this);
     this.mEnergy.setSum();
     this.fruit.setSum();
     this.leftCamera.updateWCcenter(this.mSnake1);
     this.rightCamera.updateWCcenter(this.mSnake2);
+    this.mEnergy.produce();
+    this.fruit.produce();
 };
 
 //MyGame.prototype.changeWC=function(){
