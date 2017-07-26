@@ -10,7 +10,7 @@
 function Energy() {
     this.energyMap = new Array();//先声明一维
     this.kPortal = "assets/minion_portal.png";
-    this.kEaten = "assets/minion_collector.png";
+//    this.kEaten = "assets/minion_collector.png";
     this.flag = 0;
     this.eaten = new Array();
     this.resource = new Array();
@@ -32,7 +32,7 @@ Energy.prototype.loadScene = function () {
     // Game loop not running, unload all assets
 
     gEngine.Textures.loadTexture(this.kPortal);
-    gEngine.Textures.loadTexture(this.kEaten);
+//    gEngine.Textures.loadTexture(this.kEaten);
 
     // starts the next level
 //    var nextLevel = new BlueLevel();  // next level to be loaded
@@ -43,7 +43,7 @@ Energy.prototype.unloadScene = function () {
     // Game loop not running, unload all assets
 
     gEngine.Textures.unloadTexture(this.kPortal);
-    gEngine.Textures.unloadTexture(this.kEaten);
+//    gEngine.Textures.unloadTexture(this.kEaten);
 
     // starts the next level
 //    var nextLevel = new BlueLevel();  // next level to be loaded
@@ -93,8 +93,8 @@ Energy.prototype.initialize = function () {//probability(0,1)越大，出现能�
 //        }
 //    }
     for(var i = 0;i < 50;i++){
-            this.energyMap[i] = new TextureRenderable(this.kPortal);  //一维数组中存储的是100个TextureRenderable,可通过getXform()获取
-    this.energyMap[i].setColor([0, 0, 0, 0.2]);  // tints red
+            this.energyMap[i] = new TextureRenderable(this.kPortal);  
+    this.energyMap[i].setColor([1, 1, 1, 0.2]);  // change the color of energy
     this.energyMap[i].getXform().setSize(2, 2);
     
     }

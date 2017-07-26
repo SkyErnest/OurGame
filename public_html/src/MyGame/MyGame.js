@@ -27,6 +27,7 @@ function MyGame() {
     this.miniCamera=new MiniView();
     this.mCameras = [];
     this.mEnergy = new Energy();
+    this.fruit = new Fruits();
     //this.mCamera = null;
     this.mCamera =null;
     this.mBound=null;
@@ -39,6 +40,7 @@ function MyGame() {
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
 MyGame.prototype.loadScene = function () {
+    this.fruit.loadScene();
     this.mEnergy.loadScene();
     this.leftCamera.loadScene();
     this.rightCamera.loadScene();
@@ -52,6 +54,7 @@ MyGame.prototype.loadScene = function () {
 };
 
 MyGame.prototype.unloadScene = function () {
+    this.fruit.unloadScene();
     this.mEnergy.unloadScene();
     this.leftCamera.unloadScene();
     this.rightCamera.unloadScene();
@@ -84,6 +87,7 @@ MyGame.prototype.initialize = function () {
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
             // sets the background to gray
 */
+    this.fruit.initialize();
     this.mEnergy.initialize();
     this.leftCamera.initialize();
     this.rightCamera.initialize();
@@ -142,6 +146,7 @@ MyGame.prototype.createViews = function(views) {
         this.mSnake1.draw(this.mCamera.getVPMatrix());
         this.mSnake2.draw(this.mCamera.getVPMatrix());
         this.mEnergy.draw(this.mCamera.getVPMatrix());
+        this.fruit.draw(this.mCamera.getVPMatrix());
         if(i!==2)this.mBound.draw(this.mCamera.getVPMatrix());
     }
 //    alert(view.getCamera().getWCCenter());
@@ -164,6 +169,8 @@ MyGame.prototype.update = function () {
 //    this.mEnergy.change(x,y,width);
     this.mEnergy.change(this.mSnake1.getHeadPos()[0],this.mSnake1.getHeadPos()[1],5,1);
     this.mEnergy.change(this.mSnake2.getHeadPos()[0],this.mSnake2.getHeadPos()[1],5,2);
+    this.fruit.change(this.mSnake1.getHeadPos()[0],this.mSnake1.getHeadPos()[1],5,1);
+    this.fruit.change(this.mSnake2.getHeadPos()[0],this.mSnake2.getHeadPos()[1],5,2);
     this.mEnergy.produce();
     
     this.mSnakeGroup.deadCheck();
