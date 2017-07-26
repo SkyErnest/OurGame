@@ -29,6 +29,7 @@ function MyGame() {
     this.mEnergy = new Energy();
     this.fruit = new Fruits();
     //this.mCamera = null;
+
     this.mCamera = null;
     this.mBound = null;
     this.mSnake1 = null;
@@ -37,6 +38,7 @@ function MyGame() {
     this.updateTime = 0.5;
 
     this.score = [0, 0];
+
 
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
@@ -105,10 +107,10 @@ MyGame.prototype.initialize = function () {
 //    );
 //    this.miniCamera.setBackgroundColor([1,1,1, 0.1]);
 
-
-    this.mSnake1 = new Snake(this.kHead1, this.kBody1, this.leftCamera.getCamera().getWCCenter()[0], this.leftCamera.getCamera().getWCCenter()[1]);
+    
+    this.mSnake1=new NewSnake(this.kHead1,this.kBody1,this.leftCamera.getCamera().getWCCenter()[0],this.leftCamera.getCamera().getWCCenter()[1]);
     this.mSnake1.initialize();
-    this.mSnake2 = new Snake(this.kHead2, this.kBody2, this.rightCamera.getCamera().getWCCenter()[0], this.rightCamera.getCamera().getWCCenter()[1]);
+    this.mSnake2  = new NewSnake(this.kHead2,this.kBody2,this.rightCamera.getCamera().getWCCenter()[0],this.rightCamera.getCamera().getWCCenter()[1]);
     this.mSnake2.initialize();
     this.mSnakeGroup = new SnakeGroup(2, this.kFontImage, this.kFontImage);
     this.mSnakeGroup.initialize(this.mSnake1, this.mSnake2);
@@ -178,10 +180,10 @@ MyGame.prototype.update = function () {
     // load the next level
 //    console.log(this.mEnergy.getSumTotal(),this.fruit.getSumTotal());//
 
-    this.leftCamera.updateWCcenter(this.updateTime, this.mSnake1);
-    this.rightCamera.updateWCcenter(this.updateTime, this.mSnake2);
-    this.mSnake2.update(this.updateTime, gEngine.Input.keys.Up, gEngine.Input.keys.Down, gEngine.Input.keys.Left, gEngine.Input.keys.Right);
-    this.mSnake1.update(this.updateTime, gEngine.Input.keys.W, gEngine.Input.keys.S, gEngine.Input.keys.A, gEngine.Input.keys.D);
+
+   
+    this.mSnake2.update(gEngine.Input.keys.Up,gEngine.Input.keys.Down,gEngine.Input.keys.Left,gEngine.Input.keys.Right,gEngine.Input.keys.Enter);
+    this.mSnake1.update(gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D,gEngine.Input.keys.Space);
 //    this.mEnergy.change(x,y,width);
     this.mEnergy.change(this.mSnake1.getHeadPos()[0], this.mSnake1.getHeadPos()[1], 5, 1);
     this.mEnergy.change(this.mSnake2.getHeadPos()[0], this.mSnake2.getHeadPos()[1], 5, 2);
@@ -190,14 +192,19 @@ MyGame.prototype.update = function () {
     this.fruit.change(this.mSnake2.getHeadPos()[0], this.mSnake2.getHeadPos()[1], 5, 2);
 
     this.mEnergy.produce();
+
     this.fruit.produce();
-    this.mSnakeGroup.deadCheck();
+
+    this.mSnakeGroup.update(this.updateTime,this.mEnergy.getSum());
+    this.mSnakeGroup.deathCheck();
+
     //console.log(this.mEnergy.getSum());
-    this.mSnakeGroup.update(0.5, this.mEnergy.getSum());
 
     getScore.call(this);
     this.mEnergy.setSum();
     this.fruit.setSum();
+    this.leftCamera.updateWCcenter(this.mSnake1);
+    this.rightCamera.updateWCcenter(this.mSnake2);
 };
 
 //MyGame.prototype.changeWC=function(){
