@@ -19,6 +19,7 @@ function Fruits() {
     this.sumtotal = new Array();
     this.flag = 0;
     this.flag2 = 0;
+    this.name = null;
 
     this.sum = new Array();
     for (var i = 0; i < 3; i++) {
@@ -64,21 +65,26 @@ Fruits.prototype.produce = function () {
     if (this.flag == 600) {
         var randx = 0;
         var randy = 0;
+        var fruitName = "";
         randx = Math.random();
         randy = Math.random();
         if (randx > 0.95) {
             this.fruit = new TextureRenderable(this.kStraw);
+            fruitName = "Straw";
         } else if (randx <= 0.9 && randx > 0.6) {
             this.fruit = new TextureRenderable(this.kWater);
-        } else
+            fruitName = "Water";
+        } else{
             this.fruit = new TextureRenderable(this.kPeach);
+            fruitName = "Peach";
+        }
 
         this.fruit.setColor([1, 1, 1, 0.2]);
         this.fruit.getXform().setSize(5, 5);
         this.fruit.getXform().setPosition(randx * 100 * 2 - 50 * 2, randy * 54 * 2 - 27 * 2);
         this.resource[this.flag2] = [randx * 100 * 2 - 50 * 2, randy * 54 * 2 - 27 * 2];
 //        console.log("produce执行",randx*100*2 - 50*2,randy*54*2 - 27*2);
-        this.fruitMap.push(this.fruit);
+        this.fruitMap.push([this.fruit,fruitName]);
         this.flag2++;
         this.flag = 0;
 
@@ -95,7 +101,7 @@ Fruits.prototype.initialize = function () {
     this.fruit.getXform().setXPos(0);//randx*100*2 - 50*2
     this.fruit.getXform().setYPos(0);//randy*54*2 - 27*2
 
-    this.fruitMap.push(this.fruit);
+    this.fruitMap.push([this.fruit,"Peach"]);
     this.resource[this.flag2] = [0, 0];
     this.flag2++;
 
@@ -106,7 +112,7 @@ Fruits.prototype.initialize = function () {
 Fruits.prototype.draw = function (VPMatrix) {
     for (i = 0; i < this.fruitMap.length; i++) {
         if (this.eaten.indexOf(i) === -1) {
-            this.fruitMap[i].draw(VPMatrix);
+            this.fruitMap[i][0].draw(VPMatrix);
         }
 
 
@@ -127,11 +133,11 @@ Fruits.prototype.change = function (x, y, width, id) { //当蛇吃到之后设�
     for (var i = 0; i < this.resource.length; i++) {
 //        console.log(this.energyMap[i].getXform().getXPos(),this.energyMap[i].getXform().getYPos());
         if (this.resource[i][0] > bl && this.resource[i][0] < br
-                && this.resource[i][1] > b && this.resource[i][1] < t && this.fruitMap[i] !== null
+                && this.resource[i][1] > b && this.resource[i][1] < t && this.fruitMap[i][0] !== null
                 && this.eaten.indexOf(i) === -1) {
 //            console.log(this.resource[i][0],this.resource[i][1]);
-            this.fruitMap[i] = null;
-
+            this.fruitMap[i][0] = null;
+            this.name = this.fruitMap[i][1];
             this.resource[i] = [-100, -100];
 
             this.sum[id] = 0;
@@ -154,6 +160,10 @@ Fruits.prototype.change = function (x, y, width, id) { //当蛇吃到之后设�
 
 };
 
+
+Fruits.prototype.getName = function () {
+    
+}
 
 Fruits.prototype.getSumTotal = function () {
     return this.sumtotal;

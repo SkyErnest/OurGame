@@ -202,6 +202,7 @@ MyGame.prototype.update = function () {
 
     //console.log(this.mEnergy.getSum());
 
+    this.fruit.getName();
     getScore.call(this);
     this.mEnergy.setSum();
     this.fruit.setSum();
