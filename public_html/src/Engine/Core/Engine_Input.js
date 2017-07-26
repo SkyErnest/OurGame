@@ -14,6 +14,7 @@ var gEngine = gEngine || { };
 gEngine.Input = (function () {
     // Key code constants
     var kKeys = {
+        Enter :13,
         // arrows
         Left: 37,
         Up: 38,

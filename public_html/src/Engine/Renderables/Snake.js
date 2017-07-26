@@ -15,12 +15,10 @@ function Snake(kSnakeHead,kSnakeBody,xPos,yPos) {
     this.mSnake = [];
     this.kSnakeHead = kSnakeHead;
     this.kSnakeBody=kSnakeBody;
-    this.mLength=5;
+    this.mLength=null;
     this.mTime=0;
     this.SNAKE_SIZE=5;
     this.mDir=null;
-    this.mHeadNext=null;
-    this.camera=null;
     this.DEFAULT_POS=[xPos,yPos];
     this.mEatNum=null;
     this.mBorder={
@@ -129,6 +127,9 @@ Snake.prototype.update=function(time,up,down,left,right){
         
     }
     if(this.deadCheck()){
+        for(var i=0;i<this.mLength;i++){
+            this.mSnake[i]=null;
+        }
         this.initialize();
     }
  };   
