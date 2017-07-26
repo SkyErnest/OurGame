@@ -9,20 +9,27 @@
 
 function Energy() {
     this.energyMap = new Array();//先声明一维
-    this.kPortal = "assets/minion_portal.png";
+    this.kPink = "assets/snake1body.png";
+    this.kBlack = "assets/black.png";
+    this.kOrange = "assets/orange.png";
+    this.kGreen = "assets/green.png";
 //    this.kEaten = "assets/minion_collector.png";
     this.flag = 0;
     this.eaten = new Array();
     this.resource = new Array();
-    
-    
+    this.sumTotal = new Array();
+    this.eaten[0] = -1;
+
     //10条蛇
     this.sum = new Array();
-    for(var i = 0;i < 10;i++) {
+    for (var i = 0; i < 10; i++) {
         this.sum[i] = 0;
     }
-    
-    
+    this.sumTotal = new Array();
+    for (var i = 0; i < 3; i++) {
+        this.sumTotal[i] = 0;
+    }
+
 }
 
 gEngine.Core.inheritPrototype(Energy, TextureRenderable);
@@ -31,7 +38,10 @@ gEngine.Core.inheritPrototype(Energy, TextureRenderable);
 Energy.prototype.loadScene = function () {
     // Game loop not running, unload all assets
 
-    gEngine.Textures.loadTexture(this.kPortal);
+    gEngine.Textures.loadTexture(this.kPink);
+    gEngine.Textures.loadTexture(this.kBlack);
+    gEngine.Textures.loadTexture(this.kOrange);
+    gEngine.Textures.loadTexture(this.kGreen);
 //    gEngine.Textures.loadTexture(this.kEaten);
 
     // starts the next level
@@ -42,7 +52,10 @@ Energy.prototype.loadScene = function () {
 Energy.prototype.unloadScene = function () {
     // Game loop not running, unload all assets
 
-    gEngine.Textures.unloadTexture(this.kPortal);
+    gEngine.Textures.unloadTexture(this.kPink);
+    gEngine.Textures.loadTexture(this.kBlack);
+    gEngine.Textures.loadTexture(this.kOrange);
+    gEngine.Textures.loadTexture(this.kGreen);
 //    gEngine.Textures.unloadTexture(this.kEaten);
 
     // starts the next level
@@ -52,37 +65,66 @@ Energy.prototype.unloadScene = function () {
 
 //生成随机数的函数
 var randomSet = function () {
+
+    var randx = 0;
+    var randy = 0;
+    var rand = 0;
+    for (var i = 0; i < 50; i++) {
         
-        var randx = 0;
-        var randy = 0;
-        for (var i = 0; i < this.energyMap.length; i ++){
-                randx = Math.random();
-                randy = Math.random();
+        randx = Math.random();
+        randy = Math.random();
+        rand = Math.random();
 //                console.log(randx,randy);
-                this.energyMap[i].getXform().setXPos(randx*100*2 - 50*2);
-                this.energyMap[i].getXform().setYPos(randy*54*2 - 27*2);
-                this.resource[i] = [randx*100*2 - 50*2,randy*54*2 - 27*2];
-            }
-            
+        if(rand>0.7){
+            this.energyMap[i] = new TextureRenderable(this.kPink);
+        }else if (rand >0.4){
+             this.energyMap[i] = new TextureRenderable(this.kOrange);
+        }else if(rand > 03){
+            this.energyMap[i] = new TextureRenderable(this.kBlack);
+        }else
+            this.energyMap[i] = new TextureRenderable(this.kGreen);
+        this.energyMap[i].setColor([1, 1, 1, 0.2]);  // change the color of energy
+                this.energyMap[i].getXform().setSize(2, 2);
+
+        this.energyMap[i].getXform().setXPos(randx * 100 * 2 - 50 * 2);
+        this.energyMap[i].getXform().setYPos(randy * 54 * 2 - 27 * 2);
+        this.resource[i] = [randx * 100 * 2 - 50 * 2, randy * 54 * 2 - 27 * 2];
+    }
+
 };
 //生成随机数的函数
 var randomUpdate = function () {
-        var flag = 0;
-        for(var i = 0;i < this.eaten.length;i++){
+    var flag = 0;
+    var rand = 0;
+     var randx = 0;
+    var randy = 0;
+    for (var i = 0; i < this.eaten.length; i++) {
 //            console.log( this.eaten[0]);
-            flag = this.eaten[i];
-            randx = Math.random();
-            randy = Math.random();
-            this.energyMap[flag] = new TextureRenderable(this.kPortal);
-             this.energyMap[flag].setColor([1, 0, 0, 0.2]);  // tints red
-            this.energyMap[flag].getXform().setSize(2, 2);
-            this.energyMap[flag].getXform().setXPos(randx*100*2 - 50*2);
-            this.energyMap[flag].getXform().setYPos(randy*54*2 - 27*2);
-            this.resource[flag] = [randx*100*2 - 50*2,randy*54*2 - 27*2];
-        }
-        this.eaten = new Array();
+
+        flag = this.eaten[i];
+        randx = Math.random();
+        randy = Math.random();
+        rand = Math.random();
+        if(rand>0.7){
+            this.energyMap[flag] = new TextureRenderable(this.kPink);
+        }else if (rand >0.4){
+             this.energyMap[flag] = new TextureRenderable(this.kOrange);
+        }else if(rand > 03){
+            this.energyMap[flagi] = new TextureRenderable(this.kBlack);
+        }else
+            this.energyMap[flag] = new TextureRenderable(this.kGreen);
         
-            
+        
+        this.energyMap[flag].setColor([1, 0, 0, 0.2]);  // tints red
+        this.energyMap[flag].getXform().setSize(2, 2);
+        this.energyMap[flag].getXform().setXPos(randx * 100 * 2 - 50 * 2);
+        this.energyMap[flag].getXform().setYPos(randy * 54 * 2 - 27 * 2);
+        this.resource[flag] = [randx * 100 * 2 - 50 * 2, randy * 54 * 2 - 27 * 2];
+    }
+    this.eaten = new Array();
+    this.eaten[0] = -1;
+
+
 };
 
 Energy.prototype.initialize = function () {//probability(0,1)越大，出现能量的概率越小
@@ -92,12 +134,7 @@ Energy.prototype.initialize = function () {//probability(0,1)越大，出现能�
 //            this.energyMap[k][j] = 0;
 //        }
 //    }
-    for(var i = 0;i < 50;i++){
-            this.energyMap[i] = new TextureRenderable(this.kPortal);  
-    this.energyMap[i].setColor([1, 1, 1, 0.2]);  // change the color of energy
-    this.energyMap[i].getXform().setSize(2, 2);
-    
-    }
+
 
 
     randomSet.call(this);
@@ -110,76 +147,82 @@ Energy.prototype.draw = function (VPMatrix) {
     // Step  B: Activate the drawing Camera
 
     // Step  C: Draw everything
-    for(i = 0;i < this.energyMap.length ;i++) {
-        if(this.eaten.indexOf(i) === -1)
-//            console.log(this.eaten.indexOf(i));
-        this.energyMap[i].draw(VPMatrix);
-//        console.log(this.energyMap[i]);
+    for (i = 0; i < this.energyMap.length; i++) {
+        if (this.eaten.indexOf(i) === -1)
+            this.energyMap[i].draw(VPMatrix);
     }
-    
-    
+
+
 };
 
 
 
-Energy.prototype.getEnergyMap = function () { return this.energyMap; };//一维数组存Texture对象
+Energy.prototype.getEnergyMap = function () {
+    return this.energyMap;
+};//一维数组存Texture对象
 
-Energy.prototype.change = function (x,y,width,id) { //当蛇吃到之后设置内容为0,当前蛇头坐标和蛇头的宽度
+Energy.prototype.change = function (x, y, width, id) { //当蛇吃到之后设置内容为0,当前蛇头坐标和蛇头的宽度
     //设置0，并完成累加
 //    console.log(x,y,width);
-    var bl = x - width/2;
-    var br = x + width/2;
-    var t = y + width/2;
-    var b = y - width/2;
-   
+    var bl = x - width / 2;
+    var br = x + width / 2;
+    var t = y + width / 2;
+    var b = y - width / 2;
+
 //    console.log(bl,br,t,b);
-    
-    for(var i = 0;i < this.resource.length;i++){
+
+    for (var i = 0; i < this.resource.length; i++) {
 //        console.log(this.energyMap[i].getXform().getXPos(),this.energyMap[i].getXform().getYPos());
-        if(this.resource[i][0]>bl && this.resource[i][0]<br
-                &&this.resource[i][1]>b && this.resource[i][1]<t && this.energyMap[i] !==null 
-                &&this.eaten.indexOf(i) === -1){
+        if (this.resource[i][0] > bl && this.resource[i][0] < br
+                && this.resource[i][1] > b && this.resource[i][1] < t && this.energyMap[i] !== null
+                && this.eaten.indexOf(i) === -1) {
 //            console.log(this.resource[i][0],this.resource[i][1]);
             this.energyMap[i] = null;
-            this.resource[i] = [-100,-100];
+            this.resource[i] = [-100, -100];
 
 
             this.sum[id] = 0;
-            if(id === 1){
+            if (id === 1) {
 
                 this.sum[id]++;
-                
-            }else{
+                this.sumTotal[id]++;
+            } else {
                 this.sum[id]++;
-
+                this.sumTotal[id]++;
             }
-            
+
             this.eaten.push(i);
-        } 
+        }
     }
-    
-   
+
+
 
 };
 
- Energy.prototype.getSum = function () {
-     return this.sum;
- };
- 
-  Energy.prototype.setSum = function () {
+Energy.prototype.getSum = function () {
+    return this.sum;
+};
+Energy.prototype.getSum = function () {
+    return this.sum;
+};
 
-     for(var i = 0;i < 10;i++) {
+Energy.prototype.setSum = function () {
+
+    for (var i = 0; i < 10; i++) {
         this.sum[i] = 0;
     }
- };
+};
 
 
 Energy.prototype.produce = function () { //一段时间之后资源再次出现
     this.flag++;
-    if(this.flag === 120){
+    if (this.flag === 120) {
         randomUpdate.call(this);
         this.flag = 0;
     }
 };
 
+Energy.prototype.getSumTotal = function () {
+    return this.sumTotal;
+}
 
