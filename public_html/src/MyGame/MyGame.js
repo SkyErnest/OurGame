@@ -169,9 +169,12 @@ MyGame.prototype.update = function () {
 //    this.mEnergy.change(x,y,width);
     this.mEnergy.change(this.mSnake1.getHeadPos()[0],this.mSnake1.getHeadPos()[1],5,1);
     this.mEnergy.change(this.mSnake2.getHeadPos()[0],this.mSnake2.getHeadPos()[1],5,2);
+    
     this.fruit.change(this.mSnake1.getHeadPos()[0],this.mSnake1.getHeadPos()[1],5,1);
     this.fruit.change(this.mSnake2.getHeadPos()[0],this.mSnake2.getHeadPos()[1],5,2);
+    
     this.mEnergy.produce();
+    this.fruit.produce();
     
     this.mSnakeGroup.deadCheck();
     //console.log(this.mEnergy.getSum());

@@ -16,7 +16,7 @@ function Energy() {
     this.resource = new Array();
     
     
-    //设置吃掉的资源总量
+    //10条蛇
     this.sum = new Array();
     for(var i = 0;i < 10;i++) {
         this.sum[i] = 0;
