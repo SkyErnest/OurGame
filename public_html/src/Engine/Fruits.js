@@ -62,7 +62,7 @@ Fruits.prototype.unloadScene = function () {
 Fruits.prototype.produce = function () {
     this.flag++;
 
-    if (this.flag == 600) {
+    if (this.flag === 600) {
         var randx = 0;
         var randy = 0;
         var fruitName = "";
@@ -92,7 +92,7 @@ Fruits.prototype.produce = function () {
     }
 
 
-}
+};
 
 Fruits.prototype.initialize = function () {
     this.fruit = new TextureRenderable(this.kPeach);
@@ -164,11 +164,11 @@ Fruits.prototype.change = function (x, y, width, id) { //当蛇吃到之后设�
 
 Fruits.prototype.getName = function () {
     return this.name;
-}
+};
 
 Fruits.prototype.getSumTotal = function () {
     return this.sumtotal;
-}
+};
 
 Fruits.prototype.setSum = function () {
 

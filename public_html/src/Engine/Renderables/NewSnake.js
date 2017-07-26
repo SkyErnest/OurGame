@@ -10,7 +10,7 @@ function NewSnake(kSnakeHead,kSnakeBody,xPos,yPos){
     this.kSnakeHead = kSnakeHead;
     this.kSnakeBody=kSnakeBody;
     this.mLength=null;
-    this.mTime=0;
+    this.mTime=[0,0,0];
     this.mDir=null;
     this.SNAKE_SIZE=5;
     this.DEFAULT_POS=[xPos,yPos];
@@ -23,6 +23,8 @@ function NewSnake(kSnakeHead,kSnakeBody,xPos,yPos){
         W:-100
     };
     this.mEatNum=null;
+    this.mInvincibility=null;
+    this.mRushing=null;
 }
 var DIRECTION={
     N:4,
@@ -33,6 +35,8 @@ var DIRECTION={
 NewSnake.prototype.getSnake=function(){return this.mNewSnake;};
 NewSnake.prototype.getSnakeLen=function(){return this.mLength;};
 NewSnake.prototype.initialize = function () {
+    this.mInvincibility=false;
+    this.mRushing=false;
     this.mSpeed=2;
     for(var i=0;i<this.mLength;i++){
             this.mNewSnake[i]=null;
@@ -88,7 +92,40 @@ NewSnake.prototype.move=function(){
         
         //for(var i=0;i<this.mLength;i++){
 };
-NewSnake.prototype.update=function(up,down,left,right,speed){
+NewSnake.prototype.update=function(up,down,left,right,speed,fruit){
+
+    switch(fruit){
+        case "Peach":
+            this.mTime[0]+=300;
+            this.setSpeed(10);
+            this.mRushing=true;
+            break;
+        case "Water":
+            this.mTime[0]+=300;
+            this.setSpeed(6);
+            this.mRushing=true;
+            break;
+        case "Straw":
+            this.mInvincibility=true;
+            break;
+    }
+    for(var i=0;i<this.mTime.length;i++){
+        if(this.mTime[i]!==0){
+            this.mTime[i]--;
+            if(this.mTime[i]===0){
+                switch(i){
+                    case 0:
+                        this.setSpeed(2);
+                        this.mRushing=false;
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        this.mInvincibility=false;
+                }
+            }
+        }
+    }
     if (gEngine.Input.isKeyPressed(right)) {
         if(this.mDir!==DIRECTION.W){
             this.mDir=DIRECTION.E;            
@@ -109,7 +146,7 @@ NewSnake.prototype.update=function(up,down,left,right,speed){
             this.mDir=DIRECTION.S;
         }
     }
-    if(gEngine.Input.isKeyClicked(speed)){
+    if(gEngine.Input.isKeyClicked(speed)&&this.mRushing===false){
         if(this.mSpeed===2){this.setSpeed(4);}
         else{this.setSpeed(2);}
     }
