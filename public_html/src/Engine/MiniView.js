@@ -15,8 +15,8 @@ gEngine.Core.inheritPrototype(MiniView, Scene);
 MiniView.prototype.unloadScene = function () {
     //gEngine.Fonts.unloadFont(this.fontofplayer);
     // Step B: starts the next level
-    var nextLevel = new GameOver();  // next level to be loaded
-    gEngine.Core.startScene(nextLevel);
+//    var nextLevel = new GameOver();  // next level to be loaded
+//    gEngine.Core.startScene(nextLevel);
 };
 
 MiniView.prototype.initialize=function(){

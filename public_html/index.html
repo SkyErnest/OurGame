@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Example 5.4: Font Support</title>
+        <title>Ouch,keep alive</title>
         <link rel ="icon" type ="image/x-icon" href="./assets/favicon.png">
 
         <!-- the following says there are javascript source code contained in 
@@ -47,11 +47,13 @@
         <script type="text/javascript" src="src/Engine/RightView.js"></script>
         <script type="text/javascript" src="src/Engine/MiniView.js"></script>
         <script type="text/javascript" src="src/MyGame/MyGame.js"></script>
-        <script type="text/javascript" src="src/MyGame/GameOver.js"></script> 
+        <script type="text/javascript" src="src/MyGame/start.js"></script>
+        <script type="text/javascript" src="src/MyGame/Reborn.js"></script>
+       
     </head>
 
     <body onload="
-        var myGame = new MyGame();
+        var myGame = new start();
         gEngine.Core.initializeEngineCore('GLCanvas', myGame);
      ">
         <div align="center">
