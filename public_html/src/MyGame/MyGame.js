@@ -81,7 +81,7 @@ MyGame.prototype.initialize = function () {
 
     this.mBound=new SpriteRenderable(this.kBound);
     this.mBound.getXform().setPosition(0,0);
-    this.mBound.getXform().setSize(210,130);
+    this.mBound.getXform().setSize(205,125);
     this.mBound.setColor([1,1,1,0]);
 
     // Step A: set up the cameras
@@ -169,7 +169,7 @@ var getScore = function () {//还需要加上杀死敌人的加分项
 
     this.score[0] = this.mEnergy.getSumTotal()[1] * 10 + this.fruit.getSumTotal()[1] * 50;
     this.score[1] = this.mEnergy.getSumTotal()[2] * 10 + this.fruit.getSumTotal()[2] * 50;
-    console.log(this.score[0], this.score[1]);
+    //console.log(this.score[0], this.score[1]);
 };
 
 
@@ -183,16 +183,16 @@ MyGame.prototype.update = function () {
 //    console.log(this.mEnergy.getSumTotal(),this.fruit.getSumTotal());//
 
 
-   
+    //console.log(this.fruit.getName());
     this.mSnake2.update(gEngine.Input.keys.Up,gEngine.Input.keys.Down,gEngine.Input.keys.Left,gEngine.Input.keys.Right,gEngine.Input.keys.Enter);
-    this.mSnake1.update(gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D,gEngine.Input.keys.Space);
+    this.mSnake1.update(gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D,gEngine.Input.keys.Space,this.fruit.getName());
 //    this.mEnergy.change(x,y,width);
     this.mEnergy.change(this.mSnake1.getHeadPos()[0], this.mSnake1.getHeadPos()[1], 5, 1);
     this.mEnergy.change(this.mSnake2.getHeadPos()[0], this.mSnake2.getHeadPos()[1], 5, 2);
 
     this.fruit.change(this.mSnake1.getHeadPos()[0], this.mSnake1.getHeadPos()[1], 5, 1);
     this.fruit.change(this.mSnake2.getHeadPos()[0], this.mSnake2.getHeadPos()[1], 5, 2);
-
+    
     this.mEnergy.produce();
 
     this.fruit.produce();
@@ -202,7 +202,7 @@ MyGame.prototype.update = function () {
 
     //console.log(this.mEnergy.getSum());
 
-    console.log(this.fruit.getName());
+    //console.log(this.fruit.getName());
     
     getScore.call(this);
     this.mEnergy.setSum();
