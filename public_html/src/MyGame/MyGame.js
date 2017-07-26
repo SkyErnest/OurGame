@@ -76,7 +76,7 @@ MyGame.prototype.unloadScene = function () {
 MyGame.prototype.initialize = function () {
     this.mBound=new SpriteRenderable(this.kBound);
     this.mBound.getXform().setPosition(0,0);
-    this.mBound.getXform().setSize(200,120);
+    this.mBound.getXform().setSize(210,130);
     this.mBound.setColor([1,1,1,0]);
     // Step A: set up the cameras
     /*this.mCamera = new Camera(
