@@ -128,7 +128,8 @@ NewSnake.prototype.update=function(up,down,left,right,speed,fruit){
     }
     if (gEngine.Input.isKeyPressed(right)) {
         if(this.mDir!==DIRECTION.W){
-            this.mDir=DIRECTION.E;            
+            this.mDir=DIRECTION.E;   
+            console.log(this.mSpeed);
         }
     }
     if (gEngine.Input.isKeyPressed(left)) {

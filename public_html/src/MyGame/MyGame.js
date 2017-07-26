@@ -190,19 +190,7 @@ MyGame.prototype.update = function () {
            gEngine.GameLoop.stop();
       }
    this.leftCamera.update();   
-   this.leftCamera.updateWCcenter(this.mSnake1);
-   //alert(this.mSnake1);
-   this.rightCamera.updateWCcenter(this.mSnake2);
-    this.mSnake2.update(this.updateTime,gEngine.Input.keys.Up,gEngine.Input.keys.Down,gEngine.Input.keys.Left,gEngine.Input.keys.Right);
-    this.mSnake1.update(this.updateTime,gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D);
-    console.log(this.mEnergy.getSumTotal(),this.fruit.getSumTotal());//
-
-
-   
-    this.mSnake2.update(gEngine.Input.keys.Up,gEngine.Input.keys.Down,gEngine.Input.keys.Left,gEngine.Input.keys.Right,gEngine.Input.keys.Enter);
-    this.mSnake1.update(gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D,gEngine.Input.keys.Space);
-
-
+   this.rightCamera.update();   
     //console.log(this.fruit.getName());
     this.mSnake2.update(gEngine.Input.keys.Up,gEngine.Input.keys.Down,gEngine.Input.keys.Left,gEngine.Input.keys.Right,gEngine.Input.keys.Enter);
     this.mSnake1.update(gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D,gEngine.Input.keys.Space,this.fruit.getName());
