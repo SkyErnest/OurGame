@@ -49,7 +49,7 @@ RightView.prototype._initText = function (font, posX, posY, color, textH) {
 RightView.prototype.draw = function (vpMatrix) {
     // Step A: clear the canvas
 //   gEngine.Core.clearCanvas([1, 1, 1, 1]); // clear to light gray
-    this.player2text.draw(vpMatrix); 
+    //this.player2text.draw(vpMatrix); 
 };
 
 RightView.prototype.getCamera = function() {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Example 5.4: Font Support</title>
+        <title>Ouch,keep alive</title>
         <link rel ="icon" type ="image/x-icon" href="./assets/favicon.png">
 
         <!-- the following says there are javascript source code contained in 
@@ -46,11 +46,29 @@
         <script type="text/javascript" src="src/Engine/RightView.js"></script>
         <script type="text/javascript" src="src/Engine/MiniView.js"></script>
         <script type="text/javascript" src="src/MyGame/MyGame.js"></script>
-        <script type="text/javascript" src="src/MyGame/GameOver.js"></script> 
+        <script type="text/javascript" src="src/MyGame/Reborn.js"></script> 
+        <script type="text/javascript" src="src/MyGame/start.js"></script> 
+<!--        <style>
+            .player1{
+                float:left;
+                width: 20%;
+                color:red;
+                margin-left:330px;
+            }
+            .player2{
+                float:right;
+                width: 20%;
+                color:blue;
+                margin-right: 450px;
+            }
+/*            .score{
+                margin-top: 50px;
+            }*/
+        </style>-->
     </head>
 
     <body onload="
-        var myGame = new MyGame();
+        var myGame = new start();
         gEngine.Core.initializeEngineCore('GLCanvas', myGame);
      ">
         <div align="center">
@@ -59,6 +77,17 @@
             Your browser does not support the HTML5 canvas.
             <!-- this message will show only if WebGL clearing failed -->
         </canvas>
+            
         </div>
+<!--        <div class="score">
+        <div class="player1">
+                <p>player1:</p>
+                <div id="player1score"></div>
+            </div>
+            <div class="player2">
+                <p>player2:</p>
+                <div id="player2score"></div>
+            </div>
+       </div>-->
     </body>
 </html>

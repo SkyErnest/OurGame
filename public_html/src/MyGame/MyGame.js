@@ -34,7 +34,7 @@ function MyGame() {
     this.mSnake2 = null;
     this.mSnakeGroup=null;
     this.updateTime=0.5;
-
+    this.signel=null;
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
@@ -63,11 +63,16 @@ MyGame.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kBody2);
     
     gEngine.Textures.unloadTexture(this.kBound);
-
+    
+    if(this.signel===0){
+     var nextLevel = new Reborn();  // next level to be loaded
+     gEngine.Core.startScene(nextLevel);
+        
+    }
+   
     // unload the fonts
     // Step B: starts the next level
-//    var nextLevel = new GameOver();  // next level to be loaded
-//    gEngine.Core.startScene(nextLevel);
+    
 };
 
 MyGame.prototype.initialize = function () {
@@ -116,20 +121,10 @@ MyGame.prototype.draw = function () {
     // Step A: clear the canvas
     gEngine.Core.clearCanvas([0, 0, 0, 1]); // clear to light gray
 
-    // Step  B: Activate the drawing Camera
-    //this.mCamera.setupViewProjection();
-    // drawing the text output
-    //this.mSnake1.draw(this.mCamera.getVPMatrix());
-//    this.leftCamera.setupViewProjection();
-//    this.player1text.draw(this.leftCamera.getVPMatrix());
     
-//    this.rightCamera.draw();
-//    this.leftCamera.draw();
 
         this.createViews(this.mCameras);
-//    this.rightCamera.setupViewProjection();
-//    this.player2text.draw(this.leftCamera.getVPMatrix());
-//    this.miniCamera.setupViewProjection();
+
 };
 
 
@@ -156,7 +151,13 @@ MyGame.prototype.update = function () {
     // let's only allow the movement of hero, 
     // and if hero moves too far off, this level ends, we will
     // load the next level
-
+    
+    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Q))
+    {       
+           this.signel=0;
+           gEngine.GameLoop.stop();
+      }
+   this.leftCamera.update();   
    this.leftCamera.updateWCcenter(this.updateTime,this.mSnake1);
    this.rightCamera.updateWCcenter(this.updateTime,this.mSnake2);
     this.mSnake2.update(this.updateTime,gEngine.Input.keys.Up,gEngine.Input.keys.Down,gEngine.Input.keys.Left,gEngine.Input.keys.Right);
