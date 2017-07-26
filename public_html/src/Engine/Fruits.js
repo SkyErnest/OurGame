@@ -71,7 +71,7 @@ Fruits.prototype.produce = function () {
         if (randx > 0.95) {
             this.fruit = new TextureRenderable(this.kStraw);
             fruitName = "Straw";
-        } else if (randx <= 0.9 && randx > 0.6) {
+        } else if (randx <= 0.95 && randx > 0.6) {
             this.fruit = new TextureRenderable(this.kWater);
             fruitName = "Water";
         } else{
