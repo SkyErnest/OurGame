@@ -117,7 +117,8 @@ Fruits.prototype.draw = function (VPMatrix) {
 
 
     }
-
+    //初始化name
+    this.name = null;
 };
 
 Fruits.prototype.change = function (x, y, width, id) { //当蛇吃到之后设置内容为0,当前蛇头坐标和蛇头的宽度
@@ -162,7 +163,7 @@ Fruits.prototype.change = function (x, y, width, id) { //当蛇吃到之后设�
 
 
 Fruits.prototype.getName = function () {
-    
+    return this.name;
 }
 
 Fruits.prototype.getSumTotal = function () {
