@@ -110,7 +110,8 @@ NewSnake.prototype.update=function(up,down,left,right,speed){
         }
     }
     if(gEngine.Input.isKeyClicked(speed)){
-        this.speedUp();
+        if(this.mSpeed===2){this.setSpeed(4);}
+        else{this.setSpeed(2);}
     }
     this.move();
     if(this.deathCheck()){
@@ -148,11 +149,20 @@ NewSnake.prototype.deathCheck=function(){
     if(this.mNewSnake[0].getXform().getYPos()>=this.mBorder.N){return true;}
     return false;
 };
-NewSnake.prototype.speedUp=function(){
+NewSnake.prototype.setSpeed=function(speed){
     var oldSpeed=this.mSpeed;
-    this.mSpeed=4;
-    for(var i=0;i<this.mLength*gEngine.GameLoop.kFPS/this.mSpeed;i++){
-        this.mTrace[i]=this.mTrace[i*this.mSpeed/oldSpeed];
-        //console.log(this.mTrace[i][1]);
+    this.mSpeed=speed;
+    if(this.mSpeed/oldSpeed>=1){
+        for(var i=0;i<this.mLength*gEngine.GameLoop.kFPS/this.mSpeed;i++){
+            this.mTrace[i]=this.mTrace[i*this.mSpeed/oldSpeed];
+            //console.log(this.mTrace[i][1]);
+        }
+    }else{
+        for(var i=this.mLength*gEngine.GameLoop.kFPS/oldSpeed-1;i>0;i--){
+            for(var j=0;j<oldSpeed/this.mSpeed;j++){
+                this.mTrace[i*oldSpeed/this.mSpeed+j]=this.mTrace[i];
+            }
+            
+        }
     }
 };
