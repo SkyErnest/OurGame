@@ -19,7 +19,7 @@ function Fruits() {
     this.sumtotal = new Array();
     this.flag = 0;
     this.flag2 = 0;
-    this.name = null;
+    this.name = [null,null];
 
     this.sum = new Array();
     for (var i = 0; i < 3; i++) {
@@ -118,7 +118,7 @@ Fruits.prototype.draw = function (VPMatrix) {
 
     }
     //初始化name
-    this.name = null;
+    this.name =  [null,null];
 };
 
 Fruits.prototype.change = function (x, y, width, id) { //当蛇吃到之后设置内容为0,当前蛇头坐标和蛇头的宽度
@@ -138,7 +138,7 @@ Fruits.prototype.change = function (x, y, width, id) { //当蛇吃到之后设�
                 && this.eaten.indexOf(i) === -1) {
 //            console.log(this.resource[i][0],this.resource[i][1]);
             this.fruitMap[i][0] = null;
-            this.name = this.fruitMap[i][1];
+            this.name[id-1] = this.fruitMap[i][1];
             this.resource[i] = [-100, -100];
 
             this.sum[id] = 0;
