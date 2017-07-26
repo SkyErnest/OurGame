@@ -5,7 +5,7 @@
  */
 /* global gEngine */
 
-function NewSnake(kSnakeHead,kSnakeBody,xPos,yPos){
+function NewSnake(kSnakeHead,kSnakeBody,xPos,yPos,color){
     this.mNewSnake=[];
     this.kSnakeHead = kSnakeHead;
     this.kSnakeBody=kSnakeBody;
@@ -16,6 +16,7 @@ function NewSnake(kSnakeHead,kSnakeBody,xPos,yPos){
     this.DEFAULT_POS=[xPos,yPos];
     this.mTrace=[];
     this.mSpeed=null;
+    this.mColor=color;
     this.mBorder={
         S:-60,
         N:60,
@@ -42,11 +43,11 @@ NewSnake.prototype.initialize = function () {
     this.mNewSnake[0]=new TextureRenderable(this.kSnakeHead);
     this.mNewSnake[0].getXform().setPosition(this.DEFAULT_POS[0],this.DEFAULT_POS[1]);
     this.mNewSnake[0].getXform().setSize(this.SNAKE_SIZE,this.SNAKE_SIZE);
-    this.mNewSnake[0].setColor([1,1,1,0]);
+    this.mNewSnake[0].setColor(this.mColor);
     for(var i=1;i<this.mLength;i++){
         this.mNewSnake[i]=new TextureRenderable(this.kSnakeBody);
         this.mNewSnake[i].getXform().setSize(this.SNAKE_SIZE,this.SNAKE_SIZE);
-        this.mNewSnake[i].setColor([1,1,1,0]);
+        this.mNewSnake[i].setColor(this.mColor);
         this.mNewSnake[i].getXform().setPosition(this.mNewSnake[i-1].getXform().getXPos(),this.mNewSnake[i-1].getXform().getYPos()-this.mLength);
         
     }
@@ -127,7 +128,7 @@ NewSnake.prototype.eat=function(num){
         }
         this.mNewSnake[this.mLength]=new TextureRenderable(this.kSnakeBody);
         this.mNewSnake[this.mLength].getXform().setSize(this.SNAKE_SIZE,this.SNAKE_SIZE);
-        this.mNewSnake[this.mLength].setColor([1,1,1,0]);
+        this.mNewSnake[this.mLength].setColor(this.mColor);
         this.mNewSnake[this.mLength].getXform().setPosition(this.mNewSnake[this.mLength-1].getXform().getXPos(),this.mNewSnake[this.mLength-1].getXform().getYPos());
         this.mLength++;
     }

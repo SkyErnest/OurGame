@@ -81,7 +81,7 @@ MyGame.prototype.initialize = function () {
 
     this.mBound=new SpriteRenderable(this.kBound);
     this.mBound.getXform().setPosition(0,0);
-    this.mBound.getXform().setSize(210,130);
+    this.mBound.getXform().setSize(205,125);
     this.mBound.setColor([1,1,1,0]);
 
     // Step A: set up the cameras
@@ -110,9 +110,9 @@ MyGame.prototype.initialize = function () {
 //    this.miniCamera.setBackgroundColor([1,1,1, 0.1]);
 
     
-    this.mSnake1=new NewSnake(this.kHead1,this.kBody1,this.leftCamera.getCamera().getWCCenter()[0],this.leftCamera.getCamera().getWCCenter()[1]);
+    this.mSnake1=new NewSnake(this.kHead1,this.kBody1,this.leftCamera.getCamera().getWCCenter()[0],this.leftCamera.getCamera().getWCCenter()[1],[1,1,1,0]);
     this.mSnake1.initialize();
-    this.mSnake2  = new NewSnake(this.kHead2,this.kBody2,this.rightCamera.getCamera().getWCCenter()[0],this.rightCamera.getCamera().getWCCenter()[1]);
+    this.mSnake2  = new NewSnake(this.kHead2,this.kBody2,this.rightCamera.getCamera().getWCCenter()[0],this.rightCamera.getCamera().getWCCenter()[1],[1,1,1,0]);
     this.mSnake2.initialize();
     this.mSnakeGroup = new SnakeGroup(2, this.kFontImage, this.kFontImage);
     this.mSnakeGroup.initialize(this.mSnake1, this.mSnake2);

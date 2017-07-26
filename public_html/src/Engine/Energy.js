@@ -110,7 +110,7 @@ var randomUpdate = function () {
         }else if (rand >0.4){
              this.energyMap[flag] = new TextureRenderable(this.kOrange);
         }else if(rand > 03){
-            this.energyMap[flagi] = new TextureRenderable(this.kBlack);
+            this.energyMap[flag] = new TextureRenderable(this.kBlack);
         }else
             this.energyMap[flag] = new TextureRenderable(this.kGreen);
         
@@ -224,5 +224,5 @@ Energy.prototype.produce = function () { //一段时间之后资源再次出现
 
 Energy.prototype.getSumTotal = function () {
     return this.sumTotal;
-}
+};
 
