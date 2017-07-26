@@ -25,7 +25,7 @@ SnakeGroup.prototype.deathCheck=function(){
         this.deadArr[i]=false;
         for(var j=0;j<this.num;j++){
             if(j!==i){
-                for(var n=0;n<this.mSnakeGroup[j].getSnake().length;n++){
+                for(var n=0;n<this.mSnakeGroup[j].getSnakeLen();n++){
                     if(Math.sqrt(Math.pow(this.mSnakeGroup[i].getHeadPos()[0]-this.mSnakeGroup[j].getSnake()[n].getXform().getXPos(),2)+Math.pow(this.mSnakeGroup[i].getHeadPos()[1]-this.mSnakeGroup[j].getSnake()[n].getXform().getYPos(),2))<this.CRASH_DIS){
                         this.deadArr[i]=true;
                         a=true;

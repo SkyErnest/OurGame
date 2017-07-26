@@ -31,6 +31,7 @@ var DIRECTION={
     W:1
 };
 NewSnake.prototype.getSnake=function(){return this.mNewSnake;};
+NewSnake.prototype.getSnakeLen=function(){return this.mLength;};
 NewSnake.prototype.initialize = function () {
     this.mSpeed=1;
     for(var i=0;i<this.mLength;i++){
