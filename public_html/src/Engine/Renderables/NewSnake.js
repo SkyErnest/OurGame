@@ -33,7 +33,7 @@ var DIRECTION={
 NewSnake.prototype.getSnake=function(){return this.mNewSnake;};
 NewSnake.prototype.getSnakeLen=function(){return this.mLength;};
 NewSnake.prototype.initialize = function () {
-    this.mSpeed=1;
+    this.mSpeed=2;
     for(var i=0;i<this.mLength;i++){
             this.mNewSnake[i]=null;
     }
@@ -88,7 +88,7 @@ NewSnake.prototype.move=function(){
         
         //for(var i=0;i<this.mLength;i++){
 };
-NewSnake.prototype.update=function(up,down,left,right){
+NewSnake.prototype.update=function(up,down,left,right,speed){
     if (gEngine.Input.isKeyPressed(right)) {
         if(this.mDir!==DIRECTION.W){
             this.mDir=DIRECTION.E;            
@@ -109,8 +109,8 @@ NewSnake.prototype.update=function(up,down,left,right){
             this.mDir=DIRECTION.S;
         }
     }
-    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)){
-        this.eat(1);
+    if(gEngine.Input.isKeyClicked(speed)){
+        this.speedUp();
     }
     this.move();
     if(this.deathCheck()){
@@ -147,4 +147,12 @@ NewSnake.prototype.deathCheck=function(){
     if(this.mNewSnake[0].getXform().getYPos()<=this.mBorder.S){return true;}
     if(this.mNewSnake[0].getXform().getYPos()>=this.mBorder.N){return true;}
     return false;
+};
+NewSnake.prototype.speedUp=function(){
+    var oldSpeed=this.mSpeed;
+    this.mSpeed=4;
+    for(var i=0;i<this.mLength*gEngine.GameLoop.kFPS/this.mSpeed;i++){
+        this.mTrace[i]=this.mTrace[i*this.mSpeed/oldSpeed];
+        //console.log(this.mTrace[i][1]);
+    }
 };
