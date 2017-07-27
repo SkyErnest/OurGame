@@ -42,7 +42,7 @@ NewSnake.prototype.initialize = function () {
     this.mRushing=false;
     this.mSpeed=3;
     for(var i=0;i<this.mLength;i++){
-            this.mNewSnake[i]=null;
+        this.mNewSnake[i]=null;
     }
     this.mLength=5;
     this.mDir=DIRECTION.N;
@@ -135,10 +135,10 @@ NewSnake.prototype.update=function(up,down,left,right,speed){
             this.mDir=DIRECTION.S;
         }
     }
-    if(gEngine.Input.isKeyClicked(speed)&&this.mRushing===false){
-        if(this.mSpeed===3){this.setSpeed(6);}
-        else{this.setSpeed(3);}
+    if(gEngine.Input.isKeyPressed(speed)&&this.mRushing===false){
+        this.setSpeed(6);
     }
+    if(!(gEngine.Input.isKeyPressed(speed))&&this.mRushing===false){this.setSpeed(3);}
     this.move();
     if(this.deathCheck()){
         this.newBorn();
