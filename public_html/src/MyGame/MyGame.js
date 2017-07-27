@@ -37,7 +37,8 @@ function MyGame() {
     this.mSnakeGroup = null;
     this.signal=null;
     this.score = [0, 0];
-
+    
+   
 
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
@@ -74,6 +75,12 @@ MyGame.prototype.unloadScene = function () {
     // Step B: starts the next level
     if(this.signal===0){
     var nextLevel = new Reborn();  // next level to be loaded
+    gEngine.Core.startScene(nextLevel);
+}
+
+    if(this.signal===1){
+    
+    var nextLevel = new GameOver(this.score);  // next level to be loaded
     gEngine.Core.startScene(nextLevel);
 }
 };
@@ -172,7 +179,7 @@ var getScore = function () {//还需要加上杀死敌人的加分项
     this.score[0] = this.mEnergy.getSumTotal()[1] * 10 + this.fruit.getSumTotal()[1] * 50;
     this.score[1] = this.mEnergy.getSumTotal()[2] * 10 + this.fruit.getSumTotal()[2] * 50;
     //console.log(this.score[0], this.score[1]);
-};
+}
 
 
 
@@ -189,6 +196,11 @@ MyGame.prototype.update = function () {
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Q))
     {       
            this.signal=0;
+           gEngine.GameLoop.stop();
+      }
+      if(gEngine.Input.isKeyClicked(gEngine.Input.keys.P))
+    {       
+           this.signal=1;
            gEngine.GameLoop.stop();
       }
    this.leftCamera.update();   
@@ -215,7 +227,3 @@ MyGame.prototype.update = function () {
     this.fruit.produce();
 };
 
-//MyGame.prototype.changeWC=function(){
-//    this.leftCamera.setWCCenter(this.mSnake1.getHeadPos());
-//    this.rightCamera.setWCCenter(this.mSnake2.getHeadPos());
-//};

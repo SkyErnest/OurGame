@@ -46,6 +46,7 @@ gEngine.Input = (function () {
         J : 74,
         K : 75,
         L : 76,
+        P:  80,
         Q : 81,
         R : 82,
         S : 83,

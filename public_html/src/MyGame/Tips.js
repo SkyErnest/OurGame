@@ -2,22 +2,19 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- * 
  */
-/*global gEngine: false, Transform: false Scene: false*/
 
-function start(){
+
+function Tips(){
     
-    
-   
-   this.mCamera=null;
-   this.img="assets/startindex.png";
-   this.start=null;
-   this.signal=null;
+    this.mCamera=null;
+    this.img="assets/Tips.png";
+    this.tips=null;
+    this.signal=null;
 }
-gEngine.Core.inheritPrototype(start,Scene);
+gEngine.Core.inheritPrototype(Tips,Scene);
 
-start.prototype.loadScene=function(){
+Tips.prototype.loadScene=function(){
    
    gEngine.Textures.loadTexture(this.img);
    // this.mCamera.loadScene();
@@ -25,7 +22,7 @@ start.prototype.loadScene=function(){
 //    this.rightCamera.loadScene();
 };
 
-start.prototype.unloadScene=function(){
+Tips.prototype.unloadScene=function(){
 //     this.leftCamera.unloadScene();
 //     this.rightCamera.unloadScene();
      //gEngine.Fonts.unloadFont(this.textfont);
@@ -34,14 +31,10 @@ start.prototype.unloadScene=function(){
          var nextLevel=new MyGame();
         gEngine.Core.startScene(nextLevel);  
      }
-     if(this.signal===1){
-         var nextLevel=new Tips();
-        gEngine.Core.startScene(nextLevel);  
-     }
      
 };
 
-start.prototype.initialize=function(){
+Tips.prototype.initialize=function(){
     this.mCamera=new Camera(
        vec2.fromValues(50, 33),   // position of the camera
         100,                       // width of camera
@@ -49,10 +42,10 @@ start.prototype.initialize=function(){
     );
     this.mCamera.setBackgroundColor([1, 1, 1, 1]);
     
-    this.start = new TextureRenderable(this.img);
-    this.start.setColor([1, 1, 1, 0]);
-    this.start.getXform().setPosition(50,33);
-    this.start.getXform().setSize(100, 50);
+    this.tips = new TextureRenderable(this.img);
+    this.tips.setColor([1, 1, 1, 0]);
+    this.tips.getXform().setPosition(50,33);
+    this.tips.getXform().setSize(100, 50);
 };
 
 
@@ -61,11 +54,11 @@ start.prototype.initialize=function(){
 
 
 
-start.prototype.draw=function(){
+Tips.prototype.draw=function(){
     gEngine.Core.clearCanvas([0.9, 0.9,0.9, 1]); 
    // this.createViews(this.mCamera);
     this.mCamera.setupViewProjection();
-    this.start.draw(this.mCamera.getVPMatrix());
+    this.tips.draw(this.mCamera.getVPMatrix());
     
 //    for(var i=0;i<3;i++){
 //        this.player1heart[i].draw(this.mCamera.getVPMatrix());
@@ -80,15 +73,14 @@ start.prototype.draw=function(){
 
 
 
-start.prototype.update=function(){
+Tips.prototype.update=function(){
     
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.S)){
            this.signal=0;
            gEngine.GameLoop.stop();
-     } 
-      if(gEngine.Input.isKeyClicked(gEngine.Input.keys.T)){
-           this.signal=1;
-           gEngine.GameLoop.stop();
      }  
 };
+
+
+
 
