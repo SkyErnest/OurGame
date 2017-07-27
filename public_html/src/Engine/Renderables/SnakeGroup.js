@@ -52,6 +52,9 @@ SnakeGroup.prototype.update=function(energy,fruit){
     energy.change(this.mSnakeGroup[1].getHeadPos()[0], this.mSnakeGroup[1].getHeadPos()[1], 5, 2);
     fruit.change(this.mSnakeGroup[0].getHeadPos()[0], this.mSnakeGroup[0].getHeadPos()[1], 5, 1);
     fruit.change(this.mSnakeGroup[1].getHeadPos()[0], this.mSnakeGroup[1].getHeadPos()[1], 5, 2);
+    
+
+    
     this.deathCheck();
     for(var i=0;i<this.num;i++){
         if(this.deadArr[i]&&this.mSnakeGroup[i].mInvincibility===false){

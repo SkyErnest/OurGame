@@ -20,7 +20,9 @@ function MyGame() {
     this.kHead2 = "assets/snake2head.png";
     this.kBody1 = "assets/snake1body.png";
     this.kBody2 = "assets/snake2body.png";
-
+    
+    this.kPlayBGM = "assets/sound/GameBGM.mp3";
+    this.kgetFruit = "assets/sound/tick.mp3";
     // The camera to view the scene
     this.leftCamera = new LeftView();
     this.rightCamera = new RightView();
@@ -43,6 +45,7 @@ function MyGame() {
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
 MyGame.prototype.loadScene = function () {
+    
     this.fruit.loadScene();
     this.mEnergy.loadScene();
     this.leftCamera.loadScene();
@@ -52,7 +55,9 @@ MyGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kHead2);
     gEngine.Textures.loadTexture(this.kBody1);
     gEngine.Textures.loadTexture(this.kBody2);
-
+    
+    gEngine.AudioClips.loadAudio(this.kPlayBGM);
+    gEngine.AudioClips.loadAudio(this.kgetFruit);
     gEngine.Textures.loadTexture(this.kBound);
 };
 
@@ -62,6 +67,11 @@ MyGame.prototype.unloadScene = function () {
     this.leftCamera.unloadScene();
     this.rightCamera.unloadScene();
     this.miniCamera.unloadScene();
+    
+    gEngine.AudioClips.stopBackgroundAudio();
+    
+    gEngine.AudioClips.unloadAudio(this.kPlayBGM);
+    gEngine.AudioClips.unloadAudio(this.kgetFruit);
     //gEngine.Fonts.unloadFont(this.fontofplayer);
     gEngine.Textures.unloadTexture(this.kHead1);
     gEngine.Textures.unloadTexture(this.kHead2);
@@ -118,7 +128,8 @@ MyGame.prototype.initialize = function () {
     this.mSnakeGroup = new SnakeGroup(2, this.kFontImage, this.kFontImage);
     this.mSnakeGroup.initialize(this.mSnake1, this.mSnake2);
     //</editor-fold>
-
+    gEngine.AudioClips.playBackgroundAudio(this.kPlayBGM);
+    
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -184,7 +195,7 @@ MyGame.prototype.update = function () {
     // load the next level
 //    console.log(this.mEnergy.getSumTotal(),this.fruit.getSumTotal());//
 
-
+    
     
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Q))
     {       
@@ -196,6 +207,7 @@ MyGame.prototype.update = function () {
     
 
 //    this.mEnergy.change(x,y,width);
+    //播放吃水果音效
 
 
     //console.log(this.fruit.getName());
@@ -204,15 +216,23 @@ MyGame.prototype.update = function () {
     //this.mSnakeGroup.deathCheck();
     //console.log(this.mSnakeGroup.getState());
 
-    
+//    console.log(this.score[0],this.score[1]);
     
     getScore.call(this);
+    
+    
     this.mEnergy.setSum();
     this.fruit.setSum();
     this.leftCamera.updateWCcenter(this.mSnake1);
     this.rightCamera.updateWCcenter(this.mSnake2);
     this.mEnergy.produce();
     this.fruit.produce();
+    
+            console.log(this.fruit.getName()[0],this.fruit.getName()[1]);
+    if(this.fruit.getName()[0] != null || this.fruit.getName()[1] != null){
+        gEngine.AudioClips.playACue(this.kgetFruit);
+    }
+    
 };
 
 //MyGame.prototype.changeWC=function(){
