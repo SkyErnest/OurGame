@@ -9,7 +9,7 @@
 function start(){
     
     
-   
+   this.kBGM = "assets/sound/BGM2.mp3";
    this.mCamera=null;
    this.img="assets/startindex.png";
    this.start=null;
@@ -20,6 +20,8 @@ gEngine.Core.inheritPrototype(start,Scene);
 start.prototype.loadScene=function(){
    
    gEngine.Textures.loadTexture(this.img);
+   
+   gEngine.AudioClips.loadAudio(this.kBGM);
    // this.mCamera.loadScene();
 //    this.leftCamera.loadScene();
 //    this.rightCamera.loadScene();
@@ -29,6 +31,8 @@ start.prototype.unloadScene=function(){
 //     this.leftCamera.unloadScene();
 //     this.rightCamera.unloadScene();
      //gEngine.Fonts.unloadFont(this.textfont);
+     gEngine.AudioClips.stopBackgroundAudio();
+     gEngine.Textures.loadTexture(this.kBGM);
      gEngine.Textures.unloadTexture(this.img);
      if(this.signal===0){
          var nextLevel=new MyGame();
@@ -53,6 +57,8 @@ start.prototype.initialize=function(){
     this.start.setColor([1, 1, 1, 0]);
     this.start.getXform().setPosition(50,33);
     this.start.getXform().setSize(100, 50);
+    
+    gEngine.AudioClips.playBackgroundAudio(this.kBGM);
 };
 
 

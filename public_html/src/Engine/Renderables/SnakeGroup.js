@@ -52,13 +52,24 @@ SnakeGroup.prototype.update=function(energy,fruit){
     energy.change(this.mSnakeGroup[1].getHeadPos()[0], this.mSnakeGroup[1].getHeadPos()[1], 5, 2);
     fruit.change(this.mSnakeGroup[0].getHeadPos()[0], this.mSnakeGroup[0].getHeadPos()[1], 5, 1);
     fruit.change(this.mSnakeGroup[1].getHeadPos()[0], this.mSnakeGroup[1].getHeadPos()[1], 5, 2);
+    
+
+    
     this.deathCheck();
     for(var i=0;i<this.num;i++){
-        if(this.deadArr[i]){
+        if(this.deadArr[i]&&this.mSnakeGroup[i].mInvincibility===false){
             this.mState[i]=true;
-            this.mSnakeGroup[i].initialize();
+            this.mSnakeGroup[i].newBorn();
         }
         this.mSnakeGroup[i].eat(energy.getSum()[i+1],fruit.getName()[i]);
+        if(this.mSnakeGroup[i].mReverseEat){
+            for(var j=0;j<this.num;j++){
+                this.mSnakeGroup[j].mReverse=true;
+                this.mSnakeGroup[j].mTime[1]+=300;
+            }
+            this.mSnakeGroup[i].mReverse=false;
+            this.mSnakeGroup[i].mReverseEat=false;
+        }
     }
 };
 SnakeGroup.prototype.getState=function(){return this.mState;};
