@@ -38,7 +38,7 @@ function MyGame() {
     this.mBound = null;
     this.mSnake1 = null;
     this.mSnake2 = null;
-    this.mSnakeGroup = null;
+    this.mSnakeGroup = new SnakeGroup(2, this.kFontImage, this.kFontImage);
     this.signal=null;
     this.score = [0, 0];
     this.state=[0,0];
@@ -54,6 +54,7 @@ MyGame.prototype.loadScene = function () {
     this.leftCamera.loadScene();
     this.rightCamera.loadScene();
     this.miniCamera.loadScene();
+    this.mSnakeGroup.loadScene();
     gEngine.Textures.loadTexture(this.kHead1);
     gEngine.Textures.loadTexture(this.kHead2);
     gEngine.Textures.loadTexture(this.kBody1);
@@ -70,7 +71,7 @@ MyGame.prototype.unloadScene = function () {
     this.leftCamera.unloadScene();
     this.rightCamera.unloadScene();
     this.miniCamera.unloadScene();
-    
+    this.mSnakeGroup.unloadScene();
     gEngine.AudioClips.stopBackgroundAudio();
     
     gEngine.AudioClips.unloadAudio(this.kPlayBGM);
@@ -134,7 +135,6 @@ MyGame.prototype.initialize = function () {
     this.mSnake1.initialize();
     this.mSnake2  = new NewSnake(this.kHead2,this.kBody2,this.rightCamera.getCamera().getWCCenter()[0],this.rightCamera.getCamera().getWCCenter()[1]);
     this.mSnake2.initialize();
-    this.mSnakeGroup = new SnakeGroup(2, this.kFontImage, this.kFontImage);
     this.mSnakeGroup.initialize(this.mSnake1, this.mSnake2);
     //</editor-fold>
     gEngine.AudioClips.playBackgroundAudio(this.kPlayBGM);
@@ -148,20 +148,7 @@ MyGame.prototype.draw = function () {
     // Step A: clear the canvas
     gEngine.Core.clearCanvas([0, 0, 0, 1]); // clear to light gray
 
-    // Step  B: Activate the drawing Camera
-    //this.mCamera.setupViewProjection();
-    // drawing the text output
-    //this.mSnake1.draw(this.mCamera.getVPMatrix());
-//    this.leftCamera.setupViewProjection();
-//    this.player1text.draw(this.leftCamera.getVPMatrix());
-
-//    this.rightCamera.draw();
-//    this.leftCamera.draw();
-
     this.createViews(this.mCameras);
-//    this.rightCamera.setupViewProjection();
-//    this.player2text.draw(this.leftCamera.getVPMatrix());
-//    this.miniCamera.setupViewProjection();
 };
 
 
@@ -171,12 +158,13 @@ MyGame.prototype.createViews = function (views) {
         this.mCamera.setupViewProjection();
 
         views[i].draw(this.mCamera.getVPMatrix());
-        this.mSnake1.draw(this.mCamera.getVPMatrix());
-        this.mSnake2.draw(this.mCamera.getVPMatrix());
+        this.mSnakeGroup.draw(this.mCamera.getVPMatrix(),i);
         this.mEnergy.draw(this.mCamera.getVPMatrix());
         this.fruit.draw(this.mCamera.getVPMatrix());
-        if (i !== 2)
+        if (i !== 2){
             this.mBound.draw(this.mCamera.getVPMatrix());
+        }
+        this.mSnakeGroup.drawEffects(this.mCamera.getVPMatrix(),i);
     }
 //    alert(view.getCamera().getWCCenter());
 
