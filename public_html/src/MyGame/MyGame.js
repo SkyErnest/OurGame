@@ -184,12 +184,13 @@ MyGame.prototype.createViews = function (views) {
 //  function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 var getScore = function () {//还需要加上杀死敌人的加分项
-    var energySum = this.mEnergy.getSumTotal();
-    var fruitSum = this.fruit.getSumTotal();
+
 
     this.score[0] = this.mEnergy.getSumTotal()[1] * 10 + this.fruit.getSumTotal()[1] * 50;
     this.score[1] = this.mEnergy.getSumTotal()[2] * 10 + this.fruit.getSumTotal()[2] * 50;
     //console.log(this.score[0], this.score[1]);
+    document.getElementById("one").innerHTML=this.score[0];
+    document.getElementById("two").innerHTML=this.score[1];
 }
 
 
