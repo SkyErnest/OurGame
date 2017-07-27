@@ -12,6 +12,7 @@ function GameOver(player){
    this.score=player;
    this.mCamera=null;
    this.textfont="assets/fonts/Consolas-72";
+   this.kBGM = "assets/sound/BGM";
    this.player1text=[];
    this.player2text=[];
    this.text=[];
@@ -115,6 +116,10 @@ GameOver.prototype.update=function(){
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.S)){
             this.signal=0;
            gEngine.GameLoop.stop();
+           document.getElementById("oneLife").innerHTML= 3;
+           document.getElementById("twoLife").innerHTML= 3;
+           document.getElementById("one").innerHTML=0;
+           document.getElementById("two").innerHTML=0;
      }  
 };
 
