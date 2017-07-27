@@ -96,6 +96,15 @@ NewSnake.prototype.move=function(){
 };
 NewSnake.prototype.update=function(up,down,left,right,speed){
 
+    if(this.mInvincibility){
+        for(var i=0;i<this.mLength;i++){
+            var m=this.mNewSnake[i].getColor();
+            m[3]+=-0.02;
+            if(m[3]<=0){m[3]=1;}
+            this.mNewSnake[i].setColor(m);
+        }
+    }
+    
     if(this.mReverse){
         var a=up;
         up=down;
@@ -131,7 +140,7 @@ NewSnake.prototype.update=function(up,down,left,right,speed){
     }
     this.move();
     if(this.deathCheck()){
-        this.initialize();
+        this.newBorn();
         return true;
     }
     return false;
@@ -158,6 +167,7 @@ NewSnake.prototype.eat=function(num,fruit){
         case "Water":
             this.mReverse=true;
             this.mTime[1]+=300;
+            break;
         case "Straw":
             this.mInvincibility=true;
             this.mTime[2]+=300;
@@ -173,9 +183,17 @@ NewSnake.prototype.eat=function(num,fruit){
                         this.mRushing=false;
                         break;
                     case 1:
+                        this.mReverse=false;
                         break;
                     case 2:
                         this.mInvincibility=false;
+                            for(var i=0;i<this.mLength;i++){
+                                var m=this.mNewSnake[i].getColor();
+                                m[3]=0;
+                                this.mNewSnake[i].setColor(m);
+                            }
+                        break;
+                        
                 }
             }
         }
@@ -214,4 +232,9 @@ NewSnake.prototype.setSpeed=function(speed){
             
         }
     }
+};
+NewSnake.prototype.newBorn=function(){
+    this.initialize();
+    this.mInvincibility=true;
+    this.mTime[2]=300;
 };

@@ -54,9 +54,9 @@ SnakeGroup.prototype.update=function(energy,fruit){
     fruit.change(this.mSnakeGroup[1].getHeadPos()[0], this.mSnakeGroup[1].getHeadPos()[1], 5, 2);
     this.deathCheck();
     for(var i=0;i<this.num;i++){
-        if(this.deadArr[i]){
+        if(this.deadArr[i]&&this.mSnakeGroup[i].mInvincibility===false){
             this.mState[i]=true;
-            this.mSnakeGroup[i].initialize();
+            this.mSnakeGroup[i].newBorn();
         }
         this.mSnakeGroup[i].eat(energy.getSum()[i+1],fruit.getName()[i]);
     }
