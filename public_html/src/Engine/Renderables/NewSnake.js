@@ -25,6 +25,7 @@ function NewSnake(kSnakeHead,kSnakeBody,xPos,yPos){
     this.mEatNum=null;
     this.mInvincibility=null;
     this.mRushing=null;
+    this.mReverse=null;
 }
 var DIRECTION={
     N:4,
@@ -35,6 +36,7 @@ var DIRECTION={
 NewSnake.prototype.getSnake=function(){return this.mNewSnake;};
 NewSnake.prototype.getSnakeLen=function(){return this.mLength;};
 NewSnake.prototype.initialize = function () {
+    this.mReverse=false;
     this.mInvincibility=false;
     this.mRushing=false;
     this.mSpeed=2;
@@ -94,7 +96,14 @@ NewSnake.prototype.move=function(){
 };
 NewSnake.prototype.update=function(up,down,left,right,speed){
 
-
+    if(this.mReverse){
+        var a=up;
+        up=down;
+        down=a;
+        a=left;
+        left=right;
+        right=a;
+    }
     if (gEngine.Input.isKeyPressed(right)) {
         if(this.mDir!==DIRECTION.W){
             this.mDir=DIRECTION.E;   
@@ -147,12 +156,11 @@ NewSnake.prototype.eat=function(num,fruit){
             this.mRushing=true;
             break;
         case "Water":
-            this.mTime[0]+=300;
-            this.setSpeed(6);
-            this.mRushing=true;
-            break;
+            this.mReverse=true;
+            this.mTime[1]+=300;
         case "Straw":
             this.mInvincibility=true;
+            this.mTime[2]+=300;
             break;
     }
     for(var i=0;i<this.mTime.length;i++){

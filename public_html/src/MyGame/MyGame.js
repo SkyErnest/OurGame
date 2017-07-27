@@ -199,7 +199,7 @@ MyGame.prototype.update = function () {
     //console.log(this.fruit.getName()[0]);
     this.mSnakeGroup.update(this.mEnergy,this.fruit);
     //this.mSnakeGroup.deathCheck();
-    console.log(this.mSnakeGroup.getState());
+    //console.log(this.mSnakeGroup.getState());
 
     
     
