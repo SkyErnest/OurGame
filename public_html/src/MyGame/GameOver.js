@@ -12,6 +12,7 @@ function GameOver(player){
    this.score=player;
    this.mCamera=null;
    this.textfont="assets/fonts/Consolas-72";
+   this.kBGM = "assets/sound/BGM.mp3";
    this.player1text=[];
    this.player2text=[];
    this.text=[];
@@ -38,12 +39,15 @@ gEngine.Core.inheritPrototype(GameOver,Scene);
 
 GameOver.prototype.loadScene=function(){
    gEngine.Fonts.loadFont(this.textfont);
+   gEngine.AudioClips.loadAudio(this.kBGM);
    ///gEngine.Textures.loadTexture(this.firework);
 };
 
 GameOver.prototype.unloadScene=function(){
 //     this.leftCamera.unloadScene();
 //     this.rightCamera.unloadScene();
+    gEngine.AudioClips.stopBackgroundAudio();
+    gEngine.AudioClips.unloadAudio(this.kBGM);
      gEngine.Fonts.unloadFont(this.textfont);
     // gEngine.Textures.unloadTexture(this.mHeart);
     // gEngine.Textures.loadTexture(this.firework);
@@ -83,6 +87,7 @@ GameOver.prototype.initialize=function(){
     this.restartText.setFont(this.textfont);
     this._initText(this.restartText, 5, 20, [1, 1, 1, 1], 1);
     
+    gEngine.AudioClips.playBackgroundAudio(this.kBGM);
 //    this.mfirework=new TextureRenderable(this.firework);
 //    this.mfirework.setColor([1,1,1,0]);
 //    this.mfirework.getXform().setPosition(44,35);
@@ -115,6 +120,10 @@ GameOver.prototype.update=function(){
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.S)){
             this.signal=0;
            gEngine.GameLoop.stop();
+           document.getElementById("oneLife").innerHTML= 3;
+           document.getElementById("twoLife").innerHTML= 3;
+           document.getElementById("one").innerHTML=0;
+           document.getElementById("two").innerHTML=0;
      }  
 };
 
