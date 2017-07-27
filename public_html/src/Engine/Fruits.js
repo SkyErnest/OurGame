@@ -65,13 +65,15 @@ Fruits.prototype.produce = function () {
     if (this.flag === 600) {
         var randx = 0;
         var randy = 0;
+        var rand = 0;
         var fruitName = "";
         randx = Math.random();
         randy = Math.random();
-        if (randx > 0.95) {
+        rand = Math.random();
+        if (rand > 0.95) {
             this.fruit = new TextureRenderable(this.kStraw);
             fruitName = "Straw";
-        } else if (randx <= 0.95 && randx > 0.6) {
+        } else if (rand > 0.6) {
             this.fruit = new TextureRenderable(this.kWater);
             fruitName = "Water";
         } else{
