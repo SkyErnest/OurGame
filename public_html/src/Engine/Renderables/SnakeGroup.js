@@ -59,6 +59,14 @@ SnakeGroup.prototype.update=function(energy,fruit){
             this.mSnakeGroup[i].newBorn();
         }
         this.mSnakeGroup[i].eat(energy.getSum()[i+1],fruit.getName()[i]);
+        if(this.mSnakeGroup[i].mReverseEat){
+            for(var j=0;j<this.num;j++){
+                this.mSnakeGroup[j].mReverse=true;
+                this.mSnakeGroup[j].mTime[1]+=300;
+            }
+            this.mSnakeGroup[i].mReverse=false;
+            this.mSnakeGroup[i].mReverseEat=false;
+        }
     }
 };
 SnakeGroup.prototype.getState=function(){return this.mState;};

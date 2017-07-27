@@ -25,6 +25,7 @@ function NewSnake(kSnakeHead,kSnakeBody,xPos,yPos){
     this.mEatNum=null;
     this.mInvincibility=null;
     this.mRushing=null;
+    this.mReverseEat=null;
     this.mReverse=null;
 }
 var DIRECTION={
@@ -39,7 +40,7 @@ NewSnake.prototype.initialize = function () {
     this.mReverse=false;
     this.mInvincibility=false;
     this.mRushing=false;
-    this.mSpeed=2;
+    this.mSpeed=3;
     for(var i=0;i<this.mLength;i++){
             this.mNewSnake[i]=null;
     }
@@ -135,8 +136,8 @@ NewSnake.prototype.update=function(up,down,left,right,speed){
         }
     }
     if(gEngine.Input.isKeyClicked(speed)&&this.mRushing===false){
-        if(this.mSpeed===2){this.setSpeed(4);}
-        else{this.setSpeed(2);}
+        if(this.mSpeed===3){this.setSpeed(6);}
+        else{this.setSpeed(3);}
     }
     this.move();
     if(this.deathCheck()){
@@ -161,12 +162,11 @@ NewSnake.prototype.eat=function(num,fruit){
     switch(fruit){
         case "Peach":
             this.mTime[0]+=300;
-            this.setSpeed(10);
+            this.setSpeed(12);
             this.mRushing=true;
             break;
         case "Water":
-            this.mReverse=true;
-            this.mTime[1]+=300;
+            this.mReverseEat=true;
             break;
         case "Straw":
             this.mInvincibility=true;
@@ -179,7 +179,7 @@ NewSnake.prototype.eat=function(num,fruit){
             if(this.mTime[i]===0){
                 switch(i){
                     case 0:
-                        this.setSpeed(2);
+                        this.setSpeed(3);
                         this.mRushing=false;
                         break;
                     case 1:
