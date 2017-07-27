@@ -39,7 +39,7 @@ function MyGame() {
     this.mSnakeGroup = null;
     this.signal=null;
     this.score = [0, 0];
-    
+    this.state=[0,0];
    
 
 }
@@ -83,10 +83,10 @@ MyGame.prototype.unloadScene = function () {
 
     // unload the fonts
     // Step B: starts the next level
-    if(this.signal===0){
-    var nextLevel = new Reborn();  // next level to be loaded
-    gEngine.Core.startScene(nextLevel);
-}
+//    if(this.signal===0){
+//    var nextLevel = new Reborn();  // next level to be loaded
+//    gEngine.Core.startScene(nextLevel);
+//}
 
     if(this.signal===1){
     
@@ -202,18 +202,26 @@ MyGame.prototype.update = function () {
     // load the next level
 //    console.log(this.mEnergy.getSumTotal(),this.fruit.getSumTotal());//
 
+    if(this.mSnakeGroup.getState()[0]===true){
+        this.state[0]++;
+    }
+    if(this.mSnakeGroup.getState()[1]===true){
+        this.state[1]++;
+    }
+    if(this.state[0]>=3||this.state[1]>=3){
+        this.signal=1;
+        gEngine.GameLoop.stop();
+    }
     
-    
-    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Q))
-    {       
-           this.signal=0;
-           gEngine.GameLoop.stop();
-      }
-      if(gEngine.Input.isKeyClicked(gEngine.Input.keys.P))
-    {       
-           this.signal=1;
-           gEngine.GameLoop.stop();
-      }
+//    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Q))
+//    {       
+//           this.signal=0;
+//           gEngine.GameLoop.stop();
+//      }
+//      if(gEngine.Input.isKeyClicked(gEngine.Input.keys.P))
+//    {       
+//           
+//      }
    this.leftCamera.update();   
    this.rightCamera.update();   
     
@@ -240,7 +248,7 @@ MyGame.prototype.update = function () {
     this.mEnergy.produce();
     this.fruit.produce();
     
-            console.log(this.fruit.getName()[0],this.fruit.getName()[1]);
+            //console.log(this.fruit.getName()[0],this.fruit.getName()[1]);
     if(this.fruit.getName()[0] != null || this.fruit.getName()[1] != null){
         gEngine.AudioClips.playACue(this.kgetFruit);
     }
