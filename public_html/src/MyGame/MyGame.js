@@ -13,7 +13,9 @@
 
 function MyGame() {
     // textures: 
-
+    this.mSpeedUpImage=null;
+    this.mReverseImage=null;
+    this.mInvincibilityImage=null;
     this.kFontImage = "assets/Consolas-72.png";
     this.kBound = "assets/Bound.png";
     this.kHead1 = "assets/snake1head.png";
@@ -184,13 +186,10 @@ MyGame.prototype.createViews = function (views) {
 //  function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 var getScore = function () {//还需要加上杀死敌人的加分项
-    var energySum = this.mEnergy.getSumTotal();
-    var fruitSum = this.fruit.getSumTotal();
-
     this.score[0] = this.mEnergy.getSumTotal()[1] * 10 + this.fruit.getSumTotal()[1] * 50;
     this.score[1] = this.mEnergy.getSumTotal()[2] * 10 + this.fruit.getSumTotal()[2] * 50;
     //console.log(this.score[0], this.score[1]);
-}
+};
 
 
 
@@ -239,9 +238,8 @@ MyGame.prototype.update = function () {
     this.rightCamera.updateWCcenter(this.mSnake2);
     this.mEnergy.produce();
     this.fruit.produce();
-    
-            console.log(this.fruit.getName()[0],this.fruit.getName()[1]);
-    if(this.fruit.getName()[0] != null || this.fruit.getName()[1] != null){
+
+    if(this.fruit.getName()[0] !== null || this.fruit.getName()[1] !== null){
         gEngine.AudioClips.playACue(this.kgetFruit);
     }
     
