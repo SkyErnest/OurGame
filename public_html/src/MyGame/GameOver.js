@@ -48,7 +48,7 @@ GameOver.prototype.unloadScene=function(){
     // gEngine.Textures.unloadTexture(this.mHeart);
     // gEngine.Textures.loadTexture(this.firework);
      
-    if(signal===0){
+    if(this.signal===0){
      var nextLevel=new MyGame();
      gEngine.Core.startScene(nextLevel);
     }
@@ -113,6 +113,7 @@ GameOver.prototype.draw=function(){
 GameOver.prototype.update=function(){
     
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.S)){
+            this.signal=0;
            gEngine.GameLoop.stop();
      }  
 };

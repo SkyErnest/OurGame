@@ -41,7 +41,7 @@ function MyGame() {
     this.mSnakeGroup = null;
     this.signal=null;
     this.score = [0, 0];
-    
+    this.state=[0,0];
    
 
 }
@@ -85,10 +85,10 @@ MyGame.prototype.unloadScene = function () {
 
     // unload the fonts
     // Step B: starts the next level
-    if(this.signal===0){
-    var nextLevel = new Reborn();  // next level to be loaded
-    gEngine.Core.startScene(nextLevel);
-}
+//    if(this.signal===0){
+//    var nextLevel = new Reborn();  // next level to be loaded
+//    gEngine.Core.startScene(nextLevel);
+//}
 
     if(this.signal===1){
     
@@ -189,7 +189,10 @@ var getScore = function () {//还需要加上杀死敌人的加分项
     this.score[0] = this.mEnergy.getSumTotal()[1] * 10 + this.fruit.getSumTotal()[1] * 50;
     this.score[1] = this.mEnergy.getSumTotal()[2] * 10 + this.fruit.getSumTotal()[2] * 50;
     //console.log(this.score[0], this.score[1]);
+    document.getElementById("one").innerHTML=this.score[0];
+    document.getElementById("two").innerHTML=this.score[1];
 };
+
 
 
 
@@ -201,18 +204,26 @@ MyGame.prototype.update = function () {
     // load the next level
 //    console.log(this.mEnergy.getSumTotal(),this.fruit.getSumTotal());//
 
+    if(this.mSnakeGroup.getState()[0]===true){
+        this.state[0]++;
+    }
+    if(this.mSnakeGroup.getState()[1]===true){
+        this.state[1]++;
+    }
+    if(this.state[0]>=3||this.state[1]>=3){
+        this.signal=1;
+        gEngine.GameLoop.stop();
+    }
     
-    
-    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Q))
-    {       
-           this.signal=0;
-           gEngine.GameLoop.stop();
-      }
-      if(gEngine.Input.isKeyClicked(gEngine.Input.keys.P))
-    {       
-           this.signal=1;
-           gEngine.GameLoop.stop();
-      }
+//    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Q))
+//    {       
+//           this.signal=0;
+//           gEngine.GameLoop.stop();
+//      }
+//      if(gEngine.Input.isKeyClicked(gEngine.Input.keys.P))
+//    {       
+//           
+//      }
    this.leftCamera.update();   
    this.rightCamera.update();   
     

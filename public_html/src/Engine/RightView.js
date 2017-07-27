@@ -11,17 +11,17 @@ function RightView(){
     
     //this.mTime=0;
     this.rightCamera = null;
-    this.player2text=null;
-    this.fontofplayer="assets/fonts/Consolas-72";
+//    this.player2text=null;
+//    this.fontofplayer="assets/fonts/Consolas-72";
 }
 gEngine.Core.inheritPrototype(RightView, Scene);
 
 RightView.prototype.loadScene = function () {
-    gEngine.Fonts.loadFont(this.fontofplayer);
+    //gEngine.Fonts.loadFont(this.fontofplayer);
 };
 
 RightView.prototype.unloadScene = function () {
-    gEngine.Fonts.unloadFont(this.fontofplayer);
+    //gEngine.Fonts.unloadFont(this.fontofplayer);
     // Step B: starts the next level
     //var nextLevel = new GameOver();  // next level to be loaded
    // gEngine.Core.startScene(nextLevel);
@@ -35,21 +35,21 @@ RightView.prototype.initialize=function(){
     );
     
     this.rightCamera.setBackgroundColor([1,1,1,1]);
-     this.player2text=new FontRenderable("player2");
-    this.player2text.setFont(this.fontofplayer);
-     this._initText(this.player2text,83,83,[0,0,1,1],4);
+//     this.player2text=new FontRenderable("player2");
+//    this.player2text.setFont(this.fontofplayer);
+//     this._initText(this.player2text,83,83,[0,0,1,1],4);
 };
 
-RightView.prototype._initText = function (font, posX, posY, color, textH) {
-    font.setColor(color);
-    font.getXform().setPosition(posX, posY);
-    font.setTextHeight(textH);
-};
+//RightView.prototype._initText = function (font, posX, posY, color, textH) {
+//    font.setColor(color);
+//    font.getXform().setPosition(posX, posY);
+//    font.setTextHeight(textH);
+//};
 
 RightView.prototype.draw = function (vpMatrix) {
     // Step A: clear the canvas
 //   gEngine.Core.clearCanvas([1, 1, 1, 1]); // clear to light gray
-    this.player2text.draw(vpMatrix); 
+    //this.player2text.draw(vpMatrix); 
 };
 
 RightView.prototype.getCamera = function() {

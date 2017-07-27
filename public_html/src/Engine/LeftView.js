@@ -15,8 +15,8 @@ function LeftView(){
    // this.pos=[];
     
 
-    this.player1text=null;
-    this.fontofplayer="assets/fonts/Consolas-72";
+//    this.player1text=null;
+//    this.fontofplayer="assets/fonts/Consolas-72";
     
 
     
@@ -24,11 +24,11 @@ function LeftView(){
 gEngine.Core.inheritPrototype(LeftView, Scene);
 
 LeftView.prototype.loadScene = function () {
-    gEngine.Fonts.loadFont(this.fontofplayer);
+   // gEngine.Fonts.loadFont(this.fontofplayer);
 };
 
 LeftView.prototype.unloadScene = function () {
-    gEngine.Fonts.unloadFont(this.fontofplayer);
+    //gEngine.Fonts.unloadFont(this.fontofplayer);
     // Step B: starts the next level
 //    var nextLevel = new GameOver();  // next level to be loaded
 //    gEngine.Core.startScene(nextLevel);
@@ -42,21 +42,21 @@ LeftView.prototype.initialize=function(){
     );
     
     this.leftCamera.setBackgroundColor([1,1,1,1]);
-     this.player1text=new FontRenderable("player1");
-    this.player1text.setFont(this.fontofplayer);
-    this._initText(this.player1text,5,83,[1,0,0,1],4);
+//     this.player1text=new FontRenderable("player1");
+//    this.player1text.setFont(this.fontofplayer);
+//    this._initText(this.player1text,5,83,[1,0,0,1],4);
 };
 
-LeftView.prototype._initText = function (font, posX, posY, color, textH) {
-    font.setColor(color);
-    font.getXform().setPosition(posX, posY);
-    font.setTextHeight(textH);
-};
+//LeftView.prototype._initText = function (font, posX, posY, color, textH) {
+//    font.setColor(color);
+//    font.getXform().setPosition(posX, posY);
+//    font.setTextHeight(textH);
+//};
 
 LeftView.prototype.draw = function (vpMatrix) {
     // Step A: clear the canvas
 //    gEngine.Core.clearCanvas([1, 1, 1, 1]); // clear to light gray
-    this.player1text.draw(vpMatrix);
+//    this.player1text.draw(vpMatrix);
 };
 
 LeftView.prototype.getCamera = function() {
@@ -76,10 +76,10 @@ LeftView.prototype.getCamera = function() {
  
  
  LeftView.prototype.update=function(){
-      if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)){
-           gEngine.GameLoop.stop();
-       }
-     
+//      if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)){
+//           gEngine.GameLoop.stop();
+//       }
+//     
 //    this.leftCamera.setWCCenter(pos[0],pos[1]);
 
 

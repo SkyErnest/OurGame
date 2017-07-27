@@ -57,12 +57,27 @@
         var myGame = new start();
         gEngine.Core.initializeEngineCore('GLCanvas', myGame);
      ">
-        <div align="center">
+        
+        <div id="leftScore" style="float: left;">
+            <h2>Player 1's score:</h2>
+            <p id="one">0</p>
+            <h2>Player 1's life:</h2>
+            <p id="oneLife">3</p>
+        </div>
+        <div id="rightScore" style="float:right">
+            <h2>Player 2's score:</h2>
+            <p id="two">0</p>
+            <h2>Player 2's life:</h2>
+            <p id="twoLife">3</p>
+        </div>
+        <div align="center" style="clear:both;">
         <canvas id="GLCanvas" width="860" height="480">
             <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
             Your browser does not support the HTML5 canvas.
             <!-- this message will show only if WebGL clearing failed -->
         </canvas>
         </div>
+        
+        
     </body>
 </html>
