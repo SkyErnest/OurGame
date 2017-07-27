@@ -38,6 +38,7 @@ gEngine.Input = (function () {
 
         // Alphabets
         A : 65,
+        C:67,
         D : 68,
         E : 69,
         F : 70,
