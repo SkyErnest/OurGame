@@ -35,7 +35,7 @@ function MyGame() {
     this.mSnake1 = null;
     this.mSnake2 = null;
     this.mSnakeGroup = null;
-
+    this.signal=null;
     this.score = [0, 0];
 
 
@@ -72,8 +72,10 @@ MyGame.prototype.unloadScene = function () {
 
     // unload the fonts
     // Step B: starts the next level
+    if(this.signal===0){
     var nextLevel = new Reborn();  // next level to be loaded
     gEngine.Core.startScene(nextLevel);
+}
 };
 
 MyGame.prototype.initialize = function () {
@@ -120,7 +122,8 @@ MyGame.prototype.initialize = function () {
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
-// importantly, make sure to _NOT_ change any state.
+// importantly, make sure to _NOT_ change any s
+// tate.
 MyGame.prototype.draw = function () {
     // Step A: clear the canvas
     gEngine.Core.clearCanvas([0, 0, 0, 1]); // clear to light gray
@@ -185,7 +188,7 @@ MyGame.prototype.update = function () {
     
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Q))
     {       
-           this.signel=0;
+           this.signal=0;
            gEngine.GameLoop.stop();
       }
    this.leftCamera.update();   
