@@ -206,11 +206,11 @@ MyGame.prototype.update = function () {
 
     if(this.mSnakeGroup.getState()[0]===true){
         this.state[0]++;
-        document.getElementById("oneLife").innerHTML= 3 - this.state[0];
+        document.getElementById("one" + this.state[0]).style.display="none";
     }
     if(this.mSnakeGroup.getState()[1]===true){
         this.state[1]++;
-        document.getElementById("twoLife").innerHTML= 3 - this.state[1];
+        document.getElementById("two" + this.state[1]).style.display="none";
     }
     if(this.state[0]>=3||this.state[1]>=3){
         this.signal=1;
