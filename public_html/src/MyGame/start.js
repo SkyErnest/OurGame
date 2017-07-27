@@ -32,7 +32,7 @@ start.prototype.unloadScene=function(){
 //     this.rightCamera.unloadScene();
      //gEngine.Fonts.unloadFont(this.textfont);
      gEngine.AudioClips.stopBackgroundAudio();
-     gEngine.Textures.loadTexture(this.kBGM);
+     gEngine.AudioClips.unloadAudio(this.kBGM);
      gEngine.Textures.unloadTexture(this.img);
      if(this.signal===0){
          var nextLevel=new MyGame();
