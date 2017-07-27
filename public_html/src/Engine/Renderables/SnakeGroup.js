@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/* global gEngine */
+
 function SnakeGroup(num,headImage,bodyImage){
     this.num=num;
     this.mSnakeGroup=[];
@@ -10,6 +12,7 @@ function SnakeGroup(num,headImage,bodyImage){
     this.bodyImage=bodyImage;
     this.deadArr=[];
     this.CRASH_DIS=4;
+    this.mState=[];
 }
 SnakeGroup.prototype.initialize=function(snake1,snake2){
 
@@ -36,16 +39,27 @@ SnakeGroup.prototype.deathCheck=function(){
     }
     return a;
 };
-SnakeGroup.prototype.update=function(energyNum,fruit){
-
-   for(var i=2;i<this.num;i++){
-       this.mSnakeGroup[i].update();
-   }
-   for(var i=0;i<this.num;i++){
-       if(this.deadArr[i]){
-           this.mSnakeGroup[i].initialize();
-       }
-       this.mSnakeGroup[i].eat(energyNum[i+1],fruit[i]);
-   }
+SnakeGroup.prototype.update=function(energy,fruit){
+    for(var i=0;i<this.num;i++){
+        this.mState[i]=false;
+    }
+    this.mState[1]=this.mSnakeGroup[1].update(gEngine.Input.keys.Up,gEngine.Input.keys.Down,gEngine.Input.keys.Left,gEngine.Input.keys.Right,gEngine.Input.keys.Enter);
+    this.mState[0]=this.mSnakeGroup[0].update(gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D,gEngine.Input.keys.Space);
+    for(var i=2;i<this.num;i++){
+        this.mSnakeGroup[i].update();
+    }
+    energy.change(this.mSnakeGroup[0].getHeadPos()[0], this.mSnakeGroup[0].getHeadPos()[1], 5, 1);
+    energy.change(this.mSnakeGroup[1].getHeadPos()[0], this.mSnakeGroup[1].getHeadPos()[1], 5, 2);
+    fruit.change(this.mSnakeGroup[0].getHeadPos()[0], this.mSnakeGroup[0].getHeadPos()[1], 5, 1);
+    fruit.change(this.mSnakeGroup[1].getHeadPos()[0], this.mSnakeGroup[1].getHeadPos()[1], 5, 2);
+    this.deathCheck();
+    for(var i=0;i<this.num;i++){
+        if(this.deadArr[i]){
+            this.mState[i]=true;
+            this.mSnakeGroup[i].initialize();
+        }
+        this.mSnakeGroup[i].eat(energy.getSum()[i+1],fruit.getName()[i]);
+    }
 };
+SnakeGroup.prototype.getState=function(){return this.mState;};
 
