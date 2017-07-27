@@ -92,7 +92,7 @@ NewSnake.prototype.move=function(){
         
         //for(var i=0;i<this.mLength;i++){
 };
-NewSnake.prototype.update=function(up,down,left,right,speed,fruit){
+NewSnake.prototype.update=function(up,down,left,right,speed){
 
 
     if (gEngine.Input.isKeyPressed(right)) {
@@ -123,7 +123,9 @@ NewSnake.prototype.update=function(up,down,left,right,speed,fruit){
     this.move();
     if(this.deathCheck()){
         this.initialize();
+        return true;
     }
+    return false;
 };
 
 NewSnake.prototype.eat=function(num,fruit){

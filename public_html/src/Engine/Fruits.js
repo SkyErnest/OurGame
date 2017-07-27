@@ -124,7 +124,6 @@ Fruits.prototype.draw = function (VPMatrix) {
 Fruits.prototype.change = function (x, y, width, id) { //当蛇吃到之后设置内容为0,当前蛇头坐标和蛇头的宽度
     //设置0，并完成累加
 //    console.log(x,y,width);
-
     var bl = x - width / 2;
     var br = x + width / 2;
     var t = y + width / 2;

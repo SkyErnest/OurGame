@@ -194,21 +194,15 @@ MyGame.prototype.update = function () {
    this.leftCamera.update();   
    this.rightCamera.update();   
     
-    this.mSnake2.update(gEngine.Input.keys.Up,gEngine.Input.keys.Down,gEngine.Input.keys.Left,gEngine.Input.keys.Right,gEngine.Input.keys.Enter);
-    this.mSnake1.update(gEngine.Input.keys.W,gEngine.Input.keys.S,gEngine.Input.keys.A,gEngine.Input.keys.D,gEngine.Input.keys.Space,this.fruit.getName()[0]);
+
 //    this.mEnergy.change(x,y,width);
-    this.mEnergy.change(this.mSnake1.getHeadPos()[0], this.mSnake1.getHeadPos()[1], 5, 1);
-    this.mEnergy.change(this.mSnake2.getHeadPos()[0], this.mSnake2.getHeadPos()[1], 5, 2);
 
-    this.fruit.change(this.mSnake1.getHeadPos()[0], this.mSnake1.getHeadPos()[1], 5, 1);
-    this.fruit.change(this.mSnake2.getHeadPos()[0], this.mSnake2.getHeadPos()[1], 5, 2);
 
-    console.log(this.fruit.getName());
+    //console.log(this.fruit.getName());
     //console.log(this.fruit.getName()[0]);
-    this.mSnakeGroup.update(this.mEnergy.getSum(),this.fruit.getName());
-    this.mSnakeGroup.deathCheck();
-
-    //console.log(this.mEnergy.getSum());
+    this.mSnakeGroup.update(this.mEnergy,this.fruit);
+    //this.mSnakeGroup.deathCheck();
+    console.log(this.mSnakeGroup.getState());
 
     
     
