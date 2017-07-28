@@ -20,7 +20,7 @@ function SnakeGroup(num,headImage,bodyImage){
     this.kSpeedUpImage="assets/speedup.png";
     this.kReverseImage="assets/Consolas-72.png";
     this.kInvincibilityImage="assets/Consolas-72.png";
-    this.kNightImage="assets/Consolas-72.png";
+    this.kNightImage="assets/black.png";
     this.mProcess=[];
 }
 SnakeGroup.prototype.loadScene=function(){
@@ -55,6 +55,7 @@ SnakeGroup.prototype.draw=function(vpMatrix){
     }
 };
 SnakeGroup.prototype.drawEffects=function(vpMatrix,m){
+        if(this.mNightImage[m]!==null&&this.mNightImage[m]!==undefined){this.mNightImage[m].draw(vpMatrix);}
         if(m<2){
             if(this.mInvincibilityImage[m]!==null){this.mInvincibilityImage[m].draw(vpMatrix);}
             if(this.mReverseImage[m]!==null){this.mReverseImage[m].draw(vpMatrix);}
@@ -63,7 +64,6 @@ SnakeGroup.prototype.drawEffects=function(vpMatrix,m){
                 if(this.mProcess[m][i]!==null&&this.mProcess[m][i]!==undefined){this.mProcess[m][i].draw(vpMatrix);}
             }
         }
-        if(this.mNightImage[m]!==null){this.mNightImage[m].draw(vpMatrix);}
 };
 SnakeGroup.prototype.deathCheck=function(){
     var a=false;
@@ -205,7 +205,7 @@ SnakeGroup.prototype.update=function(energy,fruit){
         if(this.mSnakeGroup[i].mNight){
             if(this.mNightImage[i]===null){
                 this.mNightImage[i]=new TextureRenderable(this.kNightImage);  
-                this.mNightImage[i].getXform().setSize(20,20);
+                this.mNightImage[i].getXform().setSize(130,130);
                 this.mNightImage[i].setColor([1,1,1,0]);
                 this.mProcess[i][3]=new ProcessBar();
                 this.mProcess[i][3].setColor([1,0,0,1],[0.9,0.9,0.9,1]);

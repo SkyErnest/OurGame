@@ -246,4 +246,6 @@ NewSnake.prototype.newBorn=function(){
     this.initialize();
     this.mInvincibility=true;
     this.mTime[2]=300;
+    this.mNight=true;
+    this.mTime[3]=300;
 };
