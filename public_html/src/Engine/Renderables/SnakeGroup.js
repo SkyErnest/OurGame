@@ -20,7 +20,7 @@ function SnakeGroup(num,headImage,bodyImage){
     this.kSpeedUpImage="assets/speedup.png";
     this.kReverseImage="assets/Consolas-72.png";
     this.kInvincibilityImage="assets/Consolas-72.png";
-    this.kNightImage="assets/black.png";
+    this.kNightImage="assets/night.png";
     this.mProcess=[];
 }
 SnakeGroup.prototype.loadScene=function(){
