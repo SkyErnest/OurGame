@@ -16,26 +16,31 @@ function SnakeGroup(num,headImage,bodyImage){
     this.mSpeedUpImage=[];
     this.mReverseImage=[];
     this.mInvincibilityImage=[];
+    this.mNightImage=[];
     this.kSpeedUpImage="assets/speedup.png";
     this.kReverseImage="assets/Consolas-72.png";
     this.kInvincibilityImage="assets/Consolas-72.png";
+    this.kNightImage="assets/Consolas-72.png";
     this.mProcess=[];
 }
 SnakeGroup.prototype.loadScene=function(){
     gEngine.Textures.loadTexture(this.kSpeedUpImage);
     gEngine.Textures.loadTexture(this.kReverseImage);
     gEngine.Textures.loadTexture(this.kInvincibilityImage);
+    gEngine.Textures.loadTexture(this.kNightImage);
 };
 SnakeGroup.prototype.unloadScene=function(){
     gEngine.Textures.unloadTexture(this.kSpeedUpImage);
     gEngine.Textures.unloadTexture(this.kReverseImage);
     gEngine.Textures.unloadTexture(this.kInvincibilityImage);
+    gEngine.Textures.unloadTexture(this.kNightImage);
 };
 SnakeGroup.prototype.initialize=function(snake1,snake2){
     for(var i=0;i<this.num;i++){
         this.mInvincibilityImage[i]=null;
         this.mReverseImage[i]=null;
         this.mSpeedUpImage[i]=null;
+        this.mNightImage[i]=null;
         this.mProcess[i]=[];
     }
     this.mSnakeGroup[0]=snake1;
@@ -54,10 +59,11 @@ SnakeGroup.prototype.drawEffects=function(vpMatrix,m){
             if(this.mInvincibilityImage[m]!==null){this.mInvincibilityImage[m].draw(vpMatrix);}
             if(this.mReverseImage[m]!==null){this.mReverseImage[m].draw(vpMatrix);}
             if(this.mSpeedUpImage[m]!==null){this.mSpeedUpImage[m].draw(vpMatrix);}
-            for(var i=0;i<3;i++){
+            for(var i=0;i<4;i++){
                 if(this.mProcess[m][i]!==null&&this.mProcess[m][i]!==undefined){this.mProcess[m][i].draw(vpMatrix);}
             }
         }
+        if(this.mNightImage[m]!==null){this.mNightImage[m].draw(vpMatrix);}
 };
 SnakeGroup.prototype.deathCheck=function(){
     var a=false;
@@ -120,6 +126,14 @@ SnakeGroup.prototype.update=function(energy,fruit){
             }
             this.mSnakeGroup[i].mReverse=false;
             this.mSnakeGroup[i].mReverseEat=false;
+        }
+        if(this.mSnakeGroup[i].mNightEat){
+            for(var j=0;j<this.num;j++){
+                this.mSnakeGroup[j].mNight=true;
+                this.mSnakeGroup[j].mTime[3]+=300;
+            }
+            this.mSnakeGroup[i].mNight=false;
+            this.mSnakeGroup[i].mNightEat=false;
         }
     }
     for(var i=0;i<this.num;i++){
@@ -187,6 +201,22 @@ SnakeGroup.prototype.update=function(energy,fruit){
         }else{
             this.mInvincibilityImage[i]=null;
             this.mProcess[i][2]=null;
+        }
+        if(this.mSnakeGroup[i].mNight){
+            if(this.mNightImage[i]===null){
+                this.mNightImage[i]=new TextureRenderable(this.kNightImage);  
+                this.mNightImage[i].getXform().setSize(20,20);
+                this.mNightImage[i].setColor([1,1,1,0]);
+                this.mProcess[i][3]=new ProcessBar();
+                this.mProcess[i][3].setColor([1,0,0,1],[0.9,0.9,0.9,1]);
+                this.mProcess[i][3].setSize(80,3);
+            }
+                this.mNightImage[i].getXform().setPosition(this.mSnakeGroup[i].getHeadPos()[0],this.mSnakeGroup[i].getHeadPos()[1]);
+                this.mProcess[i][3].setPosition(this.mNightImage[i].getXform().getXPos(),this.mNightImage[i].getXform().getYPos()-40);            
+                this.mProcess[i][3].update(this.mSnakeGroup[i].mTime[3]/300);
+        }else{
+                this.mNightImage[i]=null;
+                this.mProcess[i][3]=null;
         }
     }
 };
