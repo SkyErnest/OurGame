@@ -13,16 +13,16 @@
 
 function MyGame() {
     // textures: 
-    this.mSpeedUpImage=null;
-    this.mReverseImage=null;
-    this.mInvincibilityImage=null;
+    this.mSpeedUpImage = null;
+    this.mReverseImage = null;
+    this.mInvincibilityImage = null;
     this.kFontImage = "assets/Consolas-72.png";
     this.kBound = "assets/Bound.png";
     this.kHead1 = "assets/snake1head.png";
     this.kHead2 = "assets/snake2head.png";
     this.kBody1 = "assets/snake1body.png";
     this.kBody2 = "assets/snake2body.png";
-    
+
     this.kPlayBGM = "assets/sound/GameBGM.mp3";
     this.kgetFruit = "assets/sound/tick.mp3";
     // The camera to view the scene
@@ -39,16 +39,16 @@ function MyGame() {
     this.mSnake1 = null;
     this.mSnake2 = null;
     this.mSnakeGroup = new SnakeGroup(2, this.kFontImage, this.kFontImage);
-    this.signal=null;
+    this.signal = null;
     this.score = [0, 0];
-    this.state=[0,0];
-    this.death=[0,0];
+    this.state = [0, 0];
+    this.death = [0, 0];
 
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
 MyGame.prototype.loadScene = function () {
-    
+
     this.fruit.loadScene();
     this.mEnergy.loadScene();
     this.leftCamera.loadScene();
@@ -59,7 +59,7 @@ MyGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kHead2);
     gEngine.Textures.loadTexture(this.kBody1);
     gEngine.Textures.loadTexture(this.kBody2);
-    
+
     gEngine.AudioClips.loadAudio(this.kPlayBGM);
     gEngine.AudioClips.loadAudio(this.kgetFruit);
     gEngine.Textures.loadTexture(this.kBound);
@@ -73,7 +73,7 @@ MyGame.prototype.unloadScene = function () {
     this.miniCamera.unloadScene();
     this.mSnakeGroup.unloadScene();
     gEngine.AudioClips.stopBackgroundAudio();
-    
+
     gEngine.AudioClips.unloadAudio(this.kPlayBGM);
     gEngine.AudioClips.unloadAudio(this.kgetFruit);
     //gEngine.Fonts.unloadFont(this.fontofplayer);
@@ -91,19 +91,19 @@ MyGame.prototype.unloadScene = function () {
 //    gEngine.Core.startScene(nextLevel);
 //}
 
-    if(this.signal===1){
-    
-    var nextLevel = new GameOver(this.score);  // next level to be loaded
-    gEngine.Core.startScene(nextLevel);
-}
+    if (this.signal === 1) {
+
+        var nextLevel = new GameOver(this.score);  // next level to be loaded
+        gEngine.Core.startScene(nextLevel);
+    }
 };
 
 MyGame.prototype.initialize = function () {
 
-    this.mBound=new SpriteRenderable(this.kBound);
-    this.mBound.getXform().setPosition(0,0);
-    this.mBound.getXform().setSize(205,125);
-    this.mBound.setColor([1,1,1,0]);
+    this.mBound = new SpriteRenderable(this.kBound);
+    this.mBound.getXform().setPosition(0, 0);
+    this.mBound.getXform().setSize(205, 125);
+    this.mBound.setColor([1, 1, 1, 0]);
 
     // Step A: set up the cameras
     /*this.mCamera = new Camera(
@@ -114,8 +114,8 @@ MyGame.prototype.initialize = function () {
      this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
      // sets the background to gray
      */
-    this.fruit.initialize();
-    this.mEnergy.initialize();
+
+
     this.leftCamera.initialize();
     this.rightCamera.initialize();
     this.miniCamera.initialize();
@@ -130,15 +130,17 @@ MyGame.prototype.initialize = function () {
 //    );
 //    this.miniCamera.setBackgroundColor([1,1,1, 0.1]);
 
-    
-    this.mSnake1=new NewSnake(this.kHead1,this.kBody1,this.leftCamera.getCamera().getWCCenter()[0],this.leftCamera.getCamera().getWCCenter()[1]);
+
+    this.mSnake1 = new NewSnake(this.kHead1, this.kBody1, this.leftCamera.getCamera().getWCCenter()[0], this.leftCamera.getCamera().getWCCenter()[1]);
     this.mSnake1.initialize();
-    this.mSnake2  = new NewSnake(this.kHead2,this.kBody2,this.rightCamera.getCamera().getWCCenter()[0],this.rightCamera.getCamera().getWCCenter()[1]);
+    this.mSnake2 = new NewSnake(this.kHead2, this.kBody2, this.rightCamera.getCamera().getWCCenter()[0], this.rightCamera.getCamera().getWCCenter()[1]);
     this.mSnake2.initialize();
     this.mSnakeGroup.initialize(this.mSnake1, this.mSnake2);
+    this.mEnergy.initialize(this.mSnake1, this.mSnake2);
+    this.fruit.initialize(this.mSnake1, this.mSnake2);
     //</editor-fold>
     gEngine.AudioClips.playBackgroundAudio(this.kPlayBGM);
-    
+
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -147,7 +149,7 @@ MyGame.prototype.initialize = function () {
 MyGame.prototype.draw = function () {
     // Step A: clear the canvas
     gEngine.Core.clearCanvas([0, 0, 0, 1]); // clear to light gray
-    if(this.fruit.getName()[0] !== null || this.fruit.getName()[1] !== null){
+    if (this.fruit.getName()[0] !== null || this.fruit.getName()[1] !== null) {
         gEngine.AudioClips.playACue(this.kgetFruit);
     }
     this.createViews(this.mCameras);
@@ -160,13 +162,13 @@ MyGame.prototype.createViews = function (views) {
         this.mCamera.setupViewProjection();
 
         views[i].draw(this.mCamera.getVPMatrix());
-        this.mSnakeGroup.draw(this.mCamera.getVPMatrix(),i);
+        this.mSnakeGroup.draw(this.mCamera.getVPMatrix(), i);
         this.mEnergy.draw(this.mCamera.getVPMatrix());
         this.fruit.draw(this.mCamera.getVPMatrix());
-        if (i !== 2){
+        if (i !== 2) {
             this.mBound.draw(this.mCamera.getVPMatrix());
         }
-        this.mSnakeGroup.drawEffects(this.mCamera.getVPMatrix(),i);
+        this.mSnakeGroup.drawEffects(this.mCamera.getVPMatrix(), i);
     }
 //    alert(view.getCamera().getWCCenter());
 
@@ -176,11 +178,11 @@ MyGame.prototype.createViews = function (views) {
 //  function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 var getScore = function () {//还需要加上杀死敌人的加分项
-    this.score[0] = this.mEnergy.getSumTotal()[1] * 10 + this.fruit.getSumTotal()[1] * 50-(this.death[0]/2);// lost half scores when they get killed
-    this.score[1] = this.mEnergy.getSumTotal()[2] * 10 + this.fruit.getSumTotal()[2] * 50-(this.death[1]/2);
-   // console.log(this.score[0], this.score[1]);
-    document.getElementById("one").innerHTML=parseInt(this.score[0]);
-    document.getElementById("two").innerHTML=parseInt(this.score[1]);
+    this.score[0] = this.mEnergy.getSumTotal()[1] * 10 + this.fruit.getSumTotal()[1] * 50 - (this.death[0] / 2);// lost half scores when they get killed
+    this.score[1] = this.mEnergy.getSumTotal()[2] * 10 + this.fruit.getSumTotal()[2] * 50 - (this.death[1] / 2);
+    // console.log(this.score[0], this.score[1]);
+    document.getElementById("one").innerHTML = parseInt(this.score[0]);
+    document.getElementById("two").innerHTML = parseInt(this.score[1]);
 };
 
 
@@ -194,22 +196,22 @@ MyGame.prototype.update = function () {
     // load the next level
 //    console.log(this.mEnergy.getSumTotal(),this.fruit.getSumTotal());//
 
-    if(this.mSnakeGroup.getState()[0]===true){
-        this.state[0]++;  
-        this.death[0]=this.score[0];
-        document.getElementById("one" + this.state[0]).style.display="none";
+    if (this.mSnakeGroup.getState()[0] === true) {
+        this.state[0]++;
+        this.death[0] = this.score[0];
+        document.getElementById("one" + this.state[0]).style.display = "none";
     }
-    if(this.mSnakeGroup.getState()[1]===true){
+    if (this.mSnakeGroup.getState()[1] === true) {
         this.state[1]++;
-        this.death[1]=this.score[1];
-        document.getElementById("two" + this.state[1]).style.display="none";
+        this.death[1] = this.score[1];
+        document.getElementById("two" + this.state[1]).style.display = "none";
     }
-    if(this.state[0]>=3||this.state[1]>=3){
-        this.signal=1;
+    if (this.state[0] >= 3 || this.state[1] >= 3) {
+        this.signal = 1;
         gEngine.GameLoop.stop();
     }
-    
-     
+
+
 //    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Q))
 //    {       
 //           this.signal=0;
@@ -219,9 +221,9 @@ MyGame.prototype.update = function () {
 //    {       
 //           
 //      }
-   this.leftCamera.update();   
-   this.rightCamera.update();   
-    
+    this.leftCamera.update();
+    this.rightCamera.update();
+
 
 //    this.mEnergy.change(x,y,width);
     //播放吃水果音效
@@ -229,15 +231,15 @@ MyGame.prototype.update = function () {
 
     //console.log(this.fruit.getName());
     //console.log(this.fruit.getName()[0]);
-    this.mSnakeGroup.update(this.mEnergy,this.fruit);
+    this.mSnakeGroup.update(this.mEnergy, this.fruit);
     //this.mSnakeGroup.deathCheck();
     //console.log(this.mSnakeGroup.getState());
 
 //    console.log(this.score[0],this.score[1]);
-    
+
     getScore.call(this);
-    
-    
+
+
     this.mEnergy.setSum();
     this.fruit.setSum();
     this.leftCamera.updateWCcenter(this.mSnake1);
@@ -246,6 +248,6 @@ MyGame.prototype.update = function () {
     this.fruit.produce();
 
 
-    
+
 };
 
