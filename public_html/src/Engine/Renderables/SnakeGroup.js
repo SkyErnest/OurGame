@@ -22,6 +22,7 @@ function SnakeGroup(num,headImage,bodyImage){
     this.kReverseImage="assets/Consolas-72.png";
     this.kInvincibilityImage="assets/invincibility.png";
     this.kNightImage="assets/night.png";
+    this.kBlack="assets/black.png";
     this.mProcess=[];
 }
 SnakeGroup.prototype.loadScene=function(){
@@ -30,6 +31,7 @@ SnakeGroup.prototype.loadScene=function(){
     gEngine.Textures.loadTexture(this.kReverseImage);
     gEngine.Textures.loadTexture(this.kInvincibilityImage);
     gEngine.Textures.loadTexture(this.kNightImage);
+    gEngine.Textures.loadTexture(this.kBlack);
 };
 SnakeGroup.prototype.unloadScene=function(){
     gEngine.Textures.unloadTexture(this.kSpeedUpImage);
@@ -37,6 +39,7 @@ SnakeGroup.prototype.unloadScene=function(){
     gEngine.Textures.unloadTexture(this.kReverseImage);
     gEngine.Textures.unloadTexture(this.kInvincibilityImage);
     gEngine.Textures.unloadTexture(this.kNightImage);
+    gEngine.Textures.unloadTexture(this.kBlack);
 };
 SnakeGroup.prototype.initialize=function(snake1,snake2){
     for(var i=0;i<this.num;i++){
@@ -213,16 +216,22 @@ SnakeGroup.prototype.update=function(energy,fruit){
                 this.mNightImage[i]=new TextureRenderable(this.kNightImage);  
                 this.mNightImage[i].getXform().setSize(130,130);
                 this.mNightImage[i].setColor([1,1,1,0]);
+                
                 this.mProcess[i][3]=new ProcessBar();
                 this.mProcess[i][3].setColor([1,0,0,1],[0.9,0.9,0.9,1]);
                 this.mProcess[i][3].setSize(80,3);
-            }
+            }   
+                this.mNightImage[2]=new TextureRenderable(this.kBlack);  
+                this.mNightImage[2].setColor([1,1,1,0]);
+                this.mNightImage[2].getXform().setSize(600,600);
+                this.mNightImage[2].getXform().setPosition(0,0);
                 this.mNightImage[i].getXform().setPosition(this.mSnakeGroup[i].getHeadPos()[0],this.mSnakeGroup[i].getHeadPos()[1]);
                 this.mProcess[i][3].setPosition(this.mNightImage[i].getXform().getXPos(),this.mNightImage[i].getXform().getYPos()-40);            
                 this.mProcess[i][3].update(this.mSnakeGroup[i].mTime[3]/300);
         }else{
                 this.mNightImage[i]=null;
                 this.mProcess[i][3]=null;
+                if(!(this.mSnakeGroup[0].mNight||this.mSnakeGroup[1].mNight))this.mNightImage[2]=null;
         }
     }
 };

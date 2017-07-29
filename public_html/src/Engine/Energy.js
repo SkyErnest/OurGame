@@ -91,7 +91,7 @@ var randomSet = function () {
         for (var j = 0; j < 5; j++) {
             if (Math.abs(this.mSnake1.mNewSnake[j].getXform().getXPos() - (randx * 100 * 2 - 50 * 2)) < 7 &&
                     Math.abs(this.mSnake1.mNewSnake[j].getXform().getYPos() - (randy * 54 * 2 - 27 * 2)) < 7) {
-                console.log("与1太近");
+                //console.log("与1太近");
                 this.signal = 1;
                 break;
             }
@@ -100,14 +100,14 @@ var randomSet = function () {
         for (var j = 0; j < 5; j++) {
             if (Math.abs(this.mSnake2.mNewSnake[j].getXform().getXPos() - (randx * 100 * 2 - 50 * 2)) < 7 &&
                     Math.abs(this.mSnake2.mNewSnake[j].getXform().getYPos() - (randy * 54 * 2 - 27 * 2)) < 7) {
-                console.log("与2太近");
+                //console.log("与2太近");
                 this.signal = 1;
                 break;
             }
 
         }
-        if (this.signal == 1) {
-            console.log("failed");
+        if (this.signal === 1) {
+            //console.log("failed");
             this.signal = 0;
             i--;
             continue;
@@ -156,7 +156,7 @@ var randomUpdate = function () {
             }
 
         }
-        if (this.signal == 1) {
+        if (this.signal === 1) {
             this.signal = 0;
             i--;
             continue;
@@ -272,5 +272,5 @@ Energy.prototype.produce = function () { //一段时间之后资源再次出现
 
 Energy.prototype.getSumTotal = function () {
     return this.sumTotal;
-}
+};
 
