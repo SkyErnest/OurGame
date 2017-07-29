@@ -10,7 +10,7 @@ function NewSnake(kSnakeHead,kSnakeBody,xPos,yPos){
     this.kSnakeHead = kSnakeHead;
     this.kSnakeBody=kSnakeBody;
     this.mLength=null;
-    this.mTime=[0,0,0];
+    this.mTime=[0,0,0,0];
     this.mDir=null;
     this.SNAKE_SIZE=5;
     this.DEFAULT_POS=[xPos,yPos];
@@ -27,6 +27,8 @@ function NewSnake(kSnakeHead,kSnakeBody,xPos,yPos){
     this.mRushing=null;
     this.mReverseEat=null;
     this.mReverse=null;
+    this.mNight=null;
+    this.mNightEat=null;
 }
 var DIRECTION={
     N:4,
@@ -37,6 +39,7 @@ var DIRECTION={
 NewSnake.prototype.getSnake=function(){return this.mNewSnake;};
 NewSnake.prototype.getSnakeLen=function(){return this.mLength;};
 NewSnake.prototype.initialize = function () {
+    this.mNight=false;
     this.mReverse=false;
     this.mInvincibility=false;
     this.mRushing=false;
@@ -172,6 +175,9 @@ NewSnake.prototype.eat=function(num,fruit){
             this.mInvincibility=true;
             this.mTime[2]+=300;
             break;
+        case "Grape":
+            this.mNightEat=true;
+            break;
     }
     for(var i=0;i<this.mTime.length;i++){
         if(this.mTime[i]!==0){
@@ -193,6 +199,9 @@ NewSnake.prototype.eat=function(num,fruit){
                                 this.mNewSnake[i].setColor(m);
                             }
                         break;
+                    case 3:
+                        this.mNight=false;
+                        break;
                         
                 }
             }
@@ -201,7 +210,7 @@ NewSnake.prototype.eat=function(num,fruit){
     
 };
 NewSnake.prototype.draw = function (vpMatrix) {
-    for(var i=0;i<this.mLength;i++){
+    for(var i=this.mLength-1;i>=0;i--){
         this.mNewSnake[i].draw(vpMatrix);
     }
 };

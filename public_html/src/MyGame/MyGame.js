@@ -147,7 +147,9 @@ MyGame.prototype.initialize = function () {
 MyGame.prototype.draw = function () {
     // Step A: clear the canvas
     gEngine.Core.clearCanvas([0, 0, 0, 1]); // clear to light gray
-
+    if(this.fruit.getName()[0] !== null || this.fruit.getName()[1] !== null){
+        gEngine.AudioClips.playACue(this.kgetFruit);
+    }
     this.createViews(this.mCameras);
 };
 
@@ -243,9 +245,7 @@ MyGame.prototype.update = function () {
     this.mEnergy.produce();
     this.fruit.produce();
 
-    if(this.fruit.getName()[0] !== null || this.fruit.getName()[1] !== null){
-        gEngine.AudioClips.playACue(this.kgetFruit);
-    }
+
     
 };
 
