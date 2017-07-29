@@ -11,6 +11,7 @@ function Fruits() {
     this.kPeach = "assets/peach.png";
     this.kWater = "assets/water.png";
     this.kStraw = "assets/straw.png";
+    this.kGrape = "assets/grape.png";
     this.fruit = null;
     this.eaten = new Array();
     this.resource = new Array();
@@ -42,6 +43,7 @@ Fruits.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kPeach);
     gEngine.Textures.loadTexture(this.kWater);
     gEngine.Textures.loadTexture(this.kStraw);
+    gEngine.Textures.loadTexture(this.kGrape);
 
     // starts the next level
 //    var nextLevel = new BlueLevel();  // next level to be loaded
@@ -54,6 +56,7 @@ Fruits.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kPeach);
     gEngine.Textures.unloadTexture(this.kWater);
     gEngine.Textures.unloadTexture(this.kStraw);
+    gEngine.Textures.unloadTexture(this.kGrape);
     // starts the next level
 //    var nextLevel = new BlueLevel();  // next level to be loaded
 //    gEngine.Core.startScene(nextLevel);
@@ -73,12 +76,15 @@ Fruits.prototype.produce = function () {
         if (rand > 0.95) {
             this.fruit = new TextureRenderable(this.kStraw);
             fruitName = "Straw";
-        } else if (rand > 0.6) {
+        } else if (rand > 0.7) {
             this.fruit = new TextureRenderable(this.kWater);
             fruitName = "Water";
-        } else{
+        } else if(rand > 0.3){
             this.fruit = new TextureRenderable(this.kPeach);
             fruitName = "Peach";
+        }else{
+            this.fruit = new TextureRenderable(this.kGrape);
+            fruitName = "Grape";
         }
 
         this.fruit.setColor([1, 1, 1, 0.2]);
