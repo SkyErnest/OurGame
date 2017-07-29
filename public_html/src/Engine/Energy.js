@@ -19,6 +19,7 @@ function Energy() {
     this.resource = new Array();
     this.sumTotal = new Array();
     this.eaten[0] = -1;
+    this.signal = 0;
 
     //10条蛇
     this.sum = new Array();
@@ -70,21 +71,47 @@ var randomSet = function () {
     var randy = 0;
     var rand = 0;
     for (var i = 0; i < 50; i++) {
-        
+
         randx = Math.random();
         randy = Math.random();
+
+
         rand = Math.random();
 //                console.log(randx,randy);
-        if(rand>0.7){
+        if (rand > 0.7) {
             this.energyMap[i] = new TextureRenderable(this.kPink);
-        }else if (rand >0.4){
-             this.energyMap[i] = new TextureRenderable(this.kOrange);
-        }else if(rand > 03){
+        } else if (rand > 0.4) {
+            this.energyMap[i] = new TextureRenderable(this.kOrange);
+        } else if (rand > 03) {
             this.energyMap[i] = new TextureRenderable(this.kBlack);
-        }else
+        } else
             this.energyMap[i] = new TextureRenderable(this.kGreen);
-        this.energyMap[i].setColor([1, 1, 1, 0.2]);  // change the color of energy
-                this.energyMap[i].getXform().setSize(2, 2);
+        this.energyMap[i].setColor([1, 1, 1, 0.2]);
+        this.energyMap[i].getXform().setSize(2, 2);
+        for (var j = 0; j < 5; j++) {
+            if (Math.abs(this.mSnake1.mNewSnake[j].getXform().getXPos() - (randx * 100 * 2 - 50 * 2)) < 7 &&
+                    Math.abs(this.mSnake1.mNewSnake[j].getXform().getYPos() - (randy * 54 * 2 - 27 * 2)) < 7) {
+                console.log("与1太近");
+                this.signal = 1;
+                break;
+            }
+
+        }
+        for (var j = 0; j < 5; j++) {
+            if (Math.abs(this.mSnake2.mNewSnake[j].getXform().getXPos() - (randx * 100 * 2 - 50 * 2)) < 7 &&
+                    Math.abs(this.mSnake2.mNewSnake[j].getXform().getYPos() - (randy * 54 * 2 - 27 * 2)) < 7) {
+                console.log("与2太近");
+                this.signal = 1;
+                break;
+            }
+
+        }
+        if (this.signal == 1) {
+            console.log("failed");
+            this.signal = 0;
+            i--;
+            continue;
+        }
 
         this.energyMap[i].getXform().setXPos(randx * 100 * 2 - 50 * 2);
         this.energyMap[i].getXform().setYPos(randy * 54 * 2 - 27 * 2);
@@ -96,7 +123,7 @@ var randomSet = function () {
 var randomUpdate = function () {
     var flag = 0;
     var rand = 0;
-     var randx = 0;
+    var randx = 0;
     var randy = 0;
     for (var i = 0; i < this.eaten.length; i++) {
 //            console.log( this.eaten[0]);
@@ -105,16 +132,36 @@ var randomUpdate = function () {
         randx = Math.random();
         randy = Math.random();
         rand = Math.random();
-        if(rand>0.7){
+        if (rand > 0.7) {
             this.energyMap[flag] = new TextureRenderable(this.kPink);
-        }else if (rand >0.4){
-             this.energyMap[flag] = new TextureRenderable(this.kOrange);
-        }else if(rand > 03){
-            this.energyMap[flagi] = new TextureRenderable(this.kBlack);
-        }else
+        } else if (rand > 0.4) {
+            this.energyMap[flag] = new TextureRenderable(this.kOrange);
+        } else if (rand > 0.3) {
+            this.energyMap[flag] = new TextureRenderable(this.kBlack);
+        } else
             this.energyMap[flag] = new TextureRenderable(this.kGreen);
-        
-        
+        for (var j = 0; this.mSnake1.mNewSnake[j] !== null && this.mSnake1.mNewSnake[j] !== undefined; j++) {
+            if (Math.abs(this.mSnake1.mNewSnake[j].getXform().getXPos() - (randx * 100 * 2 - 50 * 2)) < 7 &&
+                    Math.abs(this.mSnake1.mNewSnake[j].getXform().getYPos() - (randy * 54 * 2 - 27 * 2)) < 7) {
+                this.signal = 1;
+                break;
+            }
+
+        }
+        for (var j = 0; this.mSnake2.mNewSnake[j] !== null && this.mSnake2.mNewSnake[j] !== undefined; j++) {
+            if (Math.abs(this.mSnake2.mNewSnake[j].getXform().getXPos() - (randx * 100 * 2 - 50 * 2)) < 7 &&
+                    Math.abs(this.mSnake2.mNewSnake[j].getXform().getYPos() - (randy * 54 * 2 - 27 * 2)) < 7) {
+                this.signal = 1;
+                break;
+            }
+
+        }
+        if (this.signal == 1) {
+            this.signal = 0;
+            i--;
+            continue;
+        }
+
         this.energyMap[flag].setColor([1, 0, 0, 0.2]);  // tints red
         this.energyMap[flag].getXform().setSize(2, 2);
         this.energyMap[flag].getXform().setXPos(randx * 100 * 2 - 50 * 2);
@@ -127,14 +174,15 @@ var randomUpdate = function () {
 
 };
 
-Energy.prototype.initialize = function () {//probability(0,1)越大，出现能量的概率越小
+Energy.prototype.initialize = function (mSnake1, mSnake2) {//probability(0,1)越大，出现能量的概率越小
 //    for (var k = 0; k < 100; k++) {   //声明二维,100个坐标x,y
 //        this.energyMap[k] = new Array();  
 //        for (var j = 0; j < 2; j++) {   
 //            this.energyMap[k][j] = 0;
 //        }
 //    }
-
+    this.mSnake1 = mSnake1;
+    this.mSnake2 = mSnake2;
 
 
     randomSet.call(this);

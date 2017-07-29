@@ -3,7 +3,7 @@
     <head>
         <title>Ouch,keep alive</title>
         <link rel ="icon" type ="image/x-icon" href="./assets/snake1head.png">
-
+        <meta charset="UTF-8">
         <!-- the following says there are javascript source code contained in 
              the external source files
         -->
@@ -17,7 +17,7 @@
         <script type="text/javascript" src="src/Engine/Core/Engine_GameLoop.js"></script>
         <script type="text/javascript" src="src/Engine/Core/Engine_Input.js"></script>
         <!-- Resource support -->
-        
+
         <script type="text/javascript" src="src/Engine/Core/Resources/Engine_ResourceMap.js"></script>
         <script type="text/javascript" src="src/Engine/Core/Resources/Engine_TextFileLoader.js"></script>
         <script type="text/javascript" src="src/Engine/Core/Resources/Engine_DefaultResources.js"></script>
@@ -50,16 +50,16 @@
         <script type="text/javascript" src="src/MyGame/MyGame.js"></script>
         <script type="text/javascript" src="src/MyGame/start.js"></script>
         <script type="text/javascript" src="src/MyGame/Reborn.js"></script>
-       <script type="text/javascript" src="src/MyGame/Tips.js"></script>
-       <script type="text/javascript" src="src/MyGame/GameOver.js"></script>
-       <script type="text/javascript" src="src/MyGame/Credit.js"></script>
+        <script type="text/javascript" src="src/MyGame/Tips.js"></script>
+        <script type="text/javascript" src="src/MyGame/GameOver.js"></script>
+        <script type="text/javascript" src="src/MyGame/Credit.js"></script>
     </head>
 
     <body onload="
-        var myGame = new start();
-        gEngine.Core.initializeEngineCore('GLCanvas', myGame);
-     ">
-        
+            var myGame = new start();
+            gEngine.Core.initializeEngineCore('GLCanvas', myGame);
+          ">
+
         <div id="leftScore" style="float: left;">
             <h2>Player 1's score:</h2>
             <p id="one">0</p>
@@ -78,15 +78,15 @@
             <img src="./assets/heart.png" id="two3" style="display:block;">
             <!--<p id="twoLife">3</p>-->
         </div>
-        
+
         <div align="center" style="">
-        <canvas id="GLCanvas" width="860" height="480">
-            <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
-            Your browser does not support the HTML5 canvas.
-            <!-- this message will show only if WebGL clearing failed -->
-        </canvas>
+            <canvas id="GLCanvas" width="860" height="480">
+                <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
+                Your browser does not support the HTML5 canvas.
+                <!-- this message will show only if WebGL clearing failed -->
+            </canvas>
         </div>
-        
-        
+
+
     </body>
 </html>
