@@ -71,11 +71,11 @@ GameOver.prototype.initialize=function(){
      this.text[0].setFont(this.textfont);
     this._initText(this.text[0], 39, 50, [1, 1, 1, 1], 4);
     
-    this.text[1]=new FontRenderable("Player1:     "+this.score[0]);
+    this.text[1]=new FontRenderable("Player1:     "+parseInt(this.score[0]));
      this.text[1].setFont(this.textfont);
     this._initText(this.text[1], 39, 25, [0.5,0,0,1], 2);
     
-    this.text[2]=new FontRenderable("Player2:     "+this.score[1]);
+    this.text[2]=new FontRenderable("Player2:     "+parseInt(this.score[1]));
      this.text[2].setFont(this.textfont);
     this._initText(this.text[2], 39, 20, [0,0,0.5, 1], 2);
     
@@ -85,7 +85,7 @@ GameOver.prototype.initialize=function(){
     
     this.restartText  = new FontRenderable("PRESS S TO CONTINUE");
     this.restartText.setFont(this.textfont);
-    this._initText(this.restartText, 5, 20, [1, 1, 1, 1], 1);
+    this._initText(this.restartText, 39, 15, [0, 0, 0, 0.9], 2);
     
     gEngine.AudioClips.playBackgroundAudio(this.kBGM);
 //    this.mfirework=new TextureRenderable(this.firework);
