@@ -4,7 +4,7 @@
  * and open the template in the editor.
  * 
  */
-/*global gEngine: false, Transform: false Scene: false*/
+/*global gEngine: false, Transform, vec2, Scene: false Scene: false*/
 
 function GameOver(player){
     
@@ -54,6 +54,8 @@ GameOver.prototype.unloadScene=function(){
      
     if(this.signal===0){
      var nextLevel=new MyGame();
+     nextLevel.mTimePreserved=30;
+     //nextLevel.loadComplete=true;
      gEngine.Core.startScene(nextLevel);
     }
      

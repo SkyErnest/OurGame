@@ -12,6 +12,8 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function MyGame() {
+    this.loadComplete=false;
+    this.textfont="assets/fonts/Consolas-72";
     // textures: 
     this.mSpeedUpImage = null;
     this.mReverseImage = null;
@@ -43,12 +45,17 @@ function MyGame() {
     this.score = [0, 0];
     this.state = [0, 0];
     this.death = [0, 0];
-
+    this.mLoading=[];
+    this.mTimePreserved=180;
+    this.mLoadTime=null;
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
+MyGame.prototype.loadScene=function(){
+     gEngine.Fonts.loadFont(this.textfont);
 
-MyGame.prototype.loadScene = function () {
-
+};
+MyGame.prototype.load = function () {
+    gEngine.AudioClips.loadAudio(this.kPlayBGM);
     this.fruit.loadScene();
     this.mEnergy.loadScene();
     this.leftCamera.loadScene();
@@ -60,12 +67,13 @@ MyGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kBody1);
     gEngine.Textures.loadTexture(this.kBody2);
 
-    gEngine.AudioClips.loadAudio(this.kPlayBGM);
+    
     gEngine.AudioClips.loadAudio(this.kgetFruit);
     gEngine.Textures.loadTexture(this.kBound);
 };
 
 MyGame.prototype.unloadScene = function () {
+    gEngine.Fonts.unloadFont(this.textfont);
     this.fruit.unloadScene();
     this.mEnergy.unloadScene();
     this.leftCamera.unloadScene();
@@ -99,7 +107,23 @@ MyGame.prototype.unloadScene = function () {
 };
 
 MyGame.prototype.initialize = function () {
-
+          this.mLoadTime=this.mTimePreserved;
+          this.mLoading[0]=new FontRenderable("Loading");
+          this.mLoading[0].setFont(this.textfont);
+          this._initText(this.mLoading[0], -10, 10, [0, 0, 0, 1], 4);
+          this.mLoading[1]=new ProcessBar();
+          this.mLoading[1].setColor([1,1,0,1],[0.5,0.5,0.5,1]);
+          this.mLoading[1].setPosition(0,-10);
+          this.mLoading[1].setSize(80,3);
+          this.mLoadingCamera=new Camera(
+       vec2.fromValues(0, 0),   // position of the camera
+        100,                       // width of camera
+        [0, 0, 860, 480]          
+    );
+    this.mLoadingCamera.setBackgroundColor([0.9, 0.9, 0.9, 1]);
+    this.load();
+};
+MyGame.prototype.initializeGame = function () {
     this.mBound = new SpriteRenderable(this.kBound);
     this.mBound.getXform().setPosition(0, 0);
     this.mBound.getXform().setSize(205, 125);
@@ -142,17 +166,28 @@ MyGame.prototype.initialize = function () {
     gEngine.AudioClips.playBackgroundAudio(this.kPlayBGM);
 
 };
-
+MyGame.prototype._initText = function (font, posX, posY, color, textH) {
+    font.setColor(color);
+    font.getXform().setPosition(posX, posY);
+    font.setTextHeight(textH);
+};
 // This is the draw function, make sure to setup proper drawing environment, and more
 // importantly, make sure to _NOT_ change any s
 // tate.
 MyGame.prototype.draw = function () {
     // Step A: clear the canvas
     gEngine.Core.clearCanvas([0, 0, 0, 1]); // clear to light gray
-    if (this.fruit.getName()[0] !== null || this.fruit.getName()[1] !== null) {
-        gEngine.AudioClips.playACue(this.kgetFruit);
+    if(!this.loadComplete){
+        this.mLoadingCamera.setupViewProjection();
+        for(var i=0;i<2;i++){
+            this.mLoading[i].draw(this.mLoadingCamera.getVPMatrix());
+        }
+    }else{
+        if (this.fruit.getName()[0] !== null || this.fruit.getName()[1] !== null) {
+            gEngine.AudioClips.playACue(this.kgetFruit);
+        }
+        this.createViews(this.mCameras);
     }
-    this.createViews(this.mCameras);
 };
 
 
@@ -190,7 +225,9 @@ var getScore = function () {//还需要加上杀死敌人的加分项
 
 
 MyGame.prototype.update = function () {
-
+    if(this.loadComplete){
+        
+    
     // let's only allow the movement of hero, 
     // and if hero moves too far off, this level ends, we will
     // load the next level
@@ -248,6 +285,16 @@ MyGame.prototype.update = function () {
     this.fruit.produce();
 
 
-
+    }else{
+        this.mLoadTime--;
+        if(this.mLoadTime>0){
+            this.mLoading[1].setPosition(0,-10);
+            this.mLoading[1].update((this.mTimePreserved-this.mLoadTime)/this.mTimePreserved);
+        }
+        if(this.mLoadTime===0){
+            this.loadComplete=true;
+            this.initializeGame();
+        }
+    }
 };
 
