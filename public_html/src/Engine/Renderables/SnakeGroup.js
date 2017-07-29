@@ -22,7 +22,7 @@ function SnakeGroup(num,headImage,bodyImage){
     this.kReverseImage="assets/Consolas-72.png";
     this.kInvincibilityImage="assets/invincibility.png";
     this.kNightImage="assets/night.png";
-    this.kBlack="assets/black.png";
+    this.kBlack="assets/nightMap.png";
     this.mProcess=[];
 }
 SnakeGroup.prototype.loadScene=function(){
@@ -135,13 +135,17 @@ SnakeGroup.prototype.update=function(energy,fruit){
         }
         if(this.mSnakeGroup[i].mNightEat){
             for(var j=0;j<this.num;j++){
+                if(i!==j){
                 this.mSnakeGroup[j].mNight=true;
                 this.mSnakeGroup[j].mTime[3]+=300;
             }
-            this.mSnakeGroup[i].mNight=false;
+            }
             this.mSnakeGroup[i].mNightEat=false;
         }
     }
+    
+    
+    
     for(var i=0;i<this.num;i++){
         if(this.mSnakeGroup[i].mRushing){
             if(this.mSpeedUpImage[i]===null){
