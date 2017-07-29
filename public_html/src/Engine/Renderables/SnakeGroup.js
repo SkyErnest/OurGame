@@ -18,19 +18,22 @@ function SnakeGroup(num,headImage,bodyImage){
     this.mInvincibilityImage=[];
     this.mNightImage=[];
     this.kSpeedUpImage="assets/speedup.png";
+    this.kSpeedUpNightImage="assets/speedupNight.png";
     this.kReverseImage="assets/Consolas-72.png";
-    this.kInvincibilityImage="assets/Consolas-72.png";
+    this.kInvincibilityImage="assets/invincibility.png";
     this.kNightImage="assets/night.png";
     this.mProcess=[];
 }
 SnakeGroup.prototype.loadScene=function(){
     gEngine.Textures.loadTexture(this.kSpeedUpImage);
+    gEngine.Textures.loadTexture(this.kSpeedUpNightImage);
     gEngine.Textures.loadTexture(this.kReverseImage);
     gEngine.Textures.loadTexture(this.kInvincibilityImage);
     gEngine.Textures.loadTexture(this.kNightImage);
 };
 SnakeGroup.prototype.unloadScene=function(){
     gEngine.Textures.unloadTexture(this.kSpeedUpImage);
+    gEngine.Textures.unloadTexture(this.kSpeedUpNightImage);
     gEngine.Textures.unloadTexture(this.kReverseImage);
     gEngine.Textures.unloadTexture(this.kInvincibilityImage);
     gEngine.Textures.unloadTexture(this.kNightImage);
@@ -152,6 +155,8 @@ SnakeGroup.prototype.update=function(energy,fruit){
             if(i===1){
                 this.mSpeedUpImage[i].getXform().setPosition(this.mSnakeGroup[i].getHeadPos()[0]-10,this.mSnakeGroup[i].getHeadPos()[1]+45);
             }
+            if(this.mSnakeGroup[i].mNight){this.mSpeedUpImage[i].setTexture(this.kSpeedUpNightImage);}
+            else{this.mSpeedUpImage[i].setTexture(this.kSpeedUpImage);}
             this.mProcess[i][0].setPosition(this.mSpeedUpImage[i].getXform().getXPos(),this.mSpeedUpImage[i].getXform().getYPos()-10);
             this.mProcess[i][0].update(this.mSnakeGroup[i].mTime[0]/300);
         }else{
@@ -183,7 +188,8 @@ SnakeGroup.prototype.update=function(energy,fruit){
         
         if(this.mSnakeGroup[i].mInvincibility){
             if(this.mInvincibilityImage[i]===null){
-                this.mInvincibilityImage[i]=new TextureRenderable(this.kInvincibilityImage);  
+                this.mInvincibilityImage[i]=new SpriteRenderable(this.kInvincibilityImage);  
+                this.mInvincibilityImage[i].setElementUVCoordinate(0.15,0.85,0.15,0.85);
                 this.mInvincibilityImage[i].getXform().setSize(20,20);
                 this.mInvincibilityImage[i].setColor([1,1,1,0]);
                 this.mProcess[i][2]=new ProcessBar();
@@ -221,4 +227,3 @@ SnakeGroup.prototype.update=function(energy,fruit){
     }
 };
 SnakeGroup.prototype.getState=function(){return this.mState;};
-
