@@ -54,7 +54,6 @@ GameOver.prototype.unloadScene=function(){
      
     if(this.signal===0){
      var nextLevel=new MyGame();
-     nextLevel.mTimePreserved=30;
      //nextLevel.loadComplete=true;
      gEngine.Core.startScene(nextLevel);
     }
