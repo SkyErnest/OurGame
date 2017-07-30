@@ -31,7 +31,7 @@ function GameOver(player){
        this.winner=2;
        this.loser=1;
    }
-   
+   //this.realScore=[0,0];
   // this.firework="assets/firework.png";
  // this.mfirework=null;
 }
@@ -73,11 +73,11 @@ GameOver.prototype.initialize=function(){
      this.text[0].setFont(this.textfont);
     this._initText(this.text[0], 39, 50, [1, 1, 1, 1], 4);
     
-    this.text[1]=new FontRenderable("Player1:     "+parseInt(this.score[0]));
+    this.text[1]=new FontRenderable("Player1 final score:     "+parseInt(this.score[0]));
      this.text[1].setFont(this.textfont);
     this._initText(this.text[1], 39, 25, [0.5,0,0,1], 2);
     
-    this.text[2]=new FontRenderable("Player2:     "+parseInt(this.score[1]));
+    this.text[2]=new FontRenderable("Player2 final score:     "+parseInt(this.score[1]));
      this.text[2].setFont(this.textfont);
     this._initText(this.text[2], 39, 20, [0,0,0.5, 1], 2);
     

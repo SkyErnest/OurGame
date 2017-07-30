@@ -48,6 +48,7 @@ function MyGame() {
     this.mLoading=[];
     this.mTimePreserved=180;
     this.mLoadTime=null;
+    this.realScore=[0,0];
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
 MyGame.prototype.loadScene=function(){
@@ -213,8 +214,8 @@ MyGame.prototype.createViews = function (views) {
 //  function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 var getScore = function () {//还需要加上杀死敌人的加分项
-    this.score[0] = this.mEnergy.getSumTotal()[1] * 10 + this.fruit.getSumTotal()[1] * 50 - (this.death[0] / 2);// lost half scores when they get killed
-    this.score[1] = this.mEnergy.getSumTotal()[2] * 10 + this.fruit.getSumTotal()[2] * 50 - (this.death[1] / 2);
+    this.score[0] = this.mEnergy.getSumTotal()[1] * 10 + this.fruit.getSumTotal()[1] * 30 - ((this.death[0]*0.5)*this.state[0]);// lost half scores when they get killed
+    this.score[1] = this.mEnergy.getSumTotal()[2] * 10 + this.fruit.getSumTotal()[2] * 30 - ((this.death[1]*0.5)*this.state[1]);
     // console.log(this.score[0], this.score[1]);
     document.getElementById("one").innerHTML = parseInt(this.score[0]);
     document.getElementById("two").innerHTML = parseInt(this.score[1]);
@@ -233,20 +234,7 @@ MyGame.prototype.update = function () {
     // load the next level
 //    console.log(this.mEnergy.getSumTotal(),this.fruit.getSumTotal());//
 
-    if (this.mSnakeGroup.getState()[0] === true) {
-        this.state[0]++;
-        this.death[0] = this.score[0];
-        document.getElementById("one" + this.state[0]).style.display = "none";
-    }
-    if (this.mSnakeGroup.getState()[1] === true) {
-        this.state[1]++;
-        this.death[1] = this.score[1];
-        document.getElementById("two" + this.state[1]).style.display = "none";
-    }
-    if (this.state[0] >= 3 || this.state[1] >= 3) {
-        this.signal = 1;
-        gEngine.GameLoop.stop();
-    }
+    
 
 
 //    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Q))
@@ -275,7 +263,25 @@ MyGame.prototype.update = function () {
 //    console.log(this.score[0],this.score[1]);
 
     getScore.call(this);
-
+    
+    if (this.mSnakeGroup.getState()[0] === true) {
+        this.state[0]++;
+        this.death[0] = this.score[0];
+        document.getElementById("one" + this.state[0]).style.display = "none";
+    }
+    if (this.mSnakeGroup.getState()[1] === true) {
+        this.state[1]++;
+        this.death[1] = this.score[1];
+        document.getElementById("two" + this.state[1]).style.display = "none";
+    }
+    if (this.state[0] >= 3 || this.state[1] >= 3) {
+        this.signal = 1;
+        this.score[0]=this.score[0]+(3-this.state[0])*50;
+        this.score[1]=this.score[1]+(3-this.state[1])*50;
+        document.getElementById("one").innerHTML = parseInt(this.score[0]);
+        document.getElementById("two").innerHTML = parseInt(this.score[1]);
+        gEngine.GameLoop.stop();
+    }
 
     this.mEnergy.setSum();
     this.fruit.setSum();
