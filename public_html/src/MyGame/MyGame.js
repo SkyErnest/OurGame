@@ -18,7 +18,7 @@ function MyGame() {
     this.mSpeedUpImage = null;
     this.mReverseImage = null;
     this.mInvincibilityImage = null;
-    this.kFontImage = "assets/Consolas-72.png";
+    //this.kFontImage = "assets/Consolas-72.png";
     this.kBound = "assets/Bound.png";
     this.kHead1 = "assets/snake1head.png";
     this.kHead2 = "assets/snake2head.png";
@@ -40,16 +40,15 @@ function MyGame() {
     this.mBound = null;
     this.mSnake1 = null;
     this.mSnake2 = null;
-    this.mSnakeGroup = new SnakeGroup(2, this.kFontImage, this.kFontImage);
+    this.mSnakeGroup = new SnakeGroup(2);
     this.signal = null;
     this.score = [0, 0];
     this.state = [0, 0];
     this.death = [0, 0];
     this.mLoading=[];
-    this.mTimePreserved=180;
-    this.mLoadTime=null;
     this.realScore=[0,0];
 }
+    var vTime=false;
 gEngine.Core.inheritPrototype(MyGame, Scene);
 MyGame.prototype.loadScene=function(){
      gEngine.Fonts.loadFont(this.textfont);
@@ -108,7 +107,6 @@ MyGame.prototype.unloadScene = function () {
 };
 
 MyGame.prototype.initialize = function () {
-          this.mLoadTime=this.mTimePreserved;
           this.mLoading[0]=new FontRenderable("Loading");
           this.mLoading[0].setFont(this.textfont);
           this._initText(this.mLoading[0], -10, 10, [0, 0, 0, 1], 4);
@@ -292,14 +290,16 @@ MyGame.prototype.update = function () {
 
 
     }else{
-        this.mLoadTime--;
-        if(this.mLoadTime>0){
+        gEngine.ResourceMap.setLoadCompleteCallback(function(){
+                  vTime=true;
+        });
             this.mLoading[1].setPosition(0,-10);
-            this.mLoading[1].update((this.mTimePreserved-this.mLoadTime)/this.mTimePreserved);
-        }
-        if(this.mLoadTime===0){
+            this.mLoading[1].update(-1);//(this.mTimePreserved-this.mLoadTime)/this.mTimePreserved
+
+        if(vTime){//this.mLoadTime===0||
             this.loadComplete=true;
             this.initializeGame();
+            vTime=false;
         }
     }
 };

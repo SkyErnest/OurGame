@@ -32,7 +32,6 @@ ProcessBar.prototype.update=function(percent){
 
     if(p<0){
         p=-p;
-        console.log(this.mFr.getXform().getPosition(),this.mWidth*5/12,this.mWidth*10/12*this.mTmp/p/gEngine.GameLoop.kFPS,this.mFr.getXform().getYPos());
         this.mFr.getXform().setPosition(this.mFr.getXform().getXPos()-this.mWidth*5/12+this.mWidth*10/12*this.mTmp/p/gEngine.GameLoop.kFPS,this.mFr.getXform().getYPos());
         this.mFr.getXform().setSize(this.mWidth/6,this.mHeight);
         this.mTmp++;
