@@ -299,6 +299,7 @@ MyGame.prototype.update = function () {
         if(vTime){//this.mLoadTime===0||
             this.loadComplete=true;
             this.initializeGame();
+            vTime=false;
         }
     }
 };
