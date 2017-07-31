@@ -29,6 +29,7 @@ function NewSnake(kSnakeHead,kSnakeBody,xPos,yPos){
     this.mReverse=null;
     this.mNight=null;
     this.mNightEat=null;
+    this.mUpgrade=null;
 }
 var DIRECTION={
     N:4,
@@ -39,6 +40,7 @@ var DIRECTION={
 NewSnake.prototype.getSnake=function(){return this.mNewSnake;};
 NewSnake.prototype.getSnakeLen=function(){return this.mLength;};
 NewSnake.prototype.initialize = function () {
+    this.mUpgrade=false;
     this.mNight=false;
     this.mReverse=false;
     this.mInvincibility=false;
@@ -246,4 +248,22 @@ NewSnake.prototype.newBorn=function(){
     this.initialize();
     this.mInvincibility=true;
     this.mTime[2]=300;
+};
+NewSnake.prototype.upgrade=function(texture){
+    for(var i=0;i<this.mLength;i++){
+        if((i-1)%2===0){
+            this.mUpgrade=this.mNewSnake[i].getColor();
+            var c=this.mUpgrade;
+            c[0]+=-0.01;
+            c[1]+=-0.02;
+            c[2]+=-0.03;
+            c[3]+=-0.04;
+            if(c[0]<0)c[0]++;
+            if(c[1]<0)c[1]++;
+            if(c[2]<0)c[2]++;
+            if(c[3]<0)c[3]++;
+            this.mNewSnake[i].setColor([c[0],c[1],c[2],c[3]]);
+        }
+    }
+    //this.mUpgrade=true;
 };

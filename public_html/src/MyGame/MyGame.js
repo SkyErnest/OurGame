@@ -24,7 +24,7 @@ function MyGame() {
     this.kHead2 = "assets/snake2head.png";
     this.kBody1 = "assets/snake1body.png";
     this.kBody2 = "assets/snake2body.png";
-
+    this.kUpgrade = "assets/snakeUpgrade.png";
     this.kPlayBGM = "assets/sound/GameBGM.mp3";
     this.kgetFruit = "assets/sound/tick.mp3";
     // The camera to view the scene
@@ -66,7 +66,8 @@ MyGame.prototype.load = function () {
     gEngine.Textures.loadTexture(this.kHead2);
     gEngine.Textures.loadTexture(this.kBody1);
     gEngine.Textures.loadTexture(this.kBody2);
-
+    
+    gEngine.Textures.loadTexture(this.kUpgrade);
     
     gEngine.AudioClips.loadAudio(this.kgetFruit);
     gEngine.Textures.loadTexture(this.kBound);
@@ -89,7 +90,7 @@ MyGame.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kHead2);
     gEngine.Textures.unloadTexture(this.kBody1);
     gEngine.Textures.unloadTexture(this.kBody2);
-
+    gEngine.Textures.unloadTexture(this.kUpgrade);
     gEngine.Textures.unloadTexture(this.kBound);
 
     // unload the fonts
@@ -287,7 +288,8 @@ MyGame.prototype.update = function () {
     this.rightCamera.updateWCcenter(this.mSnake2);
     this.mEnergy.produce();
     this.fruit.produce();
-
+    if(this.score[0]>=500){this.mSnake1.upgrade(this.kUpgrade);}
+    if(this.score[1]>=500){this.mSnake2.upgrade(this.kUpgrade);}
 
     }else{
         gEngine.ResourceMap.setLoadCompleteCallback(function(){
