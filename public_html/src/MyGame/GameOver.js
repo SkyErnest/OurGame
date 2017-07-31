@@ -121,12 +121,12 @@ GameOver.prototype.update=function(){
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.S)){
             this.signal=0;
            gEngine.GameLoop.stop();
-           document.getElementById("one1").style.display= "block";
-           document.getElementById("one2").style.display= "block";
-           document.getElementById("one3").style.display= "block";
-           document.getElementById("two1").style.display= "block";
-           document.getElementById("two2").style.display= "block";
-           document.getElementById("two3").style.display= "block";
+           document.getElementById("one1").style.display= "inline-block";
+           document.getElementById("one2").style.display= "inline-block";
+           document.getElementById("one3").style.display= "inline-block";
+           document.getElementById("two1").style.display= "inline-block";
+           document.getElementById("two2").style.display= "inline-block";
+           document.getElementById("two3").style.display= "inline-block";
            document.getElementById("one").innerHTML=0;
            document.getElementById("two").innerHTML=0;
      }  
