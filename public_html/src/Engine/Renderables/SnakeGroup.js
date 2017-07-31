@@ -218,7 +218,7 @@ SnakeGroup.prototype.update=function(energy,fruit){
         if(this.mSnakeGroup[i].mNight){
             if(this.mNightImage[i]===null){
                 this.mNightImage[i]=new TextureRenderable(this.kNightImage);  
-                this.mNightImage[i].getXform().setSize(130,130);
+                this.mNightImage[i].getXform().setSize(125,125);
                 this.mNightImage[i].setColor([1,1,1,0]);
                 
                 this.mProcess[i][3]=new ProcessBar();
