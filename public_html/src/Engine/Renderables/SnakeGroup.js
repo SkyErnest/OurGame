@@ -19,7 +19,7 @@ function SnakeGroup(num,headImage,bodyImage){
     this.mNightImage=[];
     this.kSpeedUpImage="assets/speedup.png";
     this.kSpeedUpNightImage="assets/speedupNight.png";
-    this.kReverseImage="assets/Consolas-72.png";
+    this.kReverseImage="assets/uncontrol.png";
     this.kInvincibilityImage="assets/invincibility.png";
     this.kNightImage="assets/night.png";
     this.kBlack="assets/nightMap.png";
