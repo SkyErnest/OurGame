@@ -20,7 +20,9 @@ function SnakeGroup(num,headImage,bodyImage){
     this.kSpeedUpImage="assets/speedup.png";
     this.kSpeedUpNightImage="assets/speedupNight.png";
     this.kReverseImage="assets/uncontrol.png";
+    this.kReverseNightImage="assets/uncontrolNight.png";
     this.kInvincibilityImage="assets/invincibility.png";
+    this.kInvincibilityNightImage="assets/invincibilityNight.png";
     this.kNightImage="assets/night.png";
     this.kBlack="assets/nightMap.png";
     this.mProcess=[];
@@ -29,7 +31,9 @@ SnakeGroup.prototype.loadScene=function(){
     gEngine.Textures.loadTexture(this.kSpeedUpImage);
     gEngine.Textures.loadTexture(this.kSpeedUpNightImage);
     gEngine.Textures.loadTexture(this.kReverseImage);
+    gEngine.Textures.loadTexture(this.kReverseNightImage);
     gEngine.Textures.loadTexture(this.kInvincibilityImage);
+    gEngine.Textures.loadTexture(this.kInvincibilityNightImage);
     gEngine.Textures.loadTexture(this.kNightImage);
     gEngine.Textures.loadTexture(this.kBlack);
 };
@@ -37,7 +41,9 @@ SnakeGroup.prototype.unloadScene=function(){
     gEngine.Textures.unloadTexture(this.kSpeedUpImage);
     gEngine.Textures.unloadTexture(this.kSpeedUpNightImage);
     gEngine.Textures.unloadTexture(this.kReverseImage);
+    gEngine.Textures.unloadTexture(this.kReverseNightImage);
     gEngine.Textures.unloadTexture(this.kInvincibilityImage);
+    gEngine.Textures.unloadTexture(this.kInvincibilityNightImage);
     gEngine.Textures.unloadTexture(this.kNightImage);
     gEngine.Textures.unloadTexture(this.kBlack);
 };
@@ -186,6 +192,8 @@ SnakeGroup.prototype.update=function(energy,fruit){
             if(i===1){
                 this.mReverseImage[i].getXform().setPosition(this.mSnakeGroup[i].getHeadPos()[0]+15,this.mSnakeGroup[i].getHeadPos()[1]+45);
             }
+            if(this.mSnakeGroup[i].mNight){this.mReverseImage[i].setTexture(this.kReverseNightImage);}
+            else{this.mReverseImage[i].setTexture(this.kReverseImage);}
             this.mProcess[i][1].setPosition(this.mReverseImage[i].getXform().getXPos(),this.mReverseImage[i].getXform().getYPos()-10);            
             this.mProcess[i][1].update(this.mSnakeGroup[i].mTime[1]/300);
         }else{
@@ -209,6 +217,8 @@ SnakeGroup.prototype.update=function(energy,fruit){
             if(i===1){
                 this.mInvincibilityImage[i].getXform().setPosition(this.mSnakeGroup[i].getHeadPos()[0]+40,this.mSnakeGroup[i].getHeadPos()[1]+45);
             }
+            if(this.mSnakeGroup[i].mNight){this.mInvincibilityImage[i].setTexture(this.kInvincibilityNightImage);}
+            else{this.mInvincibilityImage[i].setTexture(this.kInvincibilityImage);}
             this.mProcess[i][2].setPosition(this.mInvincibilityImage[i].getXform().getXPos(),this.mInvincibilityImage[i].getXform().getYPos()-10);            
             this.mProcess[i][2].update(this.mSnakeGroup[i].mTime[2]/300);
         }else{
